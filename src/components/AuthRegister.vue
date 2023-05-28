@@ -43,6 +43,7 @@
   </template>
   
   <script>
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
   export default {
     data() {
       return {
@@ -68,9 +69,27 @@
       },
       validate() {
         if (this.$refs.form.validate()) {
-          this.userRegister();
+          this.registerUser();
         }
       },
+      registerUser() {
+        if (this.$refs.form.validate()) {
+          const auth = getAuth();
+          createUserWithEmailAndPassword(auth, this.email, this.password)
+            .then((userCredential) => {
+              // Signed in 
+              const user = userCredential.user;
+              console.log(user)
+              // ...
+            })
+            .catch((error) => {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              // ..
+            });
+        }
+      },
+
       userRegister() {
         this.$store.dispatch("auth/userRegister", {
           name: this.fullname,

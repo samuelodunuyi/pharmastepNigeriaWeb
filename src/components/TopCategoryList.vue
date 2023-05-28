@@ -22,13 +22,13 @@
         class="d-none d-md-flex"
       >
         <template v-for="category in categories">
-          <v-flex
+          <v-col
             sm5
             md4
             lg3
           >
             <TopCategoryListItem :category="category" />
-          </v-flex>
+          </v-col>
         </template>
       </v-layout>
     </v-container>

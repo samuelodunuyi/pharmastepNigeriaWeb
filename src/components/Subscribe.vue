@@ -1,91 +1,130 @@
 <template>
-    <v-card
-      outlined
-      dark
-      color="primary"
-    >
-      <v-img
-        src="https://images.unsplash.com/photo-1552825533-e90b284fcb27?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
-        class="grey lighten-2"
-        aspect-ratio="2.8"
-        gradient="to top right, rgba(0,0,0,.33), rgba(0,0,0,.7)"
-      >
-        <v-layout
-          fill-height
-          align-center
-        >
-          <v-flex
-            text-center
-            class="pa-5"
-          >
-            <h1 class="display-1 font-weight-light white--text">
-              Stay connected with us
-            </h1>
-            <div class="headline font-weight-light mb-3">
-              Get notified about our new products
+  <div class="newsletter-subscribe mt-5 container">
+        <div class="container">
+            <div class="intro">
+                <h2 class="text-center newsletter">Subscribe to our Newsletter</h2>
+                <p class="text-center">Get Weekly Health Tips from us, to boost your lifestyle and health choices. </p>
             </div>
-            <v-form
-              ref="form"
-              v-model="valid"
-              lazy-validation
-            >
-              <v-layout justify-center>
-                <v-flex xs5>
-                  <v-text-field
-                    v-model="email"
-                    light
-                    solo
-                    prepend-inner-icon="mdi-email"
-                    label="Email address"
-                    class="mt-1"
-                    :rules="emailRules"
-                  />
-                </v-flex>
-                <v-flex
-                  xs1
-                  mt-1
-                >
-                  <v-btn
-                    color="primary"
-                    style="height: 46px"
-                    @click="validate()"
-                  >
-                    Submit
-                  </v-btn>
-                </v-flex>
-              </v-layout>
-            </v-form>
-          </v-flex>
-        </v-layout>
-      </v-img>
-    </v-card>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        valid: true,
-        email: "",
-        emailRules: [
-          v => !!v || "E-mail is required",
-          v => /.+@.+/.test(v) || "E-mail must be valid"
-        ]
-      };
-    },
-    methods: {
-      subscribe() {
-        this.$emit("subscribe", this.email);
-        this.email = "";
+            <form class="form-inline" method="post">
+                <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Your Email"></div>
+                <div class="form-group"><button class="btn btn-primary" type="button">Subscribe </button></div>
+            </form>
+        </div>
+    </div>
+    </template>
+    
+    <script>
+    export default {
+      data() {
+        return {
+          valid: true,
+          email: "",
+          emailRules: [
+            v => !!v || "E-mail is required",
+            v => /.+@.+/.test(v) || "E-mail must be valid"
+          ]
+        };
       },
-      validate() {
-        if (this.$refs.form.validate()) {
-          this.subscribe();
+      methods: {
+        subscribe() {
+          this.$emit("subscribe", this.email);
+          this.email = "";
+        },
+        validate() {
+          if (this.$refs.form.validate()) {
+            this.subscribe();
+          }
         }
       }
-    }
-  };
-  </script>
-  
-  <style>
-  </style>
+    };
+    </script>
+    
+    <style scoped>
+.newsletter-subscribe {
+  color: #313437;
+  background-color: #ffffff;
+  padding: 55px 74px;
+}
+
+.newsletter-subscribe p {
+  color: #7d8285;
+  line-height: 1.5;
+}
+
+.newsletter-subscribe h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 25px;
+  line-height: 1.5;
+  padding-top: 0;
+  margin-top: 0;
+  color: inherit;
+}
+
+.newsletter-subscribe .intro {
+  font-size: 16px;
+  max-width: 500px;
+  margin: 0 auto 25px;
+}
+
+.newsletter-subscribe .intro p {
+  margin-bottom: 35px;
+}
+
+.newsletter-subscribe form {
+  justify-content: center;
+}
+
+.newsletter-subscribe form .form-control {
+  background: #eff1f4;
+  border: none;
+  border-radius: 3px;
+  box-shadow: none;
+  outline: none;
+  color: inherit;
+  text-indent: 9px;
+  height: 45px;
+  margin-right: 10px;
+  min-width: 250px;
+}
+
+.newsletter-subscribe form .btn {
+  padding: 16px 32px;
+  border: none;
+  background: none;
+  box-shadow: none;
+  text-shadow: none;
+  opacity: 0.9;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 13px;
+  letter-spacing: 0.4px;
+  line-height: 1;
+}
+
+.newsletter-subscribe form .btn:hover {
+  opacity: 1;
+}
+
+.newsletter-subscribe form .btn:active {
+  transform: translateY(1px);
+}
+
+.newsletter-subscribe form .btn-primary {
+  background-color: #055ada !important;
+  color: #fff;
+  margin-top: 20px;
+  outline: none !important;
+}
+.form-inline{
+  text-align: center;
+}
+
+body {
+  background: #eee;
+}
+
+.newsletter {
+  color: #0062cc !important;
+}
+    </style>

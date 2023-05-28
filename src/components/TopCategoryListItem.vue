@@ -21,11 +21,11 @@
             align-center
             text-center
           >
-            <v-flex xs12>
+            <v-col xs12>
               <div class="body-1">
                 {{ product.title }}
               </div>
-            </v-flex>
+            </v-col>
           </v-layout>
         </v-card-title>
       </v-img>

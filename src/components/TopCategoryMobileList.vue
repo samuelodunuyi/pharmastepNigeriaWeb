@@ -18,19 +18,19 @@
             align-center
             text-center
           >
-            <v-flex xs12>
+            <v-col xs12>
               <v-icon
                 large
                 color="white"
               >
                 mdi-hand-saw
               </v-icon>
-            </v-flex>
-            <v-flex xs12>
+            </v-col>
+            <v-col xs12>
               <div class="body-1">
                 {{ category.name }}
               </div>
-            </v-flex>
+            </v-col>
           </v-layout>
         </v-card-title>
       </v-img>

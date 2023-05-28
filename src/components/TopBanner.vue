@@ -4,33 +4,33 @@ interval="4000" -->
   <v-carousel hide-delimiters show-arrows="hover">
     <v-carousel-item src="https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg" cover>
       <v-layout class="mainHead">
-        <v-flex >
+        <v-col >
           <h1 class="white--text mb-4 display-1 text-center">
             PHARMASTEP NIGERIA
           </h1>
-          <div class="subheading">
+          <div class="subheading mb-4 text-center">
             Your No 1 Pharmacy on the GO. Get access to affordable health service from anywhere in Lagos with just a few
             clicks.
           </div>
           <v-btn class="mt-12" color="blue lighten-2" dark large>
             Get Started
           </v-btn>
-        </v-flex>
+        </v-col>
       </v-layout>
     </v-carousel-item>
     <v-carousel-item src="https://cdn.vuetifyjs.com/images/carousel/planet.jpg" cover>
       <v-layout class="mainHead">
-        <v-flex >
+        <v-col >
           <h1 class="white--text mb-4 display-1 text-center">
             FEELING DOWN?
           </h1>
-          <div class="subheading">
+          <div class="subheading mb-4 text-center">
             We've got you, click below to explore our wide range of medications.
           </div>
           <v-btn class="mt-12" color="blue lighten-2" dark large>
             Products
           </v-btn>
-        </v-flex>
+        </v-col>
       </v-layout>
     </v-carousel-item>
     
@@ -63,7 +63,7 @@ export default {};
   word-wrap: break-word;
   width: 20rem;
   color: white;
-  margin-top: 15px;
+  margin: 15px auto;
   font-family: 'Roboto';
 }
 </style>

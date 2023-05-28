@@ -1,8 +1,11 @@
 <script setup>
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, setDoc,getDoc, doc, increment, updateDoc } from "firebase/firestore";
 import { db } from "../firebase.js"
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router"
+import useUserStore from "../stores";
+import pinia from "../stores/setup";
+const store = useUserStore(pinia);
 
 const router = useRouter();
 const products = ref([])
@@ -15,117 +18,89 @@ const loadNotes = async () => {
             ...doc.data()
         }
     })
-    console.log(products.value)
 }
 
 onMounted(() => {
     loadNotes();
 })
 
-const navigateToDetails = (id) => {
-    router.push(`/product/${id}`)
+const AddtoCart = async (id) => {
+    console.log('This ran')
+    const docSnap = await getDoc(doc(db, 'users', store.userUid, 'cart', id))
+    if (docSnap.exists()) {
+        await updateDoc(doc(db, 'users', store.userUid, 'cart', id), {
+            item_count: increment(1),
+        });
+    } else {
+        await setDoc(doc(db, 'users', store.userUid, 'cart', id), {
+            item_count: 1,
+        });
+    }
 }
-
 </script>
 
 <template>
-    <div class="header">
-        <p>All Products</p>
-    </div>
-    <v-layout wrap justify-center>
-        <v-flex xs11 mt-5 class="flexer">
-            <template v-for="product in products" :key="product.id">
-                <v-hover v-slot="{ isHovering, props }" open-delay="200">
-                    <v-card data-view :elevation="isHovering ? 12 : 2"
-                        :class="{ 'on-hover': isHovering }" outlined v-bind="props">
-                        <v-img :src="product.images[0]" :lazy-src="product.images[0]" class="grey lighten-2 white--text"
-                            width="400px" height="200px" />
-                        <v-card-title class="transparent">
-                            <v-layout wrap>
-                                <v-flex xs12 pt-0>
-                                    <div class="body-2 font-weight-bold productTitle" @click="navigateToDetails(product.id)">
-                                        {{ product.title }}
-                                    </div>
-                                    <div class="body-2 productPrice">
-                                        ₦ {{ product.original_price.toLocaleString("en-US") }}
-                                    </div>
-                                </v-flex>
-                            </v-layout>
-                        </v-card-title>
-                        <v-card-actions>
-                            <v-btn block depressed class="text-none" color="primary" @click="addToCart(item)">
-                                <v-icon left small>
-                                    mdi-cart
-                                </v-icon>Add to Cart
-                            </v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-hover>
-            </template>
-        </v-flex>
-    </v-layout>
+    <section style="background-color: #f5f5f5;">
+        <div class="container py-5">
+            <h2 class="mt-10 ml-3">
+                All Products
+            </h2>
+            <div class="row">
+                <div class="col-md-12 col-lg-4 mb-4 mb-lg-0 fullCate" v-for="i in products">
+                    <div class="card text-black cards1">
+                        <div style="background-color: aliceblue;">
+                            <img :src="i.images" style="object-fit: contain; width: 100%; height: 20em; cursor: pointer;"
+                                class="card-img-top" alt="iPhone" @click="router.push(`/product/${i.id}`)" />
+                        </div>
+                        <div class="card-body">
+                            <div class="text-center mt-1">
+                                <h2 class="card-title pe-auto" style="cursor: pointer;"
+                                    @click="router.push(`/product/${i.id}`)">{{ i.title }}</h2>
+                                <h4 class="text-primary mb-1 pb-3"></h4>
+                            </div>
+
+                            <div class="text-center">
+                                <div class="d-flex flex-column mb-4">
+                                    <span class="h3 mb-0 mb-1 pb-3" style="color: #1C78D3">₦ {{
+                                        i.original_price.toLocaleString() }}</span>
+                                </div>
+
+                                <div class="d-flex flex-column mb-4">
+                                    <span class="h6 mb-0">
+                                        <b>Tags</b>
+                                    </span>
+                                    <span aria-hidden="true">—</span>
+                                    <ul class="list-unstyled mb-0" v-for="tags in i.search_tags">
+                                        <li>{{ tags }}</li>
+                                    </ul>
+                                </div>
+                                <span aria-hidden="true">—</span>
+
+                            </div>
+
+                            <div class="d-flex flex-row">
+                                <button type="button" class="btn btn-primary flex-fill me-1" style="color: white;"
+                                    @click="AddtoCart(i.id)">Add to Cart</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </template>
 
 <style scoped>
-.productPrice{
-    font-size: .9rem!important;
-    font-weight: 400;
-    letter-spacing: .0178571429em!important;
-    line-height: 1.25rem;
+.fullCate {
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
-.productTitle{
-    color: #1976d2;
-    cursor: pointer;
-    font-size: .875rem!important;
-    font-weight: 400;
-    letter-spacing: .0178571429em!important;
-    line-height: 1.25rem;
-    text-decoration: underline;
-    font-weight: 700!important;
-}
-.flexer {
-    max-width: 80%;
-    margin: 75px auto;
-    display: grid;
-    grid-template-columns: 2fr 2fr 2fr 2fr;
-    grid-gap: 50px;
+.cards1 {
+    transition: all 0.3s;
 }
 
-.header {
-    margin: 7rem 0rem -4rem 8.5rem;
-    font-weight: bold;
-    font-size: 25px;
-    font-family: 'Roboto';
-}
-
-.v-card {
-    border: 0.5px solid #d5d5d5;
-    box-shadow: 0px 0px 2px 0.3px rgb(146, 146, 146);
-    word-break: break-word;
-    overflow-wrap: break-word;
-}
-
-.v-img {
-    background-color: rgb(222, 224, 224);
-}
-.body-2{
-    word-wrap: break-word;
-    flex-wrap: wrap;
-    width: 100%;
-}
-.v-btn {
-    background-color: #1C78D3;
-    color: white !important;
-    font-family: 'Roboto';
-}
-
-.v-card-title {
-    align-items: flex-start;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    font-size: 1.3rem;
-    font-weight: 400;
+.cards1:hover {
+    transform: scale(1.03);
 }
 </style>

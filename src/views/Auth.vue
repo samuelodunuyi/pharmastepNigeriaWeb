@@ -10,15 +10,15 @@
             <v-card-text>
                 <v-window v-model="tab">
                     <v-window-item value="1">
-                        <v-tab-item>
+                        <v-card>
                         <e-login-form />
-                    </v-tab-item>
+                    </v-card>
                     </v-window-item>
 
                     <v-window-item value="2">
-                        <v-tab-item>
+                        <v-card>
                         <e-register-form />
-                    </v-tab-item>
+                    </v-card>
                     </v-window-item>
                 </v-window>
             </v-card-text>
@@ -45,11 +45,10 @@ export default {
   
 <style scoped>
 .v-card{
-    margin: 65px auto;
+    margin: 0px auto;
     align-items: center;
     justify-content: center;
-    border: 0.3px solid rgb(188, 188, 188);
-    box-shadow: 0px 0px 2px 0.3px rgb(146, 146, 146) !important;
+    border: 0.2px solid rgb(188, 188, 188);
 }
 </style>
   
