@@ -1,41 +1,185 @@
 <template>
-  <!-- cycle
-interval="4000" -->
-  <v-carousel hide-delimiters show-arrows="hover">
-    <v-carousel-item src="https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg" cover>
-      <v-layout class="mainHead">
-        <v-col >
-          <h1 class="white--text mb-4 display-1 text-center">
-            PHARMASTEP NIGERIA
-          </h1>
-          <div class="subheading mb-4 text-center">
-            Your No 1 Pharmacy on the GO. Get access to affordable health service from anywhere in Lagos with just a few
-            clicks.
+  <!--Main Navigation-->
+  <header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000">
+      <div class="container-fluid">
+        <!-- Navbar brand -->
+        <a class="navbar-brand nav-link" target="_blank" href="https://mdbootstrap.com/docs/standard/">
+          <strong>MDB</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
+          aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarExample01">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" aria-current="page" href="#intro">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://firebasestorage.googleapis.com/v0/b/shopper-56289.appspot.com/o/pharmastep.mp4?alt=media&token=7e67bb6f-68e4-43de-8d8f-828018226315" rel="nofollow"
+                target="_blank">Learn Bootstrap 5</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://mdbootstrap.com/docs/standard/" target="_blank">Download MDB UI KIT</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav list-inline">
+            <!-- Icons -->
+            <li class="">
+              <a class="nav-link" href="https://www.youtube.com/channel/UC5CF7mLQZhvx8O5GODZAhdA" rel="nofollow"
+                target="_blank">
+                <i class="fab fa-youtube"></i>
+              </a>
+            </li>
+            <li class="">
+              <a class="nav-link" href="https://www.facebook.com/mdbootstrap" rel="nofollow" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://twitter.com/MDBootstrap" rel="nofollow" target="_blank">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/mdbootstrap/mdb-ui-kit" rel="nofollow" target="_blank">
+                <i class="fab fa-github"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar -->
+
+    <!-- Carousel wrapper -->
+    <div id="introCarousel" class="carousel slide carousel-fade shadow-2-strong" data-mdb-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-mdb-target="#introCarousel" data-mdb-slide-to="0" class="active"></li>
+        <li data-mdb-target="#introCarousel" data-mdb-slide-to="1"></li>
+        <li data-mdb-target="#introCarousel" data-mdb-slide-to="2"></li>
+      </ol>
+
+      <!-- Inner -->
+      <div class="carousel-inner">
+        <!-- Single item -->
+        <div class="carousel-item active">
+          <video style="min-width: 100%; min-height: 100%" playsinline autoplay muted loop>
+            <source class="h-100" src="https://mdbootstrap.com/img/video/Lines.mp4" type="video/mp4" />
+          </video>
+          <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)">
+            <div class="d-flex justify-content-center align-items-center h-100">
+              <div class="text-white text-center">
+                <h1 class="mb-3">Learn Bootstrap 5 with MDB</h1>
+                <h5 class="mb-4">
+                  Best & free guide of responsive web design
+                </h5>
+                <a class="btn btn-outline-light btn-lg m-2" href="https://www.youtube.com/watch?v=c9B4TPnak1A"
+                  role="button" rel="nofollow" target="_blank">Start tutorial</a>
+                <a class="btn btn-outline-light btn-lg m-2" href="https://mdbootstrap.com/docs/standard/" target="_blank"
+                  role="button">Download MDB UI KIT</a>
+              </div>
+            </div>
           </div>
-          <v-btn class="mt-12" color="blue lighten-2" dark large>
-            Get Started
-          </v-btn>
-        </v-col>
-      </v-layout>
-    </v-carousel-item>
-    <v-carousel-item src="https://cdn.vuetifyjs.com/images/carousel/planet.jpg" cover>
-      <v-layout class="mainHead">
-        <v-col >
-          <h1 class="white--text mb-4 display-1 text-center">
-            FEELING DOWN?
-          </h1>
-          <div class="subheading mb-4 text-center">
-            We've got you, click below to explore our wide range of medications.
+        </div>
+
+        <!-- Single item -->
+        <div class="carousel-item">
+          <video style="min-width: 100%; min-height: 100%" playsinline autoplay muted loop>
+            <source class="h-100" src="https://mdbootstrap.com/img/video/forest.mp4" type="video/mp4" />
+          </video>
+          <div class="mask" style="background-color: rgba(0, 0, 0, 0.3)">
+            <div class="d-flex justify-content-center align-items-center h-100">
+              <div class="text-white text-center">
+                <h2>You can place here any content</h2>
+              </div>
+            </div>
           </div>
-          <v-btn class="mt-12" color="blue lighten-2" dark large>
-            Products
-          </v-btn>
-        </v-col>
-      </v-layout>
-    </v-carousel-item>
-    
-    <v-carousel-item src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" cover></v-carousel-item>
-  </v-carousel>
+        </div>
+
+        <!-- Single item -->
+        <div class="carousel-item">
+          <video style="min-width: 100%; min-height: 100%" playsinline autoplay muted loop>
+            <source class="h-100" src="https://mdbootstrap.com/img/video/Tropical.mp4" type="video/mp4" />
+          </video>
+          <div class="mask" style="
+                    background: linear-gradient(
+                    45deg,
+                    rgba(29, 236, 197, 0.7),
+                    rgba(91, 14, 214, 0.7) 100%
+                    );
+                    ">
+            <div class="d-flex justify-content-center align-items-center h-100">
+              <div class="text-white text-center">
+                <h2>And cover it with any mask</h2>
+                <a class="btn btn-outline-light btn-lg m-2"
+                  href="https://mdbootstrap.com/docs/standard/content-styles/masks/" target="_blank" role="button">Learn
+                  about masks</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Inner -->
+
+      <!-- Controls -->
+      <a class="carousel-control-prev" href="#introCarousel" role="button" data-mdb-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#introCarousel" role="button" data-mdb-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+    <!-- Carousel wrapper -->
+  </header>
+  <!--Main Navigation-->
+
+  <!--Main layout-->
+  <main class="mt-5">
+    <div class="container">
+      <!--Section: Content-->
+      <section>
+        <div class="row">
+          <div class="col-md-6 gx-5 mb-4">
+            <div class="bg-image hover-overlay ripple shadow-2-strong" data-mdb-ripple-color="light">
+              <img src="https://mdbootstrap.com/img/new/slides/031.jpg" class="img-fluid" />
+              <a href="#!">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
+              </a>
+            </div>
+          </div>
+
+          <div class="col-md-6 gx-5 mb-4">
+            <h4><strong>What do we offer</strong></h4>
+            <p class="text-muted">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
+              consequatur eligendi quisquam doloremque vero ex debitis
+              veritatis placeat unde animi laborum sapiente illo possimus,
+              commodi dignissimos obcaecati illum maiores corporis.
+            </p>
+            <p><strong>Doloremque vero ex debitis veritatis?</strong></p>
+            <p class="text-muted">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
+              itaque voluptate nesciunt laborum incidunt. Officia, quam
+              consectetur. Earum eligendi aliquam illum alias, unde optio
+              accusantium soluta, iusto molestiae adipisci et?
+            </p>
+          </div>
+        </div>
+      </section>
+      <!--Section: Content-->
+      <hr class="my-5" />
+    </div>
+  </main>
+  <!--Main layout-->
+
+
 </template>
   
 <script>
@@ -43,28 +187,41 @@ export default {};
 </script>
   
 <style>
-.mainHead h1 {
-  color: white;
-  font-weight: bold;
-  font-family: 'Roboto';
-  margin: 8.5rem auto;
-  font-size: 2em;
+/* Carousel styling */
+#introCarousel,
+.carousel-inner,
+.carousel-item,
+.carousel-item.active {
+  height: 100vh;
 }
 
-.mainHead {
-  width: 100%;
-  justify-content: center;
-  text-align: center !important;
+.carousel-item:nth-child(1) {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
 }
 
-.subheading {
-  font-size: 15px;
-  font-weight: 450;
-  word-wrap: break-word;
-  width: 20rem;
-  color: white;
-  margin: 15px auto;
-  font-family: 'Roboto';
+.carousel-item:nth-child(2) {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+.carousel-item:nth-child(3) {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+/* Height for devices larger than 576px */
+@media (min-width: 992px) {
+  #introCarousel {
+    margin-top: -58.59px;
+  }
+}
+
+.navbar .nav-link {
+  color: #fff !important;
 }
 </style>
   
