@@ -40,7 +40,7 @@
 import useUserStore from "../stores";
 import pinia from "../stores/setup";
 import { collection, getDocs, getDoc, doc, deleteDoc } from "firebase/firestore";
-import { db } from "../firebase"
+import { db } from "../firebase.js"
 const store = useUserStore(pinia);
 
 export default {
