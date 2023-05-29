@@ -34,7 +34,7 @@ const navigateToDetails = (id) => {
     <div>
         <TopBanner></TopBanner>
         <section>
-            <div class="container py-5">
+            <div class="container py-5" style="margin-top: -30px;">
             <h2 class="mt-10 ml-3">
                 Categories
             </h2>
