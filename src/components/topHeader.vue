@@ -54,8 +54,7 @@
   </div>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <video 
-      src="https://firebasestorage.googleapis.com/v0/b/shopper-56289.appspot.com/o/pharmastep.mp4?alt=media&token=7e67bb6f-68e4-43de-8d8f-828018226315" autoplay></video>
+      <img src="../assets/medicine.jpg" class="img-fluid" />
       <div class="carousel-caption d-none d-md-block">
         <h5>First slide label</h5>
         <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
