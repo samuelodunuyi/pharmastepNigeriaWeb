@@ -85,7 +85,6 @@ export default {
           // Signed in 
           store.userUid = userCredential.user.uid;
           store.user = userCredential.user;
-          console.log(userCredential)
 
           setTimeout(async () => {
             this.status= false
@@ -104,7 +103,6 @@ export default {
       }
     },
     googleLogin() {
-      console.log(auth, provider)
       signInWithPopup(auth, provider)
         .then((result) => {
           // This gives you a Google Access Token. You can use it to access the Google API.
@@ -114,11 +112,7 @@ export default {
 
           store.userUid = result.user.uid;
           store.user = result.user;
-          console.log(user)
-          console.log(credential)
-
-
-         window.location.reload();
+          window.location.reload();
           // IdP data available using getAdditionalUserInfo(result)
           // ...
         }).catch((error) => {

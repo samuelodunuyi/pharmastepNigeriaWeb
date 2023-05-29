@@ -22,7 +22,6 @@ const loadProduct = async () => {
 }
 
 const AddtoCart = async (id) => {
-    console.log('this ran?')
     const docSnap = await getDoc(doc(db, 'users', store.userUid, 'cart', id))
     if (docSnap.exists()) {
         await updateDoc(doc(db, 'users', store.userUid, 'cart', id), {

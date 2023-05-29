@@ -61,7 +61,6 @@ export default {
 
   created() {
     this.userUid = store.userUid
-    console.log(store.userUid)
     this.loadCart()
   },
 

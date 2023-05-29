@@ -11,7 +11,6 @@ const store = useUserStore(pinia)
 
 const User = ref([])
 const loadUser = async () => {
-  console.log(store.userUid)
   const docSnap = await getDoc(doc(db, 'users', store.userUid));
   if (docSnap.exists()) {
     User.value = docSnap.data()

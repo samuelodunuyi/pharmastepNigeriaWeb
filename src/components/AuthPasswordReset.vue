@@ -59,7 +59,6 @@
     methods: {
       validate() {
         if (this.$refs.form.validate()) {
-          console.log(this.email);
           let vm = this;
           this.$store
             .dispatch("auth/forgotPassword", {
