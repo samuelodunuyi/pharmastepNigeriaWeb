@@ -24,5 +24,6 @@ export default {
     text: "",
     timeout: 5000
   }),
+
 };
 </script>

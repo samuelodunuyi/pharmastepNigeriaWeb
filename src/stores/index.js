@@ -7,6 +7,7 @@ const useUserStore = defineStore("user", {
       userUid:  useLocalStorage('userUid', ''),
       user:  useLocalStorage('user', ''),
       products:  useLocalStorage('products', []),
+      cartNo:  useSessionStorage('cartNo', 0),
     };
   },
   persist: true,

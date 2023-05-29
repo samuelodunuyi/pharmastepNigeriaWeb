@@ -170,7 +170,6 @@ const deletefromCart = async (id) => {
 <script>
 import ECartList from "../components/cartList.vue";
 import ECartOrderSummary from "../components/cartOrderSummary.vue";
-import costCalc from "../components/costCalc";
 
 
 export default {
@@ -178,7 +177,6 @@ export default {
         ECartList,
         ECartOrderSummary,
     },
-    mixins: [costCalc],
     data() {
         return {};
     },

@@ -28,7 +28,7 @@
         <v-icon>mdi-account</v-icon>
       </v-btn>
       <v-btn to="/cart" icon>
-        <v-badge :content=cartNo right color="red">
+        <v-badge :content=cartTotal right color="red">
           <v-icon size="large" color="black">mdi-cart</v-icon>
         </v-badge>
       </v-btn>
@@ -44,6 +44,15 @@ import { db } from "../firebase.js"
 const store = useUserStore(pinia);
 
 export default {
+  props: {
+    slides: {
+      type: Number,
+      default() {
+        return 0;
+      },
+    },
+  },
+
   data() {
     return {
       cartProduct: [],
@@ -51,31 +60,48 @@ export default {
       cartIdCounts: [],
       cartNo: 0,
       loginDialog: false,
-      cartTotal: 0,
       registerDialog: false,
       userUid: '',
       myImage: 'https://firebasestorage.googleapis.com/v0/b/shopper-56289.appspot.com/o/pslogo.jpg?alt=media&token=2a7fc67e-1182-4b66-b81e-8c1fae75d7a1'
-
     };
   },
 
   created() {
     this.userUid = store.userUid
-    this.loadCart()
+    // this.loadCart()
+    console.log(this.slides)
+  },
+
+  computed:{
+    cartTotal() {
+      console.log(this.slides)
+      if (this.cartNo < this.slides){
+        this.cartNo= this.slides
+        this.loadCart()
+      }
+      return (this.cartNo);
+    }
   },
 
   methods: {
     async loadCart() {
       const docSnaps = await getDocs(collection(db, 'users', store.userUid, 'cart'));
       this.cartProduct = docSnaps.forEach((doc) => {
-        this.cartIds = doc.id
-        this.cartIdCounts.push(doc.id)
-        this.cartNo = this.cartIdCounts.length
+      this.cartIds = doc.id
+      this.cartIdCounts.push(doc.id)
+      console.log(this.cartIdCounts)
+      store.cartNo = this.cartIdCounts.length
+      this.cartNo = (store.cartNo)
       })
     },
-    relocate(){
-      window.open("https://play.google.com/store/apps/details?id=com.pharmastepng.meds", 
-                '_blank');
+    onAddtoCart(isCorrect) {
+      if (isCorrect) {
+        console.log(isCorrect)
+      }
+    },
+    relocate() {
+      window.open("https://play.google.com/store/apps/details?id=com.pharmastepng.meds",
+        '_blank');
     }
   },
 }

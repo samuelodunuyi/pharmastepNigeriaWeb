@@ -1,12 +1,16 @@
 <script setup>
 import { useRoute } from "vue-router"
 import { ref, onMounted } from 'vue';
+import topHeader from '../components/topHeader.vue';
 import { db } from "../firebase";
 import { collection, getDocs, setDoc, getDoc, doc, increment, updateDoc } from "firebase/firestore";
 import useUserStore from "../stores";
 import pinia from "../stores/setup";
-const store = useUserStore(pinia);
+// const emit = defineEmits(["addToCart"])
+// const emitAddtoCart = (isCorrects) => {
+//   emit("addToCart", isCorrects)
 
+const store = useUserStore(pinia);
 const route = useRoute()
 const productId = (route.params.id);
 const product = ref('')
@@ -22,6 +26,7 @@ const loadProduct = async () => {
 }
 
 const AddtoCart = async (id) => {
+
     const docSnap = await getDoc(doc(db, 'users', store.userUid, 'cart', id))
     if (docSnap.exists()) {
         await updateDoc(doc(db, 'users', store.userUid, 'cart', id), {
@@ -36,6 +41,7 @@ const AddtoCart = async (id) => {
 
 </script>
 <template>
+    <topHeader :slides="cartValue"></topHeader>
     <div class="container mt-5 mb-5">
         <div class="row d-flex justify-content-center">
             <div class="col-md-10">
@@ -82,8 +88,9 @@ const AddtoCart = async (id) => {
                                         }} </span><span></span> </label>
                                 </div>
                                 <div class="cart mt-4 align-items-center"> <button
-                                        class="btn btn-primary text-uppercase mr-2 px-4" @click="AddtoCart(product.id)">Add
-                                        to cart</button></div>
+                                        class="btn btn-primary text-uppercase mr-2 px-4" @click="AddtoCart(product.id)"
+                                        @button-clicked="addToCart(item)">
+                                        Add to cart</button></div>
                             </div>
                         </div>
                     </div>
@@ -178,15 +185,27 @@ import router from "../router";
 
 export default {
     name: "App",
+
+    emits: ["previewClicked"],
     data() {
         return {
+            cartValue: 1,
             cartOpen: false,
             carouselModalOpen: false,
             imageClickedIndex: 0,
             cart: [],
         };
     },
+    computed:{
+    cartPO() {
+        this.cartValue = this.cartValue+1
+      return (this.cartValue);
+    }
+  },
     methods: {
+        addToCart(item) {
+            this.$emit('update-cart', item)
+        },
         change_image(image) {
             var container = document.getElementById("main-image");
             container.src = image;
@@ -207,7 +226,6 @@ export default {
                     price: this.getRealPrice(product.price, product.discount),
                     quantity: quantity,
                 };
-
                 this.cart = [...this.cart, cartItem];
             }
         },

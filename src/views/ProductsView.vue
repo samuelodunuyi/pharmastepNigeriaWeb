@@ -5,6 +5,8 @@ import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router"
 import useUserStore from "../stores";
 import pinia from "../stores/setup";
+import topHeader from "../components/topHeader.vue";
+
 const store = useUserStore(pinia);
 
 const router = useRouter();
@@ -35,6 +37,8 @@ const AddtoCart = async (id) => {
             item_count: 1,
         });
     }
+    store.cartNo = store.cartNo+1
+    console.log(store.cartNo)
 }
 </script>
 
