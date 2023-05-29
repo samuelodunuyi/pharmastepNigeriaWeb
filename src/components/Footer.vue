@@ -12,15 +12,15 @@
     <!-- Copyright -->
     <div class="col-md">
     <div class="text-left p-3 " style="background-color: rgba(0, 0, 0, 0.2)">
-           <a href="https://www.youtube.com/channel/UC5CF7mLQZhvx8O5GODZAhdA" class="btn btn-primary m-1" role="button"
+           <a href="https://play.google.com/store/apps/details?id=com.pharmastepng.meds" class="btn btn-primary m-1" role="button"
         rel="nofollow" target="_blank">
         <v-icon size="small" color="white">mdi-google-play</v-icon>
       </a>
-      <a href="https://twitter.com/MDBootstrap" class="btn btn-primary m-1" role="button" rel="nofollow" target="_blank">
+      <a href="#" class="btn btn-primary m-1" role="button" rel="nofollow" target="_blank">
         <v-icon size="small" color="white">fab fa-google-plus</v-icon>
 
       </a>
-      <a href="https://github.com/mdbootstrap/mdb-ui-kit" class="btn btn-primary m-1" role="button" rel="nofollow"
+      <a href="https://www.instagram.com/pharmastep_ng/" class="btn btn-primary m-1" role="button" rel="nofollow"
         target="_blank">
         <v-icon size="small" color="white">fab fa-instagram</v-icon>
       </a>

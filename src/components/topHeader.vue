@@ -17,7 +17,7 @@
     </v-toolbar-items>
     <v-spacer />
     <v-toolbar-items>
-      <v-btn icon>
+      <v-btn icon @click="relocate()">
         <v-icon>mdi-google-play</v-icon>
       </v-btn>
       <v-btn text to="/login" v-if="userUid.length < 2">
@@ -73,6 +73,10 @@ export default {
         this.cartIdCounts.push(doc.id)
         this.cartNo = this.cartIdCounts.length
       })
+    },
+    relocate(){
+      window.open("https://play.google.com/store/apps/details?id=com.pharmastepng.meds", 
+                '_blank');
     }
   },
 }

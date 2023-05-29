@@ -1,6 +1,7 @@
 <template>
   <v-card-text>
-    <v-form ref="form" v-model="valid" lazy-validation>
+    <v-form ref="form" v-model="valid" lazy-validation autocomplete="off">
+      <input autocomplete="false" name="hidden" type="text" style="display:none;">
       <v-text-field v-model="email" label="Email" :rules="emailRules" required />
       <span class="caption grey--text text--darken-1">
         This is the email you will use to login to your account
@@ -12,11 +13,11 @@
     <div class="mb-3">
       Or Sign in with:
     </div>
-    <v-btn color="red darken-2" dark class="text-none mr-2" @click="googleLogin()">
-      <v-icon left>
+    <!-- <v-btn color="red darken-2" dark class="text-none mr-2" @click="googleLogin()"> -->
+      <!-- <v-icon left>
         fab fa-google
       </v-icon>Google
-    </v-btn>
+    </v-btn> -->
   </v-card-text>
   <v-card-actions>
     <v-dialog v-model="reset" width="500">
@@ -29,7 +30,7 @@
     </v-dialog>
 
     <v-spacer />
-    <v-btn depressed color="primary" class="text-nonec login" @click.prevent="validate()">
+    <v-btn :loading="status" depressed color="primary" class="text-nonec login" @click.prevent="validate()">
       Login
     </v-btn>
   </v-card-actions>
@@ -37,11 +38,12 @@
   
 <script>
 import EPasswordResetForm from "./AuthPasswordReset.vue";
-import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, signOut } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import pinia from "../stores/setup.js"
-const auth = getAuth();
 import useUserStore from '../stores/index.js'
 const store = useUserStore(pinia)
+const provider = new GoogleAuthProvider();
+const auth = getAuth();
 
 export default {
   components: {
@@ -52,6 +54,7 @@ export default {
       valid: true,
       reset: false,
       fullname: "",
+      status: false,
       nameRules: [
         v => !!v || "Name is required",
         v => v.length <= 10 || "Name must be less than 10 characters"
@@ -66,20 +69,29 @@ export default {
     };
   },
 
+  created(){
+    this.email='',
+    this.password=''  
+  },
+
   methods: {
     closeDialog() {
       this.reset = false;
     },
     login() {
+      this.status= true
       signInWithEmailAndPassword(auth, this.email, this.password)
-        .then((userCredential) => { 
+        .then((userCredential) => {
           // Signed in 
-          const user = userCredential.user;
           store.userUid = userCredential.user.uid;
           store.user = userCredential.user;
           console.log(userCredential)
-          // window.location.reload();
-          // ...
+
+          setTimeout(async () => {
+            this.status= false
+            window.location.reload()
+          }, 3000)
+
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -92,20 +104,21 @@ export default {
       }
     },
     googleLogin() {
-      const provider = new GoogleAuthProvider();
+      console.log(auth, provider)
       signInWithPopup(auth, provider)
         .then((result) => {
           // This gives you a Google Access Token. You can use it to access the Google API.
           const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
           // The signed-in user info.
-          
+
           store.userUid = result.user.uid;
           store.user = result.user;
           console.log(user)
           console.log(credential)
 
-          // window.location.reload();
+
+         window.location.reload();
           // IdP data available using getAdditionalUserInfo(result)
           // ...
         }).catch((error) => {
@@ -115,11 +128,15 @@ export default {
           // The email of the user's account used.
           // const email = error.customData.email;
           // // The AuthCredential type that was used.
-           const credential = GoogleAuthProvider.credentialFromError(error);
-           console.log(errorMessage)
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          console.log(errorMessage)
           // ...
         });
-
+        if(store.userUid!=''){
+        setTimeout(async () => {
+          window.location.reload()
+        }, 3000)
+        }
     }
 
   }

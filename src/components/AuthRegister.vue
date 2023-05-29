@@ -6,6 +6,8 @@
       <span class="caption grey--text text--darken-1">Please enter a valid email for your account</span>
       <v-text-field v-model="password" label="Password" type="password" :rules="passwordRules" required />
       <span class="caption grey--text text--darken-1">Please enter a password for your account</span>
+      <v-text-field v-model="phoneNumber" label="Phone Number" type="text" required />
+      <span class="caption grey--text text--darken-1">Please enter a phone number for your account</span>
     </v-form>
   </v-card-text>
   <v-card-actions>
@@ -18,6 +20,13 @@
   
 <script>
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { collection, getDocs, getDoc, doc, setDoc } from "firebase/firestore";
+import { db } from "../firebase.js"
+import pinia from "../stores/setup.js"
+import useUserStore from '../stores/index.js'
+import router from "../router";
+const store = useUserStore(pinia)
+
 export default {
   data() {
     return {
@@ -25,7 +34,7 @@ export default {
       fullname: "",
       nameRules: [
         v => !!v || "Name is required",
-        v => v.length <= 10 || "Name must be less than 10 characters"
+        v => v.length <= 50 || "Name must be less than 10 characters"
       ],
       email: "",
       emailRules: [
@@ -33,6 +42,8 @@ export default {
         v => /.+@.+/.test(v) || "E-mail must be valid"
       ],
       password: "",
+      status: false,
+      phoneNumber: "",
       passwordRules: [v => !!v || "Password is required"]
       // route: '/profile/user-information',
     };
@@ -49,11 +60,13 @@ export default {
     registerUser() {
       if (this.$refs.form.validate()) {
         const auth = getAuth();
+        this.status = true
         createUserWithEmailAndPassword(auth, this.email, this.password)
           .then((userCredential) => {
             // Signed in 
-            const user = userCredential.user;
-            console.log(user)
+            const user = userCredential.user.uid;
+            store.userUid = user
+            this.createUser(user)
             // ...
           })
           .catch((error) => {
@@ -64,13 +77,19 @@ export default {
       }
     },
 
-    userRegister() {
-      this.$store.dispatch("auth/userRegister", {
-        name: this.fullname,
+    async createUser(id) {
+      await setDoc(doc(db, "users", id), {
+        fullName: this.fullname,
         email: this.email,
-        password: this.password
-      });
-    }
+        phone: this.phoneNumber,
+        uid: id
+      }).then(
+        setTimeout(async () => {
+          this.status = false
+          window.location.reload()
+        }, 3000)
+      );
+    },
   }
 };
 </script>

@@ -1,60 +1,6 @@
 <template>
   <!--Main Navigation-->
   <header>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000">
-      <div class="container-fluid">
-        <!-- Navbar brand -->
-        <a class="navbar-brand nav-link" target="_blank" href="https://mdbootstrap.com/docs/standard/">
-          <strong>MDB</strong>
-        </a>
-        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
-          aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
-          <i class="fas fa-bars"></i>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarExample01">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item active">
-              <a class="nav-link" aria-current="page" href="#intro">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://firebasestorage.googleapis.com/v0/b/shopper-56289.appspot.com/o/pharmastep.mp4?alt=media&token=7e67bb6f-68e4-43de-8d8f-828018226315" rel="nofollow"
-                target="_blank">Learn Bootstrap 5</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://mdbootstrap.com/docs/standard/" target="_blank">Download MDB UI KIT</a>
-            </li>
-          </ul>
-
-          <ul class="navbar-nav list-inline">
-            <!-- Icons -->
-            <li class="">
-              <a class="nav-link" href="https://www.youtube.com/channel/UC5CF7mLQZhvx8O5GODZAhdA" rel="nofollow"
-                target="_blank">
-                <i class="fab fa-youtube"></i>
-              </a>
-            </li>
-            <li class="">
-              <a class="nav-link" href="https://www.facebook.com/mdbootstrap" rel="nofollow" target="_blank">
-                <i class="fab fa-facebook-f"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://twitter.com/MDBootstrap" rel="nofollow" target="_blank">
-                <i class="fab fa-twitter"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://github.com/mdbootstrap/mdb-ui-kit" rel="nofollow" target="_blank">
-                <i class="fab fa-github"></i>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <!-- Navbar -->
-
     <!-- Carousel wrapper -->
     <div id="introCarousel" class="carousel slide carousel-fade shadow-2-strong" data-mdb-ride="carousel">
       <!-- Indicators -->
@@ -69,7 +15,7 @@
         <!-- Single item -->
         <div class="carousel-item active">
           <video style="min-width: 100%; min-height: 100%" playsinline autoplay muted loop>
-            <source class="h-100" src="https://mdbootstrap.com/img/video/Lines.mp4" type="video/mp4" />
+            <source class="h-100" src="https://firebasestorage.googleapis.com/v0/b/shopper-56289.appspot.com/o/pharmastep.mp4?alt=media&token=7e67bb6f-68e4-43de-8d8f-828018226315" type="video/mp4" />
           </video>
           <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)">
             <div class="d-flex justify-content-center align-items-center h-100">
@@ -148,7 +94,7 @@
         <div class="row">
           <div class="col-md-6 gx-5 mb-4">
             <div class="bg-image hover-overlay ripple shadow-2-strong" data-mdb-ripple-color="light">
-              <img src="https://mdbootstrap.com/img/new/slides/031.jpg" class="img-fluid" />
+              <img src="../assets/medicine.jpg" class="img-fluid" />
               <a href="#!">
                 <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
               </a>
@@ -157,18 +103,18 @@
 
           <div class="col-md-6 gx-5 mb-4">
             <h4><strong>What do we offer</strong></h4>
-            <p class="text-muted">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
-              consequatur eligendi quisquam doloremque vero ex debitis
-              veritatis placeat unde animi laborum sapiente illo possimus,
-              commodi dignissimos obcaecati illum maiores corporis.
+            <p class="text-justify lh-lg">
+              PharmaStep is a start-up firm whose primary aim is the seamless 
+              distribution of prescription drugs, over-the-counter medicine 
+              and healthcare services.
             </p>
-            <p><strong>Doloremque vero ex debitis veritatis?</strong></p>
-            <p class="text-muted">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod
-              itaque voluptate nesciunt laborum incidunt. Officia, quam
-              consectetur. Earum eligendi aliquam illum alias, unde optio
-              accusantium soluta, iusto molestiae adipisci et?
+            <p class="text-justify lh-lg">
+              The main feature of the PharmaStep application is its accessibility. 
+              You could be on your way from work, or in a salon, literally anywhere at any point, 
+              and healthcare is accessible to you, simply by swiping on your phone. 
+              This way, you can keep track of your health, and you do not have to 
+              wait until you are down with illness, before being able to interact 
+              with resources needed to overcome such illness.
             </p>
           </div>
         </div>

@@ -71,24 +71,24 @@ const router = createRouter({
     ]
 })
 
-// router.beforeEach((to, from, next) => {
+ router.beforeEach((to, from, next) => {
 
-//     const currentUser = store.userUid;
-//     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-//     const notRequiresAuth = to.matched.some(record => record.meta.notRequiresAuth);
-//     console.log(currentUser)
-//     if (requiresAuth && !currentUser) {
-//         next('/login');
-//     }
-//     else if (requiresAuth && currentUser) {
-//         next();
-//     }
-//     else if (notRequiresAuth && currentUser) {
-//         next('/')
-//     } else {
-//         next();
-//     }
-// });
+     const currentUser = store.userUid;
+     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+     const notRequiresAuth = to.matched.some(record => record.meta.notRequiresAuth);
+     console.log(currentUser)
+    if (requiresAuth && !currentUser) {
+         next('/login');
+     }
+     else if (requiresAuth && currentUser) {
+         next();
+     }
+     else if (notRequiresAuth && currentUser) {
+         next('/')
+     } else {
+         next();
+     }
+ });
 
 
 export default router

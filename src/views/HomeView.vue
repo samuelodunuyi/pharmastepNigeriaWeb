@@ -4,9 +4,7 @@ import { db } from "../firebase.js"
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router"
 import TopBanner from "../components/TopBanner.vue";
-import TopCategoryList from "../components/TopCategoryList.vue";
 import Subscribe from "../components/Subscribe.vue";
-import FooterE from "../components/Footer.vue";
 
 const router = useRouter();
 const products = ref([])
@@ -103,7 +101,6 @@ const navigateToDetails = (id) => {
         <div class="subscribe">
             <Subscribe />
         </div>
-        <FooterE />
     </div>
 </template>
 
