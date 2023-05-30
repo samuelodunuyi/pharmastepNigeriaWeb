@@ -4,11 +4,9 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Quicksand:400,600,700&display=swap" rel="stylesheet">
     <title>PharmaStep</title>
   </head>
 
-  <body>
     <div class="banner">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
@@ -20,66 +18,24 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
-              <a href="#" class="nav-item nav-link active">Home</a>
-              <a href="#" class="nav-item nav-link">Products</a>
-              <a href="#" class="nav-item nav-link">Categories</a>
+              <RouterLink to="/products" class="nav-item nav-link active">Products</RouterLink>
+              <RouterLink to="/products" class="nav-item nav-link active">Categories</RouterLink>
+              <RouterLink to="/products" class="nav-item nav-link active">Contact Us</RouterLink>
 
             </div>
             <div class="navbar-nav ms-auto ">
               <a href="#" class="nav-item nav-link" v-if="userUid == ''">Login</a>
               <a href="#" class="nav-item nav-link" v-else>Profile</a>
-              <a href="#" class="nav-item nav-link">Cart</a>
-
+              <v-btn to="/cart" icon color="#212529" style="margin-top: -2px;">
+                <v-badge :content=1 color="#47B65C">
+                <v-icon size="small" color="white">mdi-cart</v-icon>
+              </v-badge>
+              </v-btn> 
             </div>
           </div>
         </div>
       </nav>
     </div>
-    <div id="carouselExampleCrossfade" class="carousel slide carousel-fade carousel-dark" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button
-      type="button"
-      data-bs-target="#carouselExampleCrossfade"
-      data-bs-slide-to="0"
-      class="active"
-      aria-current="true"
-      aria-label="Slide 1"
-    ></button>
-    <button
-      type="button"
-      data-bs-target="#carouselExampleCrossfade"
-      data-bs-slide-to="1"
-      aria-label="Slide 2"
-    ></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="../assets/medicine.jpg" class="img-fluid" />
-      <div class="carousel-caption d-none d-md-block">
-        <h5>First slide label</h5>
-        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-      </div>
-    </div>
-    <div class="carousel-item">
-      <img src="../components/images/hero_1.jpg" class="d-block w-100" alt="Camera"/>
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Second slide label</h5>
-        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-      </div>
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-   
-
-  </body>
 </template>
   
 <script>

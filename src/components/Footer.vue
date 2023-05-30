@@ -20,7 +20,7 @@
         <v-icon size="small" color="white">fab fa-google-plus</v-icon>
 
       </a>
-      <a href="https://www.instagram.com/pharmastep_ng/" class="btn btn-primary m-1" role="button" rel="nofollow"
+      <a href="https://www.instagram.com/pharmastep_ng?igshid=NTc4MTIwNjQ2YQ" class="btn btn-primary m-1" role="button" rel="nofollow"
         target="_blank">
         <v-icon size="small" color="white">fab fa-instagram</v-icon>
       </a>
