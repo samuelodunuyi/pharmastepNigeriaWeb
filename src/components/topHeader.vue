@@ -19,13 +19,13 @@
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
               <RouterLink to="/products" class="nav-item nav-link active">Products</RouterLink>
-              <RouterLink to="/products" class="nav-item nav-link active">Categories</RouterLink>
-              <RouterLink to="/products" class="nav-item nav-link active">Contact Us</RouterLink>
+              <RouterLink to="/categories" class="nav-item nav-link active">Categories</RouterLink>
+              <RouterLink to="/contact" class="nav-item nav-link active">Contact Us</RouterLink>
 
             </div>
             <div class="navbar-nav ms-auto ">
-              <a href="#" class="nav-item nav-link" v-if="userUid == ''">Login</a>
-              <a href="#" class="nav-item nav-link" v-else>Profile</a>
+              <RouterLink to="/login" class="nav-item nav-link" v-if="userUid == ''">Login</RouterLink>
+              <RouterLink to="/profile" class="nav-item nav-link" v-else>Profile</RouterLink>
               <v-btn to="/cart" icon color="#212529" style="margin-top: -2px;">
                 <v-badge :content=1 color="#47B65C">
                 <v-icon size="small" color="white">mdi-cart</v-icon>

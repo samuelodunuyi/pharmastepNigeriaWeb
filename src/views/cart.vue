@@ -101,7 +101,7 @@ const deletefromCart = async (id) => {
                                     </div>
                                 </div>
                                 <div class="col-lg-5">
-                                    <div class="card bg-primary text-white rounded-3">
+                                    <div class="card bg-info text-white rounded-3">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between align-items-center mb-4">
                                                 <h5 class="mb-0">Delivery details</h5>
