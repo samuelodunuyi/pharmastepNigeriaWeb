@@ -26,27 +26,27 @@
             <div class="col-md-6">
               
               <form class="mb-5" method="post" id="contactForm" name="contactForm">
-                <div class="row">
+                <div class="row des">
                   <div class="col-md-12 form-group">
-                    <input type="text" class="form-control" name="name" id="name" placeholder="Your name">
+                    <input type="text" class="form-control form-ctr" name="name" id="name" placeholder="Your name">
                   </div>
                 </div>
-                <div class="row">
+                <div class="row des">
                   <div class="col-md-12 form-group">
-                    <input type="text" class="form-control" name="email" id="email" placeholder="Email">
+                    <input type="text" class="form-control form-ctr" name="email" id="email" placeholder="Email">
                   </div>
                 </div>
-                <div class="row">
+                <div class="row des">
                   <div class="col-md-12 form-group">
-                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
+                    <input type="text" class="form-control form-ctr" name="subject" id="subject" placeholder="Subject">
                   </div>
                 </div>
-                <div class="row">
+                <div class="row des">
                   <div class="col-md-12 form-group">
-                    <textarea class="form-control" name="message" id="message" cols="30" rows="7" placeholder="Write your message"></textarea>
+                    <textarea class="form-control form-controls" name="message" id="message" cols="30" rows="27" placeholder="Write your message"></textarea>
                   </div>
                 </div>  
-                <div class="row">
+                <div class="row des">
                   <div class="col-12">
                     <input type="submit" value="Send Message" class="btn btn-primary rounded-0 py-2 px-4">
                   <span class="submitting"></span>
@@ -97,9 +97,17 @@ a {
   font-size: 2.5rem;
   font-weight: 900; }
 
-.form-control {
+.form-controls {
   border: none;
-  background: #f3f3f3; }
+  background: #f3f3f3; 
+resize: none;
+height: 250px;}
+
+.form-ctr {
+  border: none;
+  background: #f3f3f3; 
+resize: none;
+height: 50px;}
   .form-control:active, .form-control:focus {
     outline: none;
     -webkit-box-shadow: none;
@@ -110,7 +118,7 @@ a {
 .col-form-label {
   color: #000; }
 
-.btn, .form-control, .custom-select {
+.btn, .custom-select {
   height: 50px; }
 
 .custom-select:active, .custom-select:focus {
@@ -170,4 +178,7 @@ label.error {
   font-size: 12px;
   color: #000; }
 
+.des{
+  margin-bottom: 10px;
+}
 </style>
