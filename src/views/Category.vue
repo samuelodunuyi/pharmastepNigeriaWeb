@@ -64,9 +64,9 @@ export default {
     /* Chrome,Safari4+ */
     background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 100%);
     /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 100%);
+    background: -o-linear-gradient(top, rgba(135, 134, 134, 0) 0%, rgba(0, 0, 0, 0.65) 100%);
     /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 100%);
+    background: -ms-linear-gradient(top, rgba(89, 89, 89, 0) 0%, rgba(0, 0, 0, 0.65) 100%);
     /* IE10+ */
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.65) 100%);
     /* W3C */

@@ -32,7 +32,7 @@ const route = useRoute()
             </div>
             <div class="navbar-nav ms-auto ">
               <RouterLink to="/login" class="nav-item nav-link" v-if="userUid == ''">Login</RouterLink>
-              <RouterLink to="/profile" class="nav-item nav-link" v-else>Profile</RouterLink>
+              <RouterLink to="/profile/account" class="nav-item nav-link" v-else>Profile</RouterLink>
               <v-btn to="/cart" icon color="#212529" style="margin-top: -2px;">
                 <v-badge :content=retz color="#47B65C">
                 <v-icon size="small" color="white">mdi-cart</v-icon>
