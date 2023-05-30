@@ -8,6 +8,7 @@ import ProfilePage from "../views/profileAccountPage.vue"
 import Categories from "../views/Category.vue"
 import cart from "../views/cart.vue"
 import Category from "../views/productCategoryPage.vue"
+import contact from "../views/contact.vue"
 import PurchaseHistory from "../views/purchaseHistory.vue"
 import pinia from "../stores/setup.js"
 import useUserStore from '../stores/index.js'
@@ -51,6 +52,13 @@ const router = createRouter({
             name: "Products",
             component: Products
         },
+
+        {
+            path: "/contact",
+            name: "contact",
+            component: contact
+        },
+
         {
             path: "/login",
             name: "login",
