@@ -60,9 +60,8 @@
           <div class="col-md-6 gx-5 mb-4">
             <h4><strong>What do we offer</strong></h4>
             <p class="text-justify lh-lg">
-              PharmaStep is a start-up firm whose primary aim is the seamless
-              distribution of prescription drugs, over-the-counter medicine
-              and healthcare services.
+              PharmaStep is your number 1 stop for your prescription drugs,
+              over-the-counter medicine and healthcare services. Access to medications from wherever you are in Lagos State.
             </p>
             <p class="text-justify lh-lg">
               The main feature of the PharmaStep application is its accessibility.
