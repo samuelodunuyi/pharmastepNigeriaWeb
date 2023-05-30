@@ -51,9 +51,6 @@
                 loop  autoplay width="320" height="320">
                 <source src="https://firebasestorage.googleapis.com/v0/b/shopper-56289.appspot.com/o/pharmastep.mp4?alt=media&token=7e67bb6f-68e4-43de-8d8f-828018226315" type="video/mp4" />
               </video>
-              <a href="#!">
-                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15)"></div>
-              </a>
             </div>
           </div>
 
