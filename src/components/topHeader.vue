@@ -1,3 +1,10 @@
+<script setup>
+import { useRoute } from 'vue-router';
+import {ref, computed, watch} from 'vue';
+
+const route = useRoute()
+
+</script>
 
 <template>
   <head>
@@ -10,9 +17,9 @@
     <div class="banner">
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-          <img src="../assets/pslogo.jpg" width="50" height="50">
-          <a class="navbar-brand"> </a>
-          <a href="#" class="navbar-brand"> PharmaStep</a>
+          <img src="../assets/pslogo.jpg" width="50" height="50" @click="$router.push('/')" style="cursor: pointer;">
+          <a class="navbar-brand"> </a> 
+          <RouterLink to="/" class="nav-item nav-link active navbar-brand"> PharmaStep</RouterLink>
           <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -27,7 +34,7 @@
               <RouterLink to="/login" class="nav-item nav-link" v-if="userUid == ''">Login</RouterLink>
               <RouterLink to="/profile" class="nav-item nav-link" v-else>Profile</RouterLink>
               <v-btn to="/cart" icon color="#212529" style="margin-top: -2px;">
-                <v-badge :content=1 color="#47B65C">
+                <v-badge :content=retz color="#47B65C">
                 <v-icon size="small" color="white">mdi-cart</v-icon>
               </v-badge>
               </v-btn> 
@@ -54,11 +61,11 @@ export default {
       },
     },
   },
+  emits: ["add-to-cart"],
 
   data() {
     return {
       cartProduct: [],
-      cartIds: [],
       cartIdCounts: [],
       cartNo: 0,
       loginDialog: false,
@@ -66,41 +73,48 @@ export default {
       userUid: '',
       myImage: 'https://firebasestorage.googleapis.com/v0/b/shopper-56289.appspot.com/o/pslogo.jpg?alt=media&token=2a7fc67e-1182-4b66-b81e-8c1fae75d7a1'
     };
-  },
+  }, 
 
   created() {
     this.userUid = store.userUid
-    // this.loadCart()
-    console.log(this.slides)
+     this.loadCart()
   },
 
-  computed: {
-    cartTotal() {
-      console.log(this.slides)
-      if (this.cartNo < this.slides) {
-        this.cartNo = this.slides
+//  watch: {
+//  // whenever question changes, this function will run
+//      retz(newCartValue, oldCartValue) {
+//        console.log(oldCartValue, newCartValue)
+//        console.log(store.cartNo)
+//        if (newCartValue!=store.cartNo) {
+//          console.log(oldCartValue)
+//          console.log(newCartValue)
+//          this.loadCart()
+//        }
+//      }
+//    },
+
+  computed:{
+      retz(){
+        if (this.cartNo<store.cartNo) {
+          console.log(store.cartNo)
+        this.cartNo = store.cartNo
+        console.log(this.cartNo)
         this.loadCart()
       }
-      return (this.cartNo);
-    }
+        return this.cartNo
+      }
   },
 
   methods: {
     async loadCart() {
       const docSnaps = await getDocs(collection(db, 'users', store.userUid, 'cart'));
       this.cartProduct = docSnaps.forEach((doc) => {
-        this.cartIds = doc.id
         this.cartIdCounts.push(doc.id)
         console.log(this.cartIdCounts)
-        store.cartNo = this.cartIdCounts.length
-        this.cartNo = (store.cartNo)
+        // this.cartNo = store.cartNo
       })
     },
-    onAddtoCart(isCorrect) {
-      if (isCorrect) {
-        console.log(isCorrect)
-      }
-    },
+
     relocate() {
       window.open("https://play.google.com/store/apps/details?id=com.pharmastepng.meds",
         '_blank');

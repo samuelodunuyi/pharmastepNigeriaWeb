@@ -8,7 +8,7 @@
                 <div class="col-md-12 col-lg-4 mb-4 mb-lg-0 fullCate" v-for="i in categories">
                     <div class="card text-black" @click="$router.push(`/category/${i.id}`)">
                         <div class="pickgradient" style="cursor: pointer;">
-                            <img src="../assets/category.jpg" class="card-img-top" alt="iPhone" />
+                            <img :src="i.img" class="card-img-top" alt="category" height="300" />
                         </div>
                         <div class="card-body">
                             <div class="text-center mt-1" style="cursor: pointer;">
@@ -24,17 +24,14 @@
 
 
 <script>
-import EProductCategoryList from "../components/productCategoryList.vue";
 export default {
-    components: {
-        EProductCategoryList
-    },
     data() {
         return {
             categories: [
-                { 'name': 'Antibacterial', 'id': 'Antibacterial' }, { 'name': 'Anti Malarials', 'id': 'Anti_Malarials' }, { 'name': 'Contraceptives', 'id': 'Contraceptives' }, { 'name': 'Metabolic bone disease agents', 'id': 'Metabolic_bone_disease_agents' }, { 'name': 'Anti migraine agents', 'id': 'Anti_migraine_agents' }, { 'name': 'Cream and ointments', 'id': 'Cream_and_ointments' },
-                { 'name': 'Antidiabetics', 'id': 'Antidiabetics' }, { 'name': 'Antihypertensives', 'id': 'Antihypertensives' }, { 'name': 'Ophthalmic', 'id': 'Ophthalmic' }, { 'name': 'Skincare', 'id': 'Skincare' }, { 'name': 'Pain management', 'id': 'Pain_management' }, { 'name': 'Pessaries', 'id': 'Pessaries' }, { 'name': 'Antihistamines', 'id': 'Antihistamines' }, { 'name': 'Antiemetics', 'id': 'Antiemetics' },
-                { 'name': 'Antipsychotics', 'id': 'Antipsychotics' }, { 'name': 'Antiemetic', 'id': 'Antiemetic' }, { 'name': 'Immunological Agents', 'id': 'Immunological_agents' }, { 'name': 'Vitamins' }, { 'name': 'Gastrointestinal', 'id': 'Gastrointestinal' }, { 'name': 'Sexual health', 'id': 'Sexual_health' }
+                { 'name': 'Antibacterial', 'id': 'Antibacterial', 'img':'../src/components/images/antimicrobial.jpg'}, { 'name': 'Anti Malarials', 'id': 'Anti_Malarials', 'img':'../src/components/images/malaria.jpg' }, { 'name': 'Contraceptives', 'id': 'Contraceptives', 'img':'../src/components/images/contraceptives.jpg' }, { 'name': 'Cream and ointments', 'id': 'Cream_and_ointments', 'img':'../src/components/images/creams.jpg' },
+                { 'name': 'Antidiabetics', 'id': 'Antidiabetics', 'img':'../src/components/images/antidiabetic.jpg' }, { 'name': 'Antihypertensives', 'id': 'Antihypertensives', 'img':'../src/components/images/antihypertensive.jpg' }, { 'name': 'Skincare', 'id': 'Skincare', 'img':'../src/components/images/derm.jpg' }, { 'name': 'Pain management', 'id': 'Pain_management', 'img':'../src/components/images/headaches.jpg' }, 
+                { 'name': 'Pessaries', 'id': 'Pessaries', 'img':'../src/components/images/pessaries.png'}, { 'name': 'Antihistamines', 'id': 'Antihistamines' , 'img':'../src/components/images/Antihistamines.jpg'}, { 'name': 'Antiemetics', 'id': 'Antiemetics', 'img':'../src/components/images/antiemetics.jpg' },
+                { 'name': 'Antipsychotics', 'id': 'Antipsychotics', 'img':'../src/components/images/Antipsychotics.jpg' },  { 'name': 'Vitamins', 'id': 'Vitamins', 'img':'../src/components/images/vitamins.jpg' }, { 'name': 'Gastrointestinal', 'id': 'Gastrointestinal', 'img':'../src/components/images/Gastrointestinal.jpg' }, { 'name': 'Sexual health', 'id': 'Sexual_health', 'img':'../src/components/images/sexual.jpg' }
             ]
         }
     }

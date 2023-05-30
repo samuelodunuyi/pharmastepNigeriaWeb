@@ -11,6 +11,16 @@ const useUserStore = defineStore("user", {
     };
   },
   persist: true,
+  actions: {
+    // since we rely on `this`, we cannot use an arrow function
+    increment() {
+      this.cartNo++
+    },
+
+    decrement() {
+      this.cartNo--
+    },
+  },
 });
 
 export default useUserStore;

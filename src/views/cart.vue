@@ -51,6 +51,8 @@ onMounted(() => {
 
 const deletefromCart = async (id) => {
     await deleteDoc(doc(db, 'users', store.userUid, 'cart', id));
+    store.decrement()
+    console.log(store.cartNo)
 }
 </script>
 
@@ -166,22 +168,6 @@ const deletefromCart = async (id) => {
         </div>
     </section>
 </template>
-
-<script>
-import ECartList from "../components/cartList.vue";
-import ECartOrderSummary from "../components/cartOrderSummary.vue";
-
-
-export default {
-    components: {
-        ECartList,
-        ECartOrderSummary,
-    },
-    data() {
-        return {};
-    },
-};
-</script>
 
 <style>
 @media (min-width: 1025px) {

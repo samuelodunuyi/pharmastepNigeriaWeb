@@ -6,10 +6,6 @@ import { db } from "../firebase";
 import { collection, getDocs, setDoc, getDoc, doc, increment, updateDoc } from "firebase/firestore";
 import useUserStore from "../stores";
 import pinia from "../stores/setup";
-// const emit = defineEmits(["addToCart"])
-// const emitAddtoCart = (isCorrects) => {
-//   emit("addToCart", isCorrects)
-
 const store = useUserStore(pinia);
 const route = useRoute()
 const productId = (route.params.id);
@@ -23,6 +19,9 @@ const loadProduct = async () => {
     const docRef = doc(collection(db, "products"), productId)
     const docSnap = await getDoc(docRef);
     product.value = { id: docSnap.id, ...docSnap.data() };
+    store.products = product.value
+    console.log(docSnap.data())
+
 }
 
 const AddtoCart = async (id) => {
@@ -31,17 +30,18 @@ const AddtoCart = async (id) => {
     if (docSnap.exists()) {
         await updateDoc(doc(db, 'users', store.userUid, 'cart', id), {
             item_count: increment(1),
-        });
+        }).then(console.log("donee"), console.log(store.cartNo));
     } else {
         await setDoc(doc(db, 'users', store.userUid, 'cart', id), {
             item_count: 1,
-        });
+        }).then(store.increment(),
+        console.log("done"), console.log(store.cartNo));
     }
 }
 
 </script>
 <template>
-    <topHeader :slides="cartValue"></topHeader>
+    <topHeader></topHeader>
     <div class="container mt-5 mb-5">
         <div class="row d-flex justify-content-center">
             <div class="col-md-10">
@@ -88,8 +88,7 @@ const AddtoCart = async (id) => {
                                         }} </span><span></span> </label>
                                 </div>
                                 <div class="cart mt-4 align-items-center"> <button
-                                        class="btn btn-primary text-uppercase mr-2 px-4" @click="AddtoCart(product.id)"
-                                        @button-clicked="addToCart(item)">
+                                        class="btn btn-primary text-uppercase mr-2 px-4" @click="AddtoCart(product.id)">
                                         Add to cart</button></div>
                             </div>
                         </div>
@@ -185,8 +184,6 @@ import router from "../router";
 
 export default {
     name: "App",
-
-    emits: ["previewClicked"],
     data() {
         return {
             cartValue: 1,
@@ -196,16 +193,7 @@ export default {
             cart: [],
         };
     },
-    computed:{
-    cartPO() {
-        this.cartValue = this.cartValue+1
-      return (this.cartValue);
-    }
-  },
     methods: {
-        addToCart(item) {
-            this.$emit('update-cart', item)
-        },
         change_image(image) {
             var container = document.getElementById("main-image");
             container.src = image;

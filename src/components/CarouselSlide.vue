@@ -38,5 +38,5 @@ export default {
     border-radius: var(--border-radius-size);
     cursor: pointer;
   }
-}
+} 
 </style>

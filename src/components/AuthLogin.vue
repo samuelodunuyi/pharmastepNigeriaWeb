@@ -13,11 +13,11 @@
     <div class="mb-3">
       Or Sign in with:
     </div>
-    <!-- <v-btn color="red darken-2" dark class="text-none mr-2" @click="googleLogin()"> -->
-      <!-- <v-icon left>
+    <v-btn color="red darken-2" dark class="text-none mr-2" @click="googleLogin()"> 
+     <v-icon left>
         fab fa-google
       </v-icon>Google
-    </v-btn> -->
+    </v-btn>
   </v-card-text>
   <v-card-actions>
     <v-dialog v-model="reset" width="500">
