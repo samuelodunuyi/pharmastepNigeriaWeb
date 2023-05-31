@@ -77,9 +77,22 @@ async function onSuccessfulPayment (response) {
         phone:phoneNumber.value,
         product_uid: order.value,
         sto: null,
-        email: email
+        email: email,
+        total: cartTotal.value
       });
-      await deleteDoc(collection(db, 'users', store.userUid, 'cart'));
+      await setDoc(doc(db, "users", store.userUid, "ordered_products", response.reference), {
+        Status: 'Ongoing Order',
+        addressline: deliveryAddress.value,
+        floor_No: '',
+        order_date: new Date(),
+        owner: recieverName.value,
+        phone:phoneNumber.value,
+        product_uid: order.value,
+        sto: null,
+        email: email,
+        total: cartTotal.value
+      });
+    //   await deleteDoc(collection(db, 'users', store.userUid, 'cart'));
     }
 
 

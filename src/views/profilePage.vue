@@ -20,33 +20,33 @@
           <div class="accordion-body">
             <v-card>
               <div class="fullList row">
-              <div class="innerText col-md-10">
-                <v-icon color="primary">
-                  mdi-account
-                </v-icon>
-                <h3>{{ signedInUser.fullName}}</h3>
-                <p>Full Name</p>
+                <div class="innerText col-md-10">
+                  <v-icon color="primary">
+                    mdi-account
+                  </v-icon>
+                  <h3>{{ signedInUser.fullName }}</h3>
+                  <p>Full Name</p>
+                </div>
+                <div class="col-md-2">
+                  <v-list-item-action>
+                    <v-btn icon @click="nameDialog = true">
+                      <v-icon>mdi-pencil</v-icon>
+                    </v-btn>
+                    <v-dialog v-model="nameDialog" width="500px">
+                      <e-profile-edit-dialog name="nameDialog" title="Update Name" :initial-string="signedInUser.fullName"
+                        :loading="loading" />
+                    </v-dialog>
+                  </v-list-item-action>
+                </div>
               </div>
-              <div class="col-md-2">
-                <v-list-item-action>
-                  <v-btn icon @click="nameDialog = true">
-                    <v-icon>mdi-pencil</v-icon>
-                  </v-btn>
-                  <v-dialog v-model="nameDialog" width="500px">
-                    <e-profile-edit-dialog name="nameDialog" title="Update Name" :initial-string="signedInUser.fullName"
-                      :loading="loading" />
-                  </v-dialog>
-                </v-list-item-action>
-              </div>
-            </div>
-          </v-card>
+            </v-card>
             <v-card outlined>
               <div class="fullList row">
                 <div class="innerText col-md-10">
                   <v-icon color="primary">
                     mdi-phone
                   </v-icon>
-                  <h3>{{ signedInUser.phone}}</h3>
+                  <h3>{{ signedInUser.phone }}</h3>
                   <p>Phone</p>
                 </div>
                 <div class="col-md-2">
@@ -62,29 +62,29 @@
                 </div>
               </div>
             </v-card>
-          <v-card>
-            <div class="fullList row">
-              <div class="innerText col-md-10">
-                <v-icon color="primary">
-                  mdi-email
-                </v-icon>
-                <h3>{{ signedInUser.email}}</h3>
-                <p>Email</p>
+            <v-card>
+              <div class="fullList row">
+                <div class="innerText col-md-10">
+                  <v-icon color="primary">
+                    mdi-email
+                  </v-icon>
+                  <h3>{{ signedInUser.email }}</h3>
+                  <p>Email</p>
+                </div>
+                <div class="col-md-2">
+                  <v-list-item-action>
+                    <v-btn icon @click="emailDialog = true">
+                      <v-icon>mdi-pencil</v-icon>
+                    </v-btn>
+                    <v-dialog v-model="emailDialog" width="500px">
+                      <e-profile-edit-dialog name="emailDialog" title="Update Email" :initial-string="signedInUser.email"
+                        :loading="loading" @close="close" />
+                    </v-dialog>
+                  </v-list-item-action>
+                  <v-divider inset />
+                </div>
               </div>
-              <div class="col-md-2">
-                <v-list-item-action>
-                  <v-btn icon @click="emailDialog = true">
-                    <v-icon>mdi-pencil</v-icon>
-                  </v-btn>
-                  <v-dialog v-model="emailDialog" width="500px">
-                    <e-profile-edit-dialog name="emailDialog" title="Update Email" :initial-string="signedInUser.email" :loading="loading"
-                      @close="close" />
-                  </v-dialog>
-                </v-list-item-action>
-                <v-divider inset />
-              </div>
-            </div>
-          </v-card>
+            </v-card>
           </div>
         </div>
       </div>
@@ -100,11 +100,28 @@
         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
           data-bs-parent="#accordionExample">
           <div class="accordion-body">
-            <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin
-            adds the appropriate classes that we use to style each element. These classes control the overall appearance,
-            as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or
-            overriding our default variables. It's also worth noting that just about any HTML can go within the
-            <code>.accordion-body</code>, though the transition does limit overflow.
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Order ID</th>
+                  <th scope="col">Total Amount</th>
+                  <th scope="col">Products</th>
+                  <th scope="col">Address</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="order in orders">
+                  <th scope="row">{{order.id}}</th>
+                  <td>{{order.total}}</td>
+                  <td>{{order.product_uid.map(({count, id, original_price, product_mode, ...rest }) => ({ ...rest })).map(function (item) {
+        return item.title;
+      }).toString()}}</td>
+                  <td>{{order.addressline}}</td>
+                  <td style="text-decoration: underline; color: blue; font-weight: bold; cursor: pointer;">Details</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -115,7 +132,7 @@
 <script>
 import useUserStore from "../stores/index";
 import pinia from "../stores/setup";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 import { db } from "../firebase.js"
 import { getAuth, signOut } from "firebase/auth";
 const auth = getAuth();
@@ -136,15 +153,17 @@ export default {
       authStatus: true,
       signedInUser: [],
       emailDialog: false,
-      nameDialog: false
+      nameDialog: false,
+      orders: []
     };
   },
   created() {
     if (store.userUid.length > 0) {
       this.authStatus = false
     }
-
     this.loadUser()
+    this.loadOrders()
+
   },
   methods: {
     signOut() {
@@ -159,10 +178,20 @@ export default {
       const docSnap = await getDoc(doc(db, 'users', store.userUid));
       if (docSnap.exists()) {
         this.signedInUser = docSnap.data()
-         console.log(this.signedInUser)
+        console.log(this.signedInUser)
       } else {
         console.log('Document does not exist')
       }
+    },
+
+    async loadOrders() {
+      const querySnapshot = await getDocs(collection(db, 'users', store.userUid, 'ordered_products'));
+      this.orders = querySnapshot.docs.map(doc => {
+        return {
+          id: doc.id,
+          ...doc.data()
+        }
+      })
     }
   }
 };
@@ -173,7 +202,7 @@ export default {
   margin: 20px 10px;
 }
 
-.v-card{
+.v-card {
   margin: 2rem 3rem 0rem 0rem;
   justify-content: space-around;
 
@@ -184,18 +213,17 @@ export default {
   flex-direction: row;
   justify-items: space-around;
   margin: 10px 0px;
-  padding-left:2rem;
+  padding-left: 2rem;
   width: 100%;
 }
 
-.innerText h3{
-font-size: 1.5rem;
+.innerText h3 {
+  font-size: 1.5rem;
 }
 
-.innerText p{
-font-size: 0.895rem;
-font-weight: bold;
+.innerText p {
+  font-size: 0.895rem;
+  font-weight: bold;
 }
-
 </style>
   
