@@ -4,12 +4,10 @@ import ProductDetailView from "../views/productDetails.vue"
 import HomeView from "../views/HomeView.vue"
 import AuthLogin from "../views/Auth.vue"
 import Profile from "../views/profilePage.vue"
-import ProfilePage from "../views/profileAccountPage.vue"
 import Categories from "../views/Category.vue"
 import cart from "../views/cart.vue"
 import Category from "../views/productCategoryPage.vue"
 import contact from "../views/contact.vue"
-import PurchaseHistory from "../views/purchaseHistory.vue"
 import pinia from "../stores/setup.js"
 import useUserStore from '../stores/index.js'
 
@@ -67,14 +65,10 @@ const router = createRouter({
 
         },
         {
-            path: "/profile",
+            path: "/profile/account",
             name: "profile",
             component: Profile,
             meta: { requiresAuth: true },
-            children: [
-                { path: 'account', name: 'account', component: ProfilePage },
-                { path: 'purchase-history', name: 'purchase-history', component: PurchaseHistory },
-            ]
         },
     ]
 })

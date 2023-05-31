@@ -85,6 +85,9 @@ export default {
           // Signed in 
           store.userUid = userCredential.user.uid;
           store.user = userCredential.user;
+          console.log(userCredential)
+          console.log(userCredential.user)
+          console.log(store.user)
           store.useremail = userCredential.user.email;
 
           setTimeout(async () => {
@@ -114,7 +117,8 @@ export default {
           store.userUid = result.user.uid;
           store.user = result.user;
           store.useremail = result.user.email;
-          window.location.reload();
+
+          // window.location.reload();
           // IdP data available using getAdditionalUserInfo(result)
           // ...
         }).catch((error) => {
