@@ -84,7 +84,6 @@ const router = createRouter({
      const currentUser = store.userUid;
      const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
      const notRequiresAuth = to.matched.some(record => record.meta.notRequiresAuth);
-     console.log(currentUser)
     if (requiresAuth && !currentUser) {
          next('/login');
      }

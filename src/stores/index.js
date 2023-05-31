@@ -5,7 +5,8 @@ const useUserStore = defineStore("user", {
   state: () => {
     return { 
       userUid:  useLocalStorage('userUid', ''),
-      user:  useLocalStorage('user', ''),
+      user:  useSessionStorage('user', ''),
+      useremail:  useSessionStorage('useremail', ''),
       products:  useLocalStorage('products', []),
       cartNo:  useSessionStorage('cartNo', 0),
     };

@@ -20,28 +20,23 @@ const loadProduct = async () => {
     const docSnap = await getDoc(docRef);
     product.value = { id: docSnap.id, ...docSnap.data() };
     store.products = product.value
-    console.log(docSnap.data())
-
 }
 
 const AddtoCart = async (id) => {
-
     const docSnap = await getDoc(doc(db, 'users', store.userUid, 'cart', id))
     if (docSnap.exists()) {
         await updateDoc(doc(db, 'users', store.userUid, 'cart', id), {
             item_count: increment(1),
-        }).then(console.log("donee"), console.log(store.cartNo));
+        });
     } else {
         await setDoc(doc(db, 'users', store.userUid, 'cart', id), {
             item_count: 1,
-        }).then(store.increment(),
-        console.log("done"), console.log(store.cartNo));
+        }).then(store.increment());
     }
 }
 
 </script>
 <template>
-    <topHeader></topHeader>
     <div class="container mt-5 mb-5">
         <div class="row d-flex justify-content-center">
             <div class="col-md-10">
@@ -198,28 +193,6 @@ export default {
             var container = document.getElementById("main-image");
             container.src = image;
         },
-        addProductToCart(product, quantity) {
-            if (quantity < 1) return;
-
-            const item = this.cart.findIndex((x) => x.productId === product.id);
-
-            // Means this product is already in the cart
-            if (item !== -1) {
-                this.cart[item].quantity += quantity;
-            } else {
-                const cartItem = {
-                    productId: product.id,
-                    name: product.name,
-                    mainThumbnail: product.mainThumbnail,
-                    price: this.getRealPrice(product.price, product.discount),
-                    quantity: quantity,
-                };
-                this.cart = [...this.cart, cartItem];
-            }
-        },
-        getRealPrice(price, discount) {
-            return price * (discount / 100);
-        },
     },
 };
 </script>
@@ -233,7 +206,6 @@ export default {
         align-items: center;
         justify-content: center;
         gap: 6rem;
-
     }
 }
 </style>

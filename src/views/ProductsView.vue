@@ -1,16 +1,15 @@
 <script setup>
-import { collection, getDocs, setDoc,getDoc, doc, increment, updateDoc } from "firebase/firestore";
+import { collection, getDocs, setDoc, getDoc, doc, increment, updateDoc } from "firebase/firestore";
 import { db } from "../firebase.js"
-import { onMounted, ref } from "vue";
+import { onMounted, ref, watch, computed } from "vue";
 import { useRouter } from "vue-router"
 import useUserStore from "../stores";
 import pinia from "../stores/setup";
-import topHeader from "../components/topHeader.vue";
-
 const store = useUserStore(pinia);
-
+const search = ref("")
 const router = useRouter();
 const products = ref([])
+
 
 const loadNotes = async () => {
     const querySnapshot = await getDocs(collection(db, "products"));
@@ -35,21 +34,42 @@ const AddtoCart = async (id) => {
     } else {
         await setDoc(doc(db, 'users', store.userUid, 'cart', id), {
             item_count: 1,
-        });
+        }).then(store.increment());
     }
-    store.cartNo = store.cartNo+1
-    console.log(store.cartNo)
 }
+
+const productFiltered = computed(() => {
+    var productsMain = products.value
+    if (search.value != '' && search.value) {
+        productsMain = productsMain.filter((item) => {
+            return item.title
+                .toLowerCase()
+                .includes(search.value.toLowerCase()) ||
+                item.product_type.replace('_', ' ')
+                    .toLowerCase()
+                    .includes(search.value.toLowerCase())
+        })
+    }
+    return productsMain;
+
+})
 </script>
 
 <template>
     <section style="background-color: #f5f5f5;">
         <div class="container py-5">
-            <h2 class="mt-10 ml-3">
-                All Products
-            </h2>
             <div class="row">
-                <div class="col-md-12 col-lg-4 mb-4 mb-lg-0 fullCate" v-for="i in products">
+                <div class="col-md-8">
+                    <h2 class="mt-10 ml-3 ">
+                        All Products
+                    </h2>
+                </div>
+                <div class="col-sm-4 tophead">
+                    <input v-model.trim="search" type="text" placeholder="Search....">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-lg-4 mb-4 mb-lg-0 fullCate" v-for="i in productFiltered">
                     <div class="card text-black cards1">
                         <div style="background-color: aliceblue;">
                             <img :src="i.images" style="object-fit: contain; width: 100%; height: 20em; cursor: pointer;"
@@ -105,5 +125,14 @@ const AddtoCart = async (id) => {
 
 .cards1:hover {
     transform: scale(1.03);
+}
+
+
+.tophead input {
+    margin-top: 40px;
+    height: 40px;
+    width: 100%;
+    border: 0.5px solid black;
+    padding: 10px;
 }
 </style>

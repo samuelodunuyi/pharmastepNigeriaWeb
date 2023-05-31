@@ -1,10 +1,11 @@
 <script setup>
-import { collection, getDocs, getDoc, doc, deleteDoc } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc, deleteDoc, setDoc } from "firebase/firestore";
 import { db } from "../firebase.js"
-import { onMounted, ref } from "vue";
-import { useRouter } from "vue-router"
+import { onMounted, ref, computed} from "vue";
 import useUserStore from "../stores";
 import pinia from "../stores/setup";
+import paystack from "vue3-paystack";
+import { nanoid } from "nanoid"; //if using nanoid
 const store = useUserStore(pinia);
 const productInCart = ref([])
 const cartProduct = ref([])
@@ -14,8 +15,14 @@ const cartIdCounts = ref([])
 const cartSubTotal = ref(0)
 const cartTotal = ref(0)
 const cartItemList = ref([])
-
-
+const paystackkey = "pk_test_a137d402b5975716e89952a898aad2832c961d69"
+// const paystackkey = "pk_live_f56a0238d753611ed6b184e1c02174a1783af6a1"
+const email = store.useremail
+const recieverName = ref('')
+const deliveryAddress = ref('')
+const deliveryCity = ref('')
+const phoneNumber = ref('')
+const order = ref([])
 const loadUser = async () => {
     const docSnaps = await getDocs(collection(db, 'users', store.userUid, 'cart'));
     cartProduct.value = docSnaps.forEach((doc) => {
@@ -32,16 +39,18 @@ const loadProducts = async () => {
     const product = { id: docSnap.id, ...docSnap.data(), count: count };
     products.value.push(product)
     productInCart.value = products.value
-    
+
     const cartPricesArray = productInCart.value.map(({ count, description, id, manufacturer, owner, product_mode, product_type, title, images, search_tags, expiry_date, control_med, ...rest }) => ({ ...rest }))
-    const cartPricesArrayString = cartPricesArray.map(function (item){
-        return item.original_price*count;
+    const cartPricesArrayString = cartPricesArray.map(function (item) {
+        return item.original_price * count;
     });
     let lastElement = cartPricesArrayString[cartPricesArrayString.length - 1];
     cartItemList.value.push(lastElement)
 
-    cartSubTotal.value = cartItemList.value.reduce((partialSum, a) => (partialSum + a),  0);
-    cartTotal.value = cartSubTotal.value+1000;
+    cartSubTotal.value = cartItemList.value.reduce((partialSum, a) => (partialSum + a), 0);
+    cartTotal.value = cartSubTotal.value + 1000;
+
+    order.value = productInCart.value.map(({description, expiry_date, manufacturer, owner, search_tags, images, product_type, ...rest }) => ({ ...rest }))
 }
 
 onMounted(() => {
@@ -52,8 +61,32 @@ onMounted(() => {
 const deletefromCart = async (id) => {
     await deleteDoc(doc(db, 'users', store.userUid, 'cart', id));
     store.decrement()
-    console.log(store.cartNo)
 }
+
+const reference = computed(() => {
+    return nanoid(15);
+})
+
+async function onSuccessfulPayment (response) {
+      await setDoc(doc(db, "ordered_products", response.reference), {
+        Status: 'Ongoing Order',
+        addressline: deliveryAddress.value,
+        floor_No: '',
+        order_date: new Date(),
+        owner: recieverName.value,
+        phone:phoneNumber.value,
+        product_uid: order.value,
+        sto: null,
+        email: email
+      });
+      await deleteDoc(collection(db, 'users', store.userUid, 'cart'));
+    }
+
+
+function onCancelledPayment(response) {
+    console.log("Payment cancelled by user");
+}
+
 </script>
 
 <template>
@@ -84,7 +117,8 @@ const deletefromCart = async (id) => {
                                                     </div>
                                                     <div class="ms-3">
                                                         <h5>{{ cartItems.title }}</h5>
-                                                        <p class="small mb-0">{{ cartItems.manufacturer }} - ₦ {{ cartItems.original_price }}</p>
+                                                        <p class="small mb-0">{{ cartItems.manufacturer }} - ₦ {{
+                                                            cartItems.original_price }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex flex-row align-items-center">
@@ -92,10 +126,11 @@ const deletefromCart = async (id) => {
                                                         <h5 class="fw-normal mb-0">{{ cartItems.count }}</h5>
                                                     </div>
                                                     <div style="width: 80px;">
-                                                        <h5 class="mb-0">₦ {{ cartItems.original_price * cartItems.count}}
+                                                        <h5 class="mb-0">₦ {{ cartItems.original_price * cartItems.count }}
                                                         </h5>
                                                     </div>
-                                                    <p style="color: #cecece; cursor: pointer;" @click="deletefromCart(cartItems.id)"><i
+                                                    <p style="color: #cecece; cursor: pointer;"
+                                                        @click="deletefromCart(cartItems.id)"><i
                                                             class="fas fa-trash-alt"></i></p>
                                                 </div>
                                             </div>
@@ -112,33 +147,33 @@ const deletefromCart = async (id) => {
                                                 <div class="form-outline form-white mb-4">
                                                     <label class="form-label" for="typeName">Name</label>
                                                     <input type="text" id="typeName" class="form-control form-control-lg"
-                                                        siez="27" placeholder="Name of Reciever" />
+                                                        siez="27" placeholder="Name of Reciever" v-model="recieverName"/>
                                                 </div>
 
                                                 <div class="form-outline form-white mb-4">
                                                     <label class="form-label" for="typeText">Delivery Address</label>
                                                     <input type="text" id="typeText" class="form-control form-control-lg"
-                                                        siez="47" placeholder="Address" minlength="49" maxlength="49" />
+                                                        siez="47" placeholder="Address" minlength="49" maxlength="49" v-model="deliveryAddress" />
                                                 </div>
 
                                                 <div class="form-outline form-white mb-4">
                                                     <label class="form-label" for="typeText">City</label>
                                                     <input type="text" id="typeText" class="form-control form-control-lg"
-                                                        siez="27" placeholder="City" />
+                                                        siez="27" placeholder="City" v-model="deliveryCity"/>
                                                 </div>
 
                                                 <div class="form-outline form-white mb-4">
                                                     <label class="form-label" for="typeExp">Phone Number</label>
                                                     <input type="text" id="typeExp" class="form-control form-control-lg"
                                                         placeholder="Phone Number" size="17" minlength="17"
-                                                        maxlength="17" />
+                                                        maxlength="17" v-model="phoneNumber"/>
                                                 </div>
                                             </form>
 
                                             <hr class="my-4">
                                             <div class="d-flex justify-content-between">
                                                 <p class="mb-2">Subtotal</p>
-                                                <p class="mb-2">₦ {{cartSubTotal.toLocaleString()}}.00</p>
+                                                <p class="mb-2">₦ {{ cartSubTotal.toLocaleString() }}.00</p>
                                             </div>
 
                                             <div class="d-flex justify-content-between">
@@ -148,13 +183,18 @@ const deletefromCart = async (id) => {
 
                                             <div class="d-flex justify-content-between mb-4">
                                                 <p class="mb-2">Total</p>
-                                                <p class="mb-2">₦ {{cartTotal.toLocaleString()}}.00</p>
+                                                <p class="mb-2">₦ {{ cartTotal.toLocaleString() }}.00</p>
                                             </div>
 
                                             <button type="button" class="btn btn-info btn-block btn-lg">
                                                 <div class="d-flex justify-content-between">
-                                                    <span>₦ {{cartTotal.toLocaleString()}}.00 -</span>
+                                                    <span>₦ {{ cartTotal.toLocaleString() }}.00 -</span>
                                                     <span> Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                                    <paystack buttonClass="'button-class btn btn-primary'" buttonText=""
+                                                        :publicKey="paystackkey" :email="email" :amount="cartTotal*100"
+                                                        :reference="reference" :onSuccess="onSuccessfulPayment"
+                                                        :onCanel="onCancelledPayment">
+                                                    </paystack>
                                                 </div>
                                             </button>
                                         </div>
@@ -174,6 +214,10 @@ const deletefromCart = async (id) => {
     .h-custom {
         height: 100vh !important;
     }
+}
+
+.textwhite {
+    color: white;
 }
 </style>
 
