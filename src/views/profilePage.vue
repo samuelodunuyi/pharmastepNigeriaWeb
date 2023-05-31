@@ -127,7 +127,7 @@ import EProfileEditDialog from '../components/profileEditDialog.vue';
                       <v-icon>mdi-pencil</v-icon>
                     </v-btn>
                     <v-dialog v-model="phoneDialog" width="500px">
-                      <e-profile-edit-dialog name="nameDialog" :initial-string="signedInUser.phone" :loading="loading" 
+                      <e-profile-edit-dialog name="phoneDialog" title="Update Phone Number" :initial-string="signedInUser.phone" :loading="loading" 
                       @close="close"/>
                     </v-dialog>
                   </v-list-item-action>
@@ -262,7 +262,6 @@ export default {
       const docSnap = await getDoc(doc(db, 'users', store.userUid));
       if (docSnap.exists()) {
         this.signedInUser = docSnap.data()
-        console.log(this.signedInUser)
       } else {
         console.log('Document does not exist')
       }
