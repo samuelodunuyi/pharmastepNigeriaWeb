@@ -1,4 +1,76 @@
+<script setup>
+import EProfileEditDialog from '../components/profileEditDialog.vue';
+
+</script>
+
 <template>
+  <v-dialog v-model="showOrderDetails" width="100%">
+    <div style="width: 100%; background-color: white; padding: 30px; overflow: auto;">
+      <div class="row">
+        <h3 class="col-md-11">Purchase History Detail</h3>
+        <v-btn icon @click="showOrderDetails = false" class="col-md-2">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row delivdets">
+            <b class="col-md-4">Order ID:</b>
+            <p class="col-md-5">{{ selectedOrder[0].id }}</p>
+          </div>
+          <div class="row delivdets">
+            <b class="col-md-4">Status:</b>
+            <p class="col-md-5">{{ selectedOrder[0].Status }}</p>
+          </div>
+          <div class="row delivdets">
+            <b class="col-md-4">Contact Person:</b>
+            <p class="col-md-5">{{ selectedOrder[0].owner }}</p>
+          </div>
+          <div class="row delivdets">
+            <b class="col-md-4">Email:</b>
+            <p class="col-md-5">{{ selectedOrder[0].email }}</p>
+          </div>
+
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <b class="col-md-4">Order Date:</b>
+            <p class="col-md-5">{{ selectedOrder[0].order_date }}</p>
+          </div>
+          <div class="row">
+            <b class="col-md-4">Address:</b>
+            <p class="col-md-5">{{ selectedOrder[0].addressline }}</p>
+          </div>
+          <div class="row">
+            <b class="col-md-4">Phone:</b>
+            <p class="col-md-5">{{ selectedOrder[0].phone }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row delivdets">
+        <b class="">Product(s) Ordered:</b>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"><b>Product Name</b></th>
+              <th scope="col"><b>Product Type</b></th>
+              <th scope="col"><b>Quantity</b></th>
+              <th scope="col"><b>Price</b></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="productL in selectedOrder[0].product_uid">
+              <th scope="row">{{ productL.title }}</th>
+              <td>{{ productL.product_mode }}</td>
+              <td>{{ productL.count }}</td>
+              <td>{{ productL.original_price }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </v-dialog>
   <div class="pa-2 d-none d-sm-flex">
     <v-btn :disabled="authStatus" color="black" class="white--text" block @click.prevent="signOut()">
       Logout
@@ -34,7 +106,7 @@
                     </v-btn>
                     <v-dialog v-model="nameDialog" width="500px">
                       <e-profile-edit-dialog name="nameDialog" title="Update Name" :initial-string="signedInUser.fullName"
-                        :loading="loading" />
+                        :loading="loading" @close="close"/>
                     </v-dialog>
                   </v-list-item-action>
                 </div>
@@ -51,11 +123,12 @@
                 </div>
                 <div class="col-md-2">
                   <v-list-item-action>
-                    <v-btn icon @click="nameDialog = true">
+                    <v-btn icon @click="phoneDialog = true">
                       <v-icon>mdi-pencil</v-icon>
                     </v-btn>
-                    <v-dialog v-model="nameDialog" width="500px">
-                      <e-profile-edit-dialog name="nameDialog" :initial-string="signedInUser.phone" :loading="loading" />
+                    <v-dialog v-model="phoneDialog" width="500px">
+                      <e-profile-edit-dialog name="nameDialog" :initial-string="signedInUser.phone" :loading="loading" 
+                      @close="close"/>
                     </v-dialog>
                   </v-list-item-action>
                   <v-divider inset />
@@ -76,8 +149,8 @@
                     <v-btn icon @click="emailDialog = true">
                       <v-icon>mdi-pencil</v-icon>
                     </v-btn>
-                    <v-dialog v-model="emailDialog" width="500px">
-                      <e-profile-edit-dialog name="emailDialog" title="Update Email" :initial-string="signedInUser.email"
+                    <v-dialog width="500px" v-if="emailDialog" v-model="emailDialog" >
+                      <EProfileEditDialog name="emailDialog" title="Update Email" :initial-string="signedInUser.email"
                         :loading="loading" @close="close" />
                     </v-dialog>
                   </v-list-item-action>
@@ -112,13 +185,16 @@
               </thead>
               <tbody>
                 <tr v-for="order in orders">
-                  <th scope="row">{{order.id}}</th>
-                  <td>{{order.total}}</td>
-                  <td>{{order.product_uid.map(({count, id, original_price, product_mode, ...rest }) => ({ ...rest })).map(function (item) {
-        return item.title;
-      }).toString()}}</td>
-                  <td>{{order.addressline}}</td>
-                  <td style="text-decoration: underline; color: blue; font-weight: bold; cursor: pointer;">Details</td>
+                  <th scope="row">{{ order.id }}</th>
+                  <td>{{ order.total }}</td>
+                  <td>{{ order.product_uid.map(({ count, id, original_price, product_mode, ...rest }) => ({
+                    ...rest
+                  })).map(function (item) {
+                    return item.title;
+                  }).toString() }}</td>
+                  <td>{{ order.addressline }}</td>
+                  <td style="text-decoration: underline; color: blue; font-weight: bold; cursor: pointer;"
+                    @click="filterSelected(order.id)">Details</td>
                 </tr>
               </tbody>
             </table>
@@ -132,6 +208,7 @@
 <script>
 import useUserStore from "../stores/index";
 import pinia from "../stores/setup";
+import EProfileEditDialog from '../components/profileEditDialog.vue'
 import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 import { db } from "../firebase.js"
 import { getAuth, signOut } from "firebase/auth";
@@ -139,6 +216,9 @@ const auth = getAuth();
 const store = useUserStore(pinia);
 
 export default {
+  component: {
+    EProfileEditDialog
+  },
   props: {
     emptyCart: {
       type: Function,
@@ -153,8 +233,12 @@ export default {
       authStatus: true,
       signedInUser: [],
       emailDialog: false,
+      loading: false,
       nameDialog: false,
-      orders: []
+      phoneDialog: false,
+      showOrderDetails: false,
+      orders: [],
+      selectedOrder: [],
     };
   },
   created() {
@@ -192,8 +276,23 @@ export default {
           ...doc.data()
         }
       })
+    },
+
+    close(name) {
+      if (name == "emailDialog") {
+        this.emailDialog = false;
+      } else if (name == "nameDialog") {
+        this.nameDialog = false;
+      }
+    },
+
+    async filterSelected(selected) {
+      this.selectedOrder = this.orders.filter(o => o.id == selected)
+      console.log(this.selectedOrder)
+      this.showOrderDetails = true
     }
   }
+
 };
 
 </script>
@@ -215,6 +314,11 @@ export default {
   margin: 10px 0px;
   padding-left: 2rem;
   width: 100%;
+}
+
+.delivdets {
+  padding-top: 20px;
+  margin-bottom: 20px;
 }
 
 .innerText h3 {

@@ -12,7 +12,7 @@
         </v-card-text>
         <v-card-actions>
             <v-spacer />
-            <v-btn :loading="loading" text @click="update(updatedItem)">
+            <v-btn :loading="loading" text @click="update(updatedItem)" >
                 save
             </v-btn>
         </v-card-actions>
