@@ -25,6 +25,7 @@ const phoneNumber = ref('')
 const order = ref([])
 const loadUser = async () => {
     const docSnaps = await getDocs(collection(db, 'users', store.userUid, 'cart'));
+    
     cartProduct.value = docSnaps.forEach((doc) => {
         cartIds.value = doc.id
         cartIdCounts.value = doc.get('item_count')
@@ -39,7 +40,7 @@ const loadProducts = async () => {
     const product = { id: docSnap.id, ...docSnap.data(), count: count };
     products.value.push(product)
     productInCart.value = products.value
-
+    console.log(products.value)
     const cartPricesArray = productInCart.value.map(({ count, description, id, manufacturer, owner, product_mode, product_type, title, images, search_tags, expiry_date, control_med, ...rest }) => ({ ...rest }))
     const cartPricesArrayString = cartPricesArray.map(function (item) {
         return item.original_price * count;
@@ -53,14 +54,24 @@ const loadProducts = async () => {
     order.value = productInCart.value.map(({description, expiry_date, manufacturer, owner, search_tags, images, product_type, ...rest }) => ({ ...rest }))
 }
 
-onMounted(() => {
-    loadUser();
+const loadProductsList = computed(() => {
+    console.log('Ran')
+    loadUser()
+    return products.value;
 })
+
+// onMounted(() => {
+//     loadUser();
+// })
 
 
 const deletefromCart = async (id) => {
     await deleteDoc(doc(db, 'users', store.userUid, 'cart', id));
     store.decrement()
+    const objWithIdIndex = products.value.findIndex((obj) => obj.id === id);
+    console.log()
+    products.value.splice(objWithIdIndex, 1);
+    console.log(products.value)
 }
 
 const reference = computed(() => {
@@ -120,7 +131,7 @@ function onCancelledPayment(response) {
                                             <p class="mb-0">You have {{ products.length }} items in your cart</p>
                                         </div>
                                     </div>
-                                    <div class="card mb-3" v-for="cartItems in products">
+                                    <div class="card mb-3" v-for="cartItems in loadProductsList">
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between">
                                                 <div class="d-flex flex-row align-items-center">
