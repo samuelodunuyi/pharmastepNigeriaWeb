@@ -26,7 +26,7 @@
             <RouterLink to="/login" class="nav-item nav-link" v-if="userUid == ''">Login</RouterLink>
             <RouterLink to="/profile/account" class="nav-item nav-link" v-else>Profile</RouterLink>
             <v-btn to="/cart" icon color="#212529" style="margin-top: -2px;">
-              <v-badge :content=retz color="#47B65C">
+              <v-badge :content=slides color="#47B65C">
                 <v-icon size="small" color="white">mdi-cart</v-icon>
               </v-badge>
             </v-btn>
@@ -74,12 +74,13 @@ export default {
 
   computed: {
     retz() {
-      if (this.cartNo < store.cartNo) {
+      if (this.cartNo < this.slides) {
         this.cartNo = store.cartNo
+        this.cartNos()
         this.loadCart()
       }
       return this.cartNo
-    }
+    },
   },
 
   methods: {
@@ -90,6 +91,11 @@ export default {
         // this.cartNo = store.cartNo
       })
     },
+
+    cartNos() {
+            this.$emit("close", this.slides);
+            console.log(this.slides)
+        },
 
     relocate() {
       window.open("https://play.google.com/store/apps/details?id=com.pharmastepng.meds",

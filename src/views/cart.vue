@@ -55,15 +55,9 @@ const loadProducts = async () => {
 }
 
 const loadProductsList = computed(() => {
-    console.log('Ran')
     loadUser()
     return products.value;
 })
-
-// onMounted(() => {
-//     loadUser();
-// })
-
 
 const deletefromCart = async (id) => {
     await deleteDoc(doc(db, 'users', store.userUid, 'cart', id));

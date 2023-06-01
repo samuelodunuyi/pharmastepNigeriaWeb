@@ -285,6 +285,9 @@ export default {
       } else if (name == "nameDialog") {
         this.nameDialog = false;
       }
+      else if (name == "phoneDialog") {
+        this.nameDialog = false;
+      }
     },
 
     async filterSelected(selected) {

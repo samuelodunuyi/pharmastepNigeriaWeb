@@ -1,6 +1,6 @@
 <script setup>
 import { useRoute } from "vue-router"
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import topHeader from '../components/topHeader.vue';
 import { db } from "../firebase";
 import { collection, getDocs, setDoc, getDoc, doc, increment, updateDoc } from "firebase/firestore";
@@ -34,9 +34,13 @@ const AddtoCart = async (id) => {
         }).then(store.increment());
     }
 }
+const newCartValue = computed(() => {
+    return store.cartNo
+})
 
 </script>
 <template>
+    <topHeader :slides="newCartValue"/>
     <div class="container mt-5 mb-5">
         <div class="row d-flex justify-content-center">
             <div class="col-md-10">
@@ -188,6 +192,7 @@ export default {
             cart: [],
         };
     },
+
     methods: {
         change_image(image) {
             var container = document.getElementById("main-image");
