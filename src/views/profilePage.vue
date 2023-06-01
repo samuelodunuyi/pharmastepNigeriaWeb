@@ -173,6 +173,7 @@ import EProfileEditDialog from '../components/profileEditDialog.vue';
         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
           data-bs-parent="#accordionExample">
           <div class="accordion-body">
+          <div class="table-responsive-md">
             <table class="table">
               <thead>
                 <tr>
@@ -198,6 +199,7 @@ import EProfileEditDialog from '../components/profileEditDialog.vue';
                 </tr>
               </tbody>
             </table>
+          </div>
           </div>
         </div>
       </div>

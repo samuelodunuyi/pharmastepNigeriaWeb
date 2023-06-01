@@ -131,6 +131,7 @@ const productFiltered = computed(() => {
 .tophead input {
     margin-top: 40px;
     height: 40px;
+    background-color: white;
     width: 100%;
     border: 0.5px solid black;
     padding: 10px;
