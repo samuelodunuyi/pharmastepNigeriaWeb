@@ -3,6 +3,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase.js"
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router"
+import topHeader from '../components/topHeader.vue';
 import TopBanner from "../components/TopBanner.vue";
 import Subscribe from "../components/Subscribe.vue";
 
@@ -30,6 +31,7 @@ const navigateToDetails = (id) => {
 </script>
 
 <template>
+    <topHeader/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap" />
     <div>
         <TopBanner></TopBanner>

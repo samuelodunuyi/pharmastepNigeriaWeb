@@ -1,4 +1,5 @@
 <template>
+    <topHeader/>
     <section style="background-color: #f5f5f5;">
         <div class="container py-5">
             <h2 class="mt-10 ml-3">
@@ -24,7 +25,12 @@
 
 
 <script>
+import topHeader from '../components/topHeader.vue';
+
 export default {
+    components:{
+        topHeader
+    },
     data() {
         return {
             categories: [

@@ -1,6 +1,5 @@
 <template>
   <v-app id="app">
-    <TopHeader />
     <v-main>
       <router-view />
     </v-main>
@@ -10,14 +9,12 @@
 
 
 <script>
-import TopHeader from '../src/components/topHeader.vue';
 import FooterE from "../src/components/Footer.vue";
 
 export default {
   name: "App",
   components: {
     FooterE,
-    TopHeader
   },
   data: () => ({
     snackbar: false,

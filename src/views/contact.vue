@@ -1,3 +1,7 @@
+<script setup>
+import topHeader from '../components/topHeader.vue';
+
+</script>
 <template>
   <head>
     <!-- Required meta tags -->
@@ -6,11 +10,9 @@
 
     <title>Contact Form #6</title>
   </head>
+  <topHeader/>
   <body>
-  
-
   <div class="content">
-    
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-10">

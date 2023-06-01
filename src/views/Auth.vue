@@ -1,4 +1,9 @@
+<script setup>
+import topHeader from '../components/topHeader.vue';
+
+</script>
 <template>
+    <topHeader/>
         <v-container>
         <v-layout fill-height justify-center align-center wrap>
         <v-card width="500">
@@ -30,10 +35,12 @@
 <script>
 import ELoginForm from "../components/AuthLogin.vue";
 import ERegisterForm from "../components/AuthRegister.vue";
+import topHeader from '../components/topHeader.vue';
 export default {
     components: {
         ELoginForm,
-        ERegisterForm
+        ERegisterForm,
+        topHeader
     },
     data() {
         return {

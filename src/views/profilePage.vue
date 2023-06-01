@@ -1,9 +1,11 @@
 <script setup>
 import EProfileEditDialog from '../components/profileEditDialog.vue';
+import topHeader from '../components/topHeader.vue';
 
 </script>
 
 <template>
+      <topHeader />
   <v-dialog v-model="showOrderDetails" width="100%">
     <div style="width: 100%; background-color: white; padding: 30px; overflow: auto;">
       <div class="row">

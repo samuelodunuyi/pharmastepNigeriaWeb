@@ -26,7 +26,7 @@
             <RouterLink to="/login" class="nav-item nav-link" v-if="userUid == ''">Login</RouterLink>
             <RouterLink to="/profile/account" class="nav-item nav-link" v-else>Profile</RouterLink>
             <v-btn to="/cart" icon color="#212529" style="margin-top: -2px;">
-              <v-badge :content=slides color="#47B65C">
+              <v-badge :content=retz color="#47B65C">
                 <v-icon size="small" color="white">mdi-cart</v-icon>
               </v-badge>
             </v-btn>
@@ -53,7 +53,7 @@ export default {
       },
     },
   },
-  emits: ["add-to-cart"],
+  emits: ["close"],
 
   data() {
     return {
@@ -69,7 +69,6 @@ export default {
 
   created() {
     this.userUid = store.userUid
-    this.loadCart()
   },
 
   computed: {
@@ -79,23 +78,27 @@ export default {
         this.cartNos()
         this.loadCart()
       }
-      return this.cartNo
+      return this.cartIdCounts.length
     },
   },
 
   methods: {
     async loadCart() {
       const docSnaps = await getDocs(collection(db, 'users', store.userUid, 'cart'));
+      let ps = []
       this.cartProduct = docSnaps.forEach((doc) => {
-        this.cartIdCounts.push(doc.id)
+        ps.push(doc.id)
+        this.cartIdCounts= ps.filter((item,
+        index) => ps.indexOf(item) === index);
+        console.log(this.cartIdCounts)
         // this.cartNo = store.cartNo
       })
     },
 
     cartNos() {
-            this.$emit("close", this.slides);
-            console.log(this.slides)
-        },
+      this.$emit("close", this.slides);
+      console.log(this.slides)
+    },
 
     relocate() {
       window.open("https://play.google.com/store/apps/details?id=com.pharmastepng.meds",

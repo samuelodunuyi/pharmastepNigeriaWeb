@@ -3,6 +3,7 @@ import { collection, getDocs, setDoc, getDoc, doc, increment, updateDoc } from "
 import { db } from "../firebase.js"
 import { onMounted, ref, watch, computed } from "vue";
 import { useRouter } from "vue-router"
+import topHeader from '../components/topHeader.vue';
 import useUserStore from "../stores";
 import pinia from "../stores/setup";
 const store = useUserStore(pinia);
@@ -37,6 +38,9 @@ const AddtoCart = async (id) => {
         }).then(store.increment());
     }
 }
+const newCartValue = computed(() => {
+    return store.cartNo
+})
 
 const productFiltered = computed(() => {
     var productsMain = products.value
@@ -56,6 +60,7 @@ const productFiltered = computed(() => {
 </script>
 
 <template>
+    <topHeader :slides="newCartValue"/>
     <section style="background-color: #f5f5f5;">
         <div class="container py-5">
             <div class="row">

@@ -3,6 +3,8 @@ import { useRoute } from "vue-router"
 import { ref, onMounted } from 'vue';
 import { db } from "../firebase";
 import { getDocs, collection, doc } from "firebase/firestore";
+import topHeader from '../components/topHeader.vue';
+
 const emit = defineEmits(["addToCart"])
 const emitAddtoCart = (isCorrects) => {
   emit("addToCart", isCorrects)
@@ -30,6 +32,7 @@ const loadProduct = async () => {
 </script>
 
 <template>
+    <topHeader/>
     <section>
         <div class="container py-5">
             <h2 class="mt-10 ml-3">
