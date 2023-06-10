@@ -33,7 +33,9 @@ const loadProduct = async () => {
 
 <template>
     <topHeader/>
+
     <section>
+        <div class="container py-5" style="margin-bottom: -50px; font-size: larger; cursor: pointer;" @click="$router.go(-1)"><i class="fa fa-arrow-left"></i><span>&nbsp;</span>Back</div>
         <div class="container py-5">
             <h2 class="mt-10 ml-3">
                 {{ categoryId.replace('_', ' ') }}
@@ -77,11 +79,17 @@ const loadProduct = async () => {
                     </div>
                 </div>
             </div>
-            <v-layout v-if="productbyCategory.length === 0" justify-center>
-                <div class="headline grey--text">
-                    No products yet... :(
+            <div class="text-center" v-if="productbyCategory.length === 0" justify-center>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
+                <div class="headline text-center">
+                    <p>This is unavailable at the moment...</p>
+                    <p>Contact us on whatsapp</p>
+                    <div>&nbsp;</div>
+                <div class="form-group"><button class="btn btn-primary" style="color: white;" type="button">Whatsapp </button></div>
                 </div>
-            </v-layout>
+            </div>
         </div>
     </section>
 </template>

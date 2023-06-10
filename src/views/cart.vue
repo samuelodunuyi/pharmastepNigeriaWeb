@@ -42,11 +42,13 @@ const loadProducts = async () => {
     products.value.push(product)
     productInCart.value = products.value
     console.log(products.value)
+    console.log(productInCart.value)
     const cartPricesArray = productInCart.value.map(({ count, description, id, manufacturer, owner, product_mode, product_type, title, images, search_tags, expiry_date, control_med, ...rest }) => ({ ...rest }))
     const cartPricesArrayString = cartPricesArray.map(function (item) {
         return item.original_price * count;
     });
     let lastElement = cartPricesArrayString[cartPricesArrayString.length - 1];
+    cartItemList.value=[]
     cartItemList.value.push(lastElement)
 
     cartSubTotal.value = cartItemList.value.reduce((partialSum, a) => (partialSum + a), 0);
@@ -61,12 +63,11 @@ const loadProductsList = computed(() => {
 })
 
 const deletefromCart = async (id) => {
-    await deleteDoc(doc(db, 'users', store.userUid, 'cart', id));
+    await deleteDoc(doc(db, 'users', store.userUid, 'cart', id))
     store.decrement()
     const objWithIdIndex = products.value.findIndex((obj) => obj.id === id);
-    console.log()
+    loadUser()
     products.value.splice(objWithIdIndex, 1);
-    console.log(products.value)
 }
 
 const reference = computed(() => {

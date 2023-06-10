@@ -5,7 +5,7 @@
                 <h2 class="text-center newsletter">Subscribe to our Newsletter</h2>
                 <p class="text-center">Get Weekly Health Tips from us, to boost your lifestyle and health choices. </p>
             </div>
-            <form class="form-inline" method="post">
+            <form class="form-inline" @submit.prevent="onSubmit">
                 <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Your Email"></div>
                 <div class="form-group"><button class="btn btn-primary" type="button">Subscribe </button></div>
             </form>

@@ -48,18 +48,18 @@
           <div class="col-md-6 gx-5 mb-4">
             <div class="bg-image hover-overlay ripple shadow-2-strong" data-mdb-ripple-color="light">
               <video
-                loop  autoplay width="320" height="320">
-                <source src="https://firebasestorage.googleapis.com/v0/b/shopper-56289.appspot.com/o/pharmastep.mp4?alt=media&token=7e67bb6f-68e4-43de-8d8f-828018226315" type="video/mp4" />
+                loop  autoplay width="380" height="380" src="../components/images/pharmvid.mp4">
               </video>
             </div>
           </div>
-
           <div class="col-md-6 gx-5 mb-4">
-            <h4><strong>What do we offer</strong></h4>
+            <h4><strong>Who we are</strong></h4>
             <p class="text-justify lh-lg">
               PharmaStep is your number 1 stop for your prescription drugs,
               over-the-counter medicine and healthcare services. Access to medications from wherever you are in Lagos State.
             </p>
+            <p>&nbsp;</p>
+            <h4><strong>What we offer</strong></h4>
             <p class="text-justify lh-lg">
               The main feature of the PharmaStep application is its accessibility.
               You could be on your way from work, or in a salon, literally anywhere at any point,

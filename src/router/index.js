@@ -2,7 +2,9 @@ import { createRouter, createWebHistory } from "vue-router";
 import Products from "../views/ProductsView.vue"
 import ProductDetailView from "../views/productDetails.vue"
 import HomeView from "../views/HomeView.vue"
-import AuthLogin from "../views/Auth.vue"
+import Auth from "../views/Auth.vue"
+import AuthLogin from "../components/AuthLogin.vue"
+import register from "../components/AuthRegister.vue"
 import Profile from "../views/profilePage.vue"
 import Categories from "../views/Category.vue"
 import cart from "../views/cart.vue"
@@ -57,13 +59,30 @@ const router = createRouter({
             component: contact
         },
 
-        {
-            path: "/login",
-            name: "login",
-            component: AuthLogin,
-            meta: { notRequiresAuth: true },
 
-        },
+        {
+            path: "/auth",
+            name: 'auth',
+            component: Auth,
+            meta: { notRequiresAuth: true },
+            children:[
+              {
+                path: 'login', 
+                name: 'login',
+                component: AuthLogin
+              },
+      
+              {
+                path: 'register',
+                name: 'register',
+                component: register
+              },
+            ]
+          },
+
+
+
+        
         {
             path: "/profile/account",
             name: "profile",

@@ -74,7 +74,7 @@ import topHeader from '../components/topHeader.vue';
     </div>
   </v-dialog>
   <div class="pa-2 d-none d-sm-flex">
-    <v-btn :disabled="authStatus" color="black" class="white--text" block @click.prevent="signOut()">
+    <v-btn :disabled="authStatus" color="black" class="white--text" block @click.prevent="signOutUser()">
       Logout
     </v-btn>
   </div>
@@ -254,7 +254,7 @@ export default {
 
   },
   methods: {
-    signOut() {
+    signOutUser() {
       auth.signOut();
       store.userUid = ''
       store.user = ''

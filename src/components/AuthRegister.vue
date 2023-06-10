@@ -1,21 +1,44 @@
 <template>
-  <v-card-text>
-    <v-form ref="form" v-model="valid" lazy-validation>
-      <v-text-field v-model="fullname" label="Name" :rules="nameRules" required />
-      <v-text-field v-model="email" label="Email" :rules="emailRules" required />
-      <span class="caption grey--text text--darken-1">Please enter a valid email for your account</span>
-      <v-text-field v-model="password" label="Password" type="password" :rules="passwordRules" required />
-      <span class="caption grey--text text--darken-1">Please enter a password for your account</span>
-      <v-text-field v-model="phoneNumber" label="Phone Number" type="text" required />
-      <span class="caption grey--text text--darken-1">Please enter a phone number for your account</span>
-    </v-form>
-  </v-card-text>
-  <v-card-actions>
-    <v-spacer />
-    <v-btn :loading="status" depressed class="text-none login" color="primary" @click="validate()">
-      Register
-    </v-btn>
-  </v-card-actions>
+  <div class="col-md-6 col-lg-7 d-flex align-items-center">
+    <div class="card-body p-4 p-lg-5 text-black">
+      <form @submit.prevent="onSubmit">
+        <div class="d-flex align-items-center mb-3 pb-1">
+          <span class="h2 fw-bold mb-0">Create an Account</span>
+        </div>
+        <div class="form-outline mb-4">
+          <input type="text" v-model="fullname" id="form2Example17" class="form-control form-control-lg" />
+          <label class="form-label" for="form2Example17">Full Name</label>
+        </div>
+        <div class="form-outline mb-4">
+          <input type="email" v-model="email" id="form2Example37" class="form-control form-control-lg" />
+          <label class="form-label" for="form2Example37">Email address</label>
+        </div>
+        <div class="form-outline mb-4">
+          <input type="text" id="form2Example47" v-model="phoneNumber" class="form-control form-control-lg" />
+          <label class="form-label" for="form2Example47">Phone Number</label>
+        </div>
+        <div style="display: flex; flex-direction: row; gap: 5px;">
+        <div class="form-outline col-md-6">
+          <input type="password" id="form2Example57" v-model="password" class="form-control form-control-lg" />
+          <label class="form-label" for="form2Example57">Password</label>
+        </div>
+        <div class="form-outline col-md-6">
+          <input type="password" id="form2Example27" v-model="confirmpassword" class="form-control form-control-lg" />
+          <label class="form-label" for="form2Example27">Confirm Password</label>
+        </div>
+      </div>
+        <div class="form-outline mb-4">
+          <button class="btn btn-dark btn-lg" type="button" style="color: white; width: 100%;" @click="validate">Sign Up</button>
+        </div>
+        <div style="justify-content: center; text-align: center; margin-bottom: -20px;">
+          <p class="mb-5 pb-lg-2" style="color: #393f81;">Already have an account?
+            <RouterLink to="/auth/login" style="color: #393f81;">Login here</RouterLink>
+          </p>
+        </div>
+
+      </form>
+    </div>
+  </div>
 </template>
   
 <script>
@@ -42,6 +65,7 @@ export default {
         v => /.+@.+/.test(v) || "E-mail must be valid"
       ],
       password: "",
+      confirmpassword:"",
       status: false,
       phoneNumber: "",
       passwordRules: [v => !!v || "Password is required"]

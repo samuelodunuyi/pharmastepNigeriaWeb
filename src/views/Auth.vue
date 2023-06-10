@@ -3,33 +3,24 @@ import topHeader from '../components/topHeader.vue';
 
 </script>
 <template>
-    <topHeader/>
-        <v-container>
-        <v-layout fill-height justify-center align-center wrap>
-        <v-card width="500">
-            <v-tabs v-model="tab" background-color="transparent" color="basil" grow centered>
-                <v-tab value="1">Login</v-tab>
-                <v-tab value="2">Register</v-tab>
-            </v-tabs>
-
-            <v-card-text>
-                <v-window v-model="tab">
-                    <v-window-item value="1">
-                        <v-card>
-                        <e-login-form />
-                    </v-card>
-                    </v-window-item>
-
-                    <v-window-item value="2">
-                        <v-card>
-                        <e-register-form />
-                    </v-card>
-                    </v-window-item>
-                </v-window>
-            </v-card-text>
-        </v-card>
-        </v-layout>
-    </v-container>
+    <topHeader />
+    <section class="vh-100" style="background-color: #e4e4e4;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                    <div class="card" style="border-radius: 1rem;">
+                        <div class="row g-0">
+                            <div class="col-md-6 col-lg-5 d-none d-md-block">
+                                <img src="../assets/pharmBanner.jpg" alt="login form" class="img-fluid"
+                                    style="border-radius: 1rem 0 0 1rem;" />
+                            </div>
+                            <router-view></router-view>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 </template>
   
 <script>
@@ -51,7 +42,7 @@ export default {
 </script>
   
 <style scoped>
-.v-card{
+.v-card {
     margin: 0px auto;
     align-items: center;
     justify-content: center;

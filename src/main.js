@@ -1,10 +1,7 @@
 import './assets/main.css'
-
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
-import VueMeta from 'vue-meta'
-
 import * as bootstrap from 'bootstrap'
 import '../src/scss/styles.scss'
 

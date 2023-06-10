@@ -1,39 +1,47 @@
 <template>
-  <v-card-text>
-    <v-form ref="form" v-model="valid" lazy-validation autocomplete="off">
-      <input autocomplete="false" name="hidden" type="text" style="display:none;">
-      <v-text-field v-model="email" label="Email" :rules="emailRules" required />
-      <span class="caption grey--text text--darken-1">
-        This is the email you will use to login to your account
-      </span>
-      <v-text-field v-model="password" label="Password" type="password" :rules="passwordRules" required />
-      <span class="caption grey--text text--darken-1">Please enter password for your account</span>
-    </v-form>
-    <v-divider class="my-5" />
-    <div class="mb-3">
-      Or Sign in with:
-    </div>
-    <v-btn color="red darken-2" dark class="text-none mr-2" @click="googleLogin()"> 
-     <v-icon left>
-        fab fa-google
-      </v-icon>Google
-    </v-btn>
-  </v-card-text>
-  <v-card-actions>
-    <v-dialog v-model="reset" width="500">
-      <template v-slot:activator="{ on }">
-        <v-btn text class="text-none font-weight-regular" @click="reset = true">
-          Forgot my password
-        </v-btn>
-      </template>
-      <e-password-reset-form @close-dialog="closeDialog" />
-    </v-dialog>
+  <div class="col-md-6 col-lg-7 d-flex align-items-center">
+    <div class="card-body p-4 p-lg-5 text-black">
+      <form ref="form" @submit.prevent="onSubmit">
+        <div class="d-flex align-items-center mb-3 pb-1">
+          <i class="fas fa-user-alt fa-2x me-3" style="color: #ff6219;"></i>
+          <span class="h2 fw-bold mb-0">Sign into your account</span>
+        </div>
+        <div class="form-outline mb-4">
+          <input type="email" id="form2Example17" class="form-control form-control-lg" v-model="email" :required="emailRules"/>
+          <label class="form-label" for="form2Example17">Email address</label>
+        </div>
 
-    <v-spacer />
-    <v-btn :loading="status" depressed color="primary" class="text-nonec login" @click.prevent="validate()">
-      Login
-    </v-btn>
-  </v-card-actions>
+        <div class="form-outline mb-4">
+          <input type="password" id="form2Example27" class="form-control form-control-lg" v-model="password" required/>
+          <label class="form-label" for="form2Example27">Password</label>
+        </div>
+
+        <div class="form-outline mb-4">
+          <button class="btn btn-dark btn-lg" type="button" style="color: white; width: 100%;"
+            @click.prevent="validate()">Login</button>
+        </div>
+        <hr class="my-4">
+        <div class="d-flex justify-content-center text-center" style="width: 100%;">
+          or</div>
+        <div class="d-flex justify-content-center text-center mt-4 pt-1" style="width: 100%;">
+          <button class="btn btn-lg btn-block btn-primary"
+            style="background-color: #dd4b39; color: white; border: none; width: 100%;" @click="googleLogin"><i
+              class="fab fa-google me-2"></i>Google Signin</button>
+        </div>
+        <div class="justify-content-center text-center" style="width: 100%; margin-top: 10px; margin-bottom: -50px;">
+          <v-dialog v-model="reset" width="500">
+            <template v-slot:activator="{ on }">
+              <p class="small text-muted" @click="reset = true">Forgot password?</p>
+            </template>
+            <e-password-reset-form @close-dialog="closeDialog" />
+          </v-dialog>
+          <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account?
+            <RouterLink to="/auth/register" style="color: #393f81;">Register here</RouterLink>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
 </template>
   
 <script>
@@ -69,9 +77,9 @@ export default {
     };
   },
 
-  created(){
-    this.email='',
-    this.password=''  
+  created() {
+    this.email = '',
+      this.password = ''
   },
 
   methods: {
@@ -79,7 +87,7 @@ export default {
       this.reset = false;
     },
     login() {
-      this.status= true
+      this.status = true
       signInWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
           // Signed in 
@@ -91,7 +99,7 @@ export default {
           store.useremail = userCredential.user.email;
 
           setTimeout(async () => {
-            this.status= false
+            this.status = false
             window.location.reload()
           }, 3000)
 
@@ -102,8 +110,9 @@ export default {
         });
     },
     validate() {
+      this.login()
+
       if (this.$refs.form.validate()) {
-        this.login()
       }
     },
     googleLogin() {
@@ -131,11 +140,11 @@ export default {
           console.log(errorMessage)
           // ...
         });
-        if(store.userUid!=''){
+      if (store.userUid != '') {
         setTimeout(async () => {
           window.location.reload()
         }, 3000)
-        }
+      }
     }
 
   }
