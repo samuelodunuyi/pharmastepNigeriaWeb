@@ -73,11 +73,7 @@ import topHeader from '../components/topHeader.vue';
       </div>
     </div>
   </v-dialog>
-  <div class="pa-2 d-none d-sm-flex">
-    <v-btn :disabled="authStatus" color="black" class="white--text" block @click.prevent="signOutUser()">
-      Logout
-    </v-btn>
-  </div>
+
   <div class="profile">
     <div class="accordion" id="accordionExample">
       <div class="accordion-item">
@@ -206,6 +202,11 @@ import topHeader from '../components/topHeader.vue';
         </div>
       </div>
     </div>
+    <div class="pa-2 d-none d-sm-flex">
+    <v-btn :disabled="authStatus" color="black" class="white--text" block @click.prevent="signOutUser()">
+      Logout
+    </v-btn>
+  </div>
   </div>
 </template>
   

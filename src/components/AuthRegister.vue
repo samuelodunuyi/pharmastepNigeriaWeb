@@ -55,21 +55,10 @@ export default {
     return {
       valid: true,
       fullname: "",
-      nameRules: [
-        v => !!v || "Name is required",
-        v => v.length <= 50 || "Name must be less than 10 characters"
-      ],
-      email: "",
-      emailRules: [
-        v => !!v || "E-mail is required",
-        v => /.+@.+/.test(v) || "E-mail must be valid"
-      ],
       password: "",
       confirmpassword:"",
       status: false,
       phoneNumber: "",
-      passwordRules: [v => !!v || "Password is required"]
-      // route: '/profile/user-information',
     };
   },
   methods: {
@@ -77,9 +66,7 @@ export default {
       this.$emit("close-dialog");
     },
     validate() {
-      if (this.$refs.form.validate()) {
         this.registerUser();
-      }
     },
     registerUser() {
       if (this.$refs.form.validate()) {

@@ -111,9 +111,6 @@ export default {
     },
     validate() {
       this.login()
-
-      if (this.$refs.form.validate()) {
-      }
     },
     googleLogin() {
       signInWithPopup(auth, provider)
@@ -127,7 +124,7 @@ export default {
           store.user = result.user;
           store.useremail = result.user.email;
 
-          // window.location.reload();
+          window.location.reload();
           // IdP data available using getAdditionalUserInfo(result)
           // ...
         }).catch((error) => {
@@ -151,12 +148,5 @@ export default {
 };
 </script>
   
-<style scoped>
-.login {
-  background-color: blue;
-  color: white !important;
-  font-size: 0.80rem;
-  font-family: 'Roboto';
-}
-</style>
+<style scoped></style>
   

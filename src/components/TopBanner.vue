@@ -67,11 +67,10 @@
               wait until you are down with illness, before being able to interact
               with resources needed to overcome such illness.
             </p>
-            <div class="d-flex justify-content-left text-center mt-4 pt-1" style="width: 100%;">
+            <div class="d-flex justify-content-left text-center" style="width: 100%;">
               <a href="https://play.google.com/store/apps/details?id=com.pharmastepng.meds" class="btn btn-primary m-1"
                 role="button" rel="nofollow" target="_blank">
-                <button class="btn btn-lg btn-block btn-primary" style="color: white; border: none; width: 100%;"
-                  @click="googleLogin">
+                <button class="btn btn-lg btn-block btn-primary" style="color: white; border: none; width: 100%;">
                   <v-icon>mdi-google-play</v-icon>Download App</button>
               </a>
             </div>
