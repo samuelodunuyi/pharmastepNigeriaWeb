@@ -295,7 +295,6 @@ export default {
 
     async filterSelected(selected) {
       this.selectedOrder = this.orders.filter(o => o.id == selected)
-      console.log(this.selectedOrder)
       this.showOrderDetails = true
     }
   }

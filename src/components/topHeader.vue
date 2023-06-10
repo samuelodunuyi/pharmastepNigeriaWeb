@@ -90,14 +90,11 @@ export default {
         ps.push(doc.id)
         this.cartIdCounts= ps.filter((item,
         index) => ps.indexOf(item) === index);
-        console.log(this.cartIdCounts)
-        // this.cartNo = store.cartNo
       })
     },
 
     cartNos() {
       this.$emit("close", this.slides);
-      console.log(this.slides)
     },
 
     relocate() {

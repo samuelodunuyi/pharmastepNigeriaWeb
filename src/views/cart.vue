@@ -41,8 +41,6 @@ const loadProducts = async () => {
     const product = { id: docSnap.id, ...docSnap.data(), count: count };
     products.value.push(product)
     productInCart.value = products.value
-    console.log(products.value)
-    console.log(productInCart.value)
     const cartPricesArray = productInCart.value.map(({ count, description, id, manufacturer, owner, product_mode, product_type, title, images, search_tags, expiry_date, control_med, ...rest }) => ({ ...rest }))
     const cartPricesArrayString = cartPricesArray.map(function (item) {
         return item.original_price * count;

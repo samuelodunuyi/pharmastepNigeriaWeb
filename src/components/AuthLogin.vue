@@ -79,7 +79,7 @@ export default {
 
   created() {
     this.email = '',
-      this.password = ''
+    this.password = ''
   },
 
   methods: {
@@ -93,9 +93,6 @@ export default {
           // Signed in 
           store.userUid = userCredential.user.uid;
           store.user = userCredential.user;
-          console.log(userCredential)
-          console.log(userCredential.user)
-          console.log(store.user)
           store.useremail = userCredential.user.email;
 
           setTimeout(async () => {

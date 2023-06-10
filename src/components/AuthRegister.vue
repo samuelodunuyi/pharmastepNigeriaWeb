@@ -69,7 +69,6 @@ export default {
         this.registerUser();
     },
     registerUser() {
-      if (this.$refs.form.validate()) {
         const auth = getAuth();
         this.status = true
         createUserWithEmailAndPassword(auth, this.email, this.password)
@@ -85,7 +84,6 @@ export default {
             const errorMessage = error.message;
             // ..
           });
-      }
     },
 
     async createUser(id) {
