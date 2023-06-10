@@ -11,7 +11,7 @@
         <v-icon size="small" color="white">fab fa-instagram</v-icon>
       </a>
       <a href="#" class="btn btn-primary m-1" role="button" rel="nofollow" target="_blank">
-        <v-icon size="small" color="white">fab fa-google-plus</v-icon>
+        <v-icon size="small" color="white">fa fa-whatsapp</v-icon>
       </a>
       <a href="https://play.google.com/store/apps/details?id=com.pharmastepng.meds" class="btn btn-primary m-1" role="button"
         rel="nofollow" target="_blank">
