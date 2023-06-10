@@ -99,6 +99,7 @@ router.beforeEach((to, from, next) => {
             currentUser = user.uid;
             console.log(currentUser)
         } else {
+            currentUser=''
             console.log('You never sign in')
         }
     });
