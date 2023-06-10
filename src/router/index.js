@@ -12,6 +12,8 @@ import Category from "../views/productCategoryPage.vue"
 import contact from "../views/contact.vue"
 import pinia from "../stores/setup.js"
 import useUserStore from '../stores/index.js'
+import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+const auth = getAuth();
 
 const store = useUserStore(pinia)
 const router = createRouter({
@@ -94,10 +96,11 @@ const router = createRouter({
 
  router.beforeEach((to, from, next) => {
 
-     const currentUser = store.userUid;
+     const isLoggedIn = auth.currentUser.uid
+     const currentUser = isLoggedIn;
      const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
      const notRequiresAuth = to.matched.some(record => record.meta.notRequiresAuth);
-    if (requiresAuth && !currentUser) {
+    if (requiresAuth && !currentUser ) {
          next('/login');
      }
      else if (requiresAuth && currentUser) {
