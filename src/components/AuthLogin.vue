@@ -7,19 +7,31 @@
           <span class="h2 fw-bold mb-0">Sign into your account</span>
         </div>
         <div class="form-outline mb-4">
-          <input type="email" id="form2Example17" class="form-control form-control-lg" v-model="email" :required="emailRules"/>
+          <input type="email" id="form2Example17" class="form-control form-control-lg" v-model="email"/>
           <label class="form-label" for="form2Example17">Email address</label>
+          <p>{{ emailErrorMessage }}</p>
         </div>
 
         <div class="form-outline mb-4">
-          <input type="password" id="form2Example27" class="form-control form-control-lg" v-model="password" required/>
+          <div class="input-group">
+            <input v-if="showPassword" type="text" id="form2Example27" class="form-control form-control-lg" v-model="password"/>
+            <input v-else type="password" id="form2Example27" class="form-control form-control-lg" v-model="password"/>
+            <button type="button" v-if="showPassword" class="toggle" @click="toggleShow">
+              <v-icon >fas fa-eye-slash</v-icon>
+           </button>
+           <button type="button" v-else class="toggle" @click="toggleShow">
+              <v-icon >fas fa-eye</v-icon>
+           </button>
+          </div>
           <label class="form-label" for="form2Example27">Password</label>
+          <p>{{ passwordErrorMessage }}</p>
         </div>
 
         <div class="form-outline mb-4">
           <button class="btn btn-dark btn-lg" type="button" style="color: white; width: 100%;"
             @click.prevent="validate()">Login</button>
         </div>
+        <p style="color: red;">{{ generalErrorMessage }}</p>
         <hr class="my-4">
         <div class="d-flex justify-content-center text-center" style="width: 100%;">
           or</div>
@@ -35,7 +47,7 @@
             </template>
             <e-password-reset-form @close-dialog="closeDialog" />
           </v-dialog>
-          <p class="mb-5 pb-lg-2" style="color: #393f81;">Don't have an account?
+          <p class="mb-5 pb-lg-2" style="color: #393f81; padding-bottom: 10px;">Don't have an account?
             <RouterLink to="/auth/register" style="color: #393f81;">Register here</RouterLink>
           </p>
         </div>
@@ -63,17 +75,12 @@ export default {
       reset: false,
       fullname: "",
       status: false,
-      nameRules: [
-        v => !!v || "Name is required",
-        v => v.length <= 10 || "Name must be less than 10 characters"
-      ],
       email: "",
-      emailRules: [
-        v => !!v || "E-mail is required",
-        v => /.+@.+/.test(v) || "E-mail must be valid"
-      ],
+      emailErrorMessage: '',
+      passwordErrorMessage: '',
       password: "",
-      passwordRules: [v => !!v || "Password is required"]
+      generalErrorMessage: '',
+      showPassword: false
     };
   },
 
@@ -86,7 +93,13 @@ export default {
     closeDialog() {
       this.reset = false;
     },
+    toggleShow() {
+      this.showPassword = !this.showPassword;
+    },
     login() {
+      this.emailErrorMessage=''
+      this.passwordErrorMessage=''
+      this.generalErrorMessage=''
       this.status = true
       signInWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
@@ -96,44 +109,38 @@ export default {
           store.useremail = userCredential.user.email;
           console.log(auth.currentUser.email)
 
-          // setTimeout(async () => {
-          //   this.status = false
-          //   window.location.reload()
-          // }, 3000)
-
+          setTimeout(async () => {
+             window.location.reload()
+           }, 3000)
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
+          if(error.code=='auth/wrong-password'){
+            this.generalErrorMessage = 'Wrong Password, retry';
+          }
         });
     },
     validate() {
+      if(this.email==''){
+        return this.emailErrorMessage="Enter valid Email address"
+      }
+      if(this.password=='' || this.password.length<6){
+        return this.passwordErrorMessage="Password is less than 6 characters"
+      }
       this.login()
     },
     googleLogin() {
       signInWithPopup(auth, provider)
         .then((result) => {
-          // This gives you a Google Access Token. You can use it to access the Google API.
           const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
-          // The signed-in user info.
-
           store.userUid = result.user.uid;
           store.user = result.user;
           store.useremail = result.user.email;
 
           window.location.reload();
-          // IdP data available using getAdditionalUserInfo(result)
-          // ...
         }).catch((error) => {
-          // Handle Errors here.
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          // The email of the user's account used.
-          // // The AuthCredential type that was used.
           const credential = GoogleAuthProvider.credentialFromError(error);
-          console.log(errorMessage)
-          // ...
+          this.generalErrorMessage = error.code;
         });
     }
 

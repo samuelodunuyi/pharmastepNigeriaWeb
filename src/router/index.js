@@ -15,7 +15,6 @@ import productTypeTablet from "../views/productTypeTablet.vue"
 import contact from "../views/contact.vue"
 import pinia from "../stores/setup.js"
 import useUserStore from '../stores/index.js'
-import { getAuth } from "firebase/auth";
 
 const store = useUserStore(pinia)
 const router = createRouter({
@@ -111,20 +110,11 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    var currentUser;
+   const currentUser = store.userUid;
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
     const notRequiresAuth = to.matched.some(record => record.meta.notRequiresAuth);
-    const auth = getAuth();
-    const user = auth.currentUser;
-    console.log(user)
-
-    if (user) {
-        currentUser = user.uid;
-    } else {
-        console.log('You never sign in')
-    }
-
-    if (requiresAuth && currentUser==undefined) {
+    console.log(currentUser)
+    if (requiresAuth && currentUser=='') {
         next('/auth/login');
     }
     else if (requiresAuth && currentUser) {
