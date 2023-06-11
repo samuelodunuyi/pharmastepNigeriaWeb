@@ -9,10 +9,13 @@ import Profile from "../views/profilePage.vue"
 import Categories from "../views/Category.vue"
 import cart from "../views/cart.vue"
 import Category from "../views/productCategoryPage.vue"
+import productTypeCaplet from "../views/productTypeCaplet.vue"
+import productTypePacks from "../views/productTypePacks.vue"
+import productTypeTablet from "../views/productTypeTablet.vue"
 import contact from "../views/contact.vue"
 import pinia from "../stores/setup.js"
 import useUserStore from '../stores/index.js'
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 const store = useUserStore(pinia)
 const router = createRouter({
@@ -28,6 +31,24 @@ const router = createRouter({
             path: "/cart",
             name: "cart",
             component: cart
+        },
+
+        {
+            path: "/productType/Packs",
+            name: "productTypePacks",
+            component: productTypePacks
+        },
+
+        {
+            path: "/productType/Tablet",
+            name: "productTypeTablet",
+            component: productTypeTablet
+        },
+
+        {
+            path: "/productType/Sachets",
+            name: "productTypeSachets",
+            component: productTypeCaplet
         },
 
         {
@@ -94,21 +115,20 @@ router.beforeEach((to, from, next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
     const notRequiresAuth = to.matched.some(record => record.meta.notRequiresAuth);
     const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            currentUser = user.uid;
-            console.log(currentUser)
-        } else {
-            currentUser=''
-            console.log('You never sign in')
-        }
-    });
+    const user = auth.currentUser;
+    console.log(user)
 
-    if (requiresAuth && !currentUser) {
+    if (user) {
+        currentUser = user.uid;
+    } else {
+        console.log('You never sign in')
+    }
+
+    if (requiresAuth && currentUser==undefined) {
         next('/auth/login');
     }
     else if (requiresAuth && currentUser) {
-        next();
+         next();
     }
     else if (notRequiresAuth && currentUser) {
         next('/')

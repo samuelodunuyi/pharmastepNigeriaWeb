@@ -10,7 +10,7 @@
         target="_blank">
         <v-icon size="small" color="white">fab fa-instagram</v-icon>
       </a>
-      <a href="#" class="btn btn-primary m-1" role="button" rel="nofollow" target="_blank">
+      <a href="https://wa.me/2349056871664" class="btn btn-primary m-1" role="button" rel="nofollow" target="_blank">
         <v-icon size="small" color="white">fab fa-whatsapp</v-icon>
       </a>
       <a href="https://play.google.com/store/apps/details?id=com.pharmastepng.meds" class="btn btn-primary m-1" role="button"

@@ -1,6 +1,6 @@
 <template>
   <div class="newsletter-subscribe mt-5 container">
-        <div class="container">
+        <div class="container text-center justify-center">
             <div class="intro">
                 <h2 class="text-center newsletter">Subscribe to our Newsletter</h2>
                 <p class="text-center">Get Weekly Health Tips from us, to boost your lifestyle and health choices. </p>
@@ -86,6 +86,27 @@
   height: 45px;
   margin-right: 10px;
   min-width: 250px;
+}
+
+@media (max-width: 423px) {
+  .newsletter-subscribe form .form-control {
+  margin-left: -60px;
+  width: 300px;
+}
+}
+
+
+@media (max-width: 390px) {
+  .newsletter-subscribe form .form-control {
+  margin-left: -50px;
+  width: 250px;
+}
+}
+
+@media (max-width: 324px) {
+  .newsletter-subscribe form .form-control {
+  width: 180px;
+}
 }
 
 .newsletter-subscribe form .btn {

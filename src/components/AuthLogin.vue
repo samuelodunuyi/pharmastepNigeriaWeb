@@ -94,11 +94,12 @@ export default {
           store.userUid = userCredential.user.uid;
           store.user = userCredential.user;
           store.useremail = userCredential.user.email;
+          console.log(auth.currentUser.email)
 
-          setTimeout(async () => {
-            this.status = false
-            window.location.reload()
-          }, 3000)
+          // setTimeout(async () => {
+          //   this.status = false
+          //   window.location.reload()
+          // }, 3000)
 
         })
         .catch((error) => {
@@ -134,11 +135,6 @@ export default {
           console.log(errorMessage)
           // ...
         });
-      if (store.userUid != '') {
-        setTimeout(async () => {
-          window.location.reload()
-        }, 3000)
-      }
     }
 
   }

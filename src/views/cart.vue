@@ -23,6 +23,7 @@ const recieverName = ref('')
 const deliveryAddress = ref('')
 const deliveryCity = ref('')
 const phoneNumber = ref('')
+const resetValue = ref(0)
 const order = ref([])
 const loadUser = async () => {
     const docSnaps = await getDocs(collection(db, 'users', store.userUid, 'cart'));
@@ -35,6 +36,9 @@ const loadUser = async () => {
 
 };
 const loadProducts = async () => {
+    if (resetValue.value == 1) {
+        products.value = []
+    }
     const count = cartIdCounts.value
     const docRef = doc(collection(db, "products"), cartIds.value.toString())
     const docSnap = await getDoc(docRef);
@@ -46,13 +50,14 @@ const loadProducts = async () => {
         return item.original_price * count;
     });
     let lastElement = cartPricesArrayString[cartPricesArrayString.length - 1];
-    cartItemList.value=[]
+    cartItemList.value = []
     cartItemList.value.push(lastElement)
 
     cartSubTotal.value = cartItemList.value.reduce((partialSum, a) => (partialSum + a), 0);
     cartTotal.value = cartSubTotal.value + 1000;
 
     order.value = productInCart.value.map(({ description, expiry_date, manufacturer, owner, search_tags, images, product_type, ...rest }) => ({ ...rest }))
+    resetValue.value = 0
 }
 
 const loadProductsList = computed(() => {
@@ -61,10 +66,16 @@ const loadProductsList = computed(() => {
 })
 
 const deletefromCart = async (id) => {
-    await deleteDoc(doc(db, 'users', store.userUid, 'cart', id))
+    await deleteDoc(doc(db, 'users', store.userUid, 'cart', id)).then(
+        setTimeout(async () => {
+            resetValue.value = 1
+            newCartValue
+        }, 2000)
+    )
     store.decrement()
+    console.log(store.cartNo)
     const objWithIdIndex = products.value.findIndex((obj) => obj.id === id);
-    loadUser()
+
     products.value.splice(objWithIdIndex, 1);
 }
 

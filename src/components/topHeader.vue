@@ -15,14 +15,34 @@
         <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
           <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse" id="navbarCollapse">
-          <div class="navbar-nav">
-            <RouterLink to="/products" class="nav-item nav-link active">Products</RouterLink>
+          <div class="navbar-nav" style="margin-top: 4px;">
+            <ul class="navbar-nav">
+              <li class="nav-item dropdown">
+                <a href="#" class="nav-item nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">Products</a>
+                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                  <li>
+                    <RouterLink class="dropdown-item" to="/products">All Products</RouterLink>
+                  </li>
+                  <li>
+                    <RouterLink class="dropdown-item" to="/productType/packs">Packs</RouterLink>
+                  </li>
+                  <li>
+                    <RouterLink class="dropdown-item" to="/productType/sachets">Sachets</RouterLink>
+                  </li>
+                  <li>
+                    <RouterLink class="dropdown-item" to="/productType/tablet">Tablet</RouterLink>
+                  </li>
+                </ul>
+              </li>
+            </ul>
             <RouterLink to="/categories" class="nav-item nav-link active">Categories</RouterLink>
             <RouterLink to="/contact" class="nav-item nav-link active">Contact Us</RouterLink>
-
           </div>
-          <div class="navbar-nav ms-auto ">
+
+          <div class="navbar-nav ms-auto" style="margin-top: 5px;">
             <RouterLink to="/auth/login" class="nav-item nav-link" v-if="userUid == ''">Login</RouterLink>
             <RouterLink to="/profile/account" class="nav-item nav-link" v-else>Profile</RouterLink>
             <v-btn to="/cart" icon color="#212529" style="margin-top: -2px;">
@@ -88,8 +108,8 @@ export default {
       let ps = []
       this.cartProduct = docSnaps.forEach((doc) => {
         ps.push(doc.id)
-        this.cartIdCounts= ps.filter((item,
-        index) => ps.indexOf(item) === index);
+        this.cartIdCounts = ps.filter((item,
+          index) => ps.indexOf(item) === index);
       })
     },
 

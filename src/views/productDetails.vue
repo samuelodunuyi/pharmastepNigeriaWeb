@@ -48,7 +48,7 @@ const newCartValue = computed(() => {
                     <div class="row">
                         <div class="col-md-6">
                             <div class="images p-3">
-                                <div class="text-center p-4"> <img id="main-image" :src="product.images" width="500" />
+                                <div class="text-center p-4"> <img id="main-image" :src="product.images" width="500"/>
                                 </div>
                                 <div class="thumbnail text-center" v-for="(i, index) in product.images" :key="index"> <img
                                         @click="change_image(i)" :src="i" width="70">

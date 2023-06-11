@@ -4,7 +4,6 @@ import App from './App.vue'
 import router from './router'
 import * as bootstrap from 'bootstrap'
 import '../src/scss/styles.scss'
-
 // Vuetify
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
@@ -29,10 +28,7 @@ const vuetify = createVuetify({
   }
 })
 
-
-
 const app = createApp(App)
-
 
 app.component("font-awesome-icon", FontAwesomeIcon)
 app.use(router)
