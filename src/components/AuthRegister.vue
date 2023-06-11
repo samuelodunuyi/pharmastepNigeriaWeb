@@ -1,7 +1,7 @@
 <template>
   <div class="col-md-6 col-lg-7 d-flex align-items-center">
     <div class="card-body p-4 p-lg-5 text-black">
-      <form @submit.prevent="onSubmit">
+      <form @submit.prevent="onSubmit" autocomplete="off">
         <div class="d-flex align-items-center mb-3 pb-1">
           <span class="h2 fw-bold mb-0">Create an Account</span>
         </div>
@@ -11,7 +11,7 @@
           <p style="color: red; margin-top: -5px;">{{ nameErrorMessage }}</p>
         </div>
         <div class="form-outline mb-4">
-          <input type="email" v-model="email" id="form2Example37" class="form-control form-control-lg" />
+          <input type="email" v-model="email" id="form2Example37" class="form-control form-control-lg" autocomplete="off"/>
           <label class="form-label" for="form2Example37">Email address</label>
           <p style="color: red; margin-top: -5px;">{{ emailErrorMessage }}</p>
         </div>
@@ -23,8 +23,8 @@
         <div style="display: flex; flex-direction: row; gap: 5px;" class="form-outline  ">
           <div class="form-outline col-md-6">
           <div class="input-group">
-            <input v-if="showPassword" type="text" id="form2Example27" class="form-control" v-model="password"/>
-            <input v-else type="password" id="form2Example27" class="form-control form-control-lg"   v-model="password"/>
+            <input v-if="showPassword" type="text" id="form2Example27" class="form-control" v-model="password" autocomplete="off"/>
+            <input v-else type="password" id="form2Example27" class="form-control form-control-lg" v-model="password" autocomplete="off"/>
             <button type="button" v-if="showPassword" class="toggle" @click="toggleShow">
               <v-icon >fas fa-eye-slash</v-icon>
            </button>

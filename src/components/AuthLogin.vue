@@ -1,21 +1,21 @@
 <template>
   <div class="col-md-6 col-lg-7 d-flex align-items-center">
     <div class="card-body p-4 p-lg-5 text-black">
-      <form ref="form" @submit.prevent="onSubmit">
+      <form ref="form" @submit.prevent="onSubmit" autocomplete="none">
         <div class="d-flex align-items-center mb-3 pb-1">
           <i class="fas fa-user-alt fa-2x me-3" style="color: #ff6219;"></i>
           <span class="h2 fw-bold mb-0">Sign into your account</span>
         </div>
         <div class="form-outline mb-4">
-          <input type="email" id="form2Example17" class="form-control form-control-lg" v-model="email"/>
+          <input type="email" id="form2Example17" class="form-control form-control-lg" v-model="email" autocomplete="none"/>
           <label class="form-label" for="form2Example17">Email address</label>
           <p>{{ emailErrorMessage }}</p>
         </div>
 
-        <div class="form-outline mb-4">
+        <div class="form-outline mb-6">
           <div class="input-group">
-            <input v-if="showPassword" type="text" id="form2Example27" class="form-control form-control-lg" v-model="password"/>
-            <input v-else type="password" id="form2Example27" class="form-control form-control-lg" v-model="password"/>
+            <input v-if="showPassword" type="text" id="form2Example27" class="form-control form-control-lg" v-model="password" autocomplete="off"/>
+            <input v-else type="password" id="form2Example27" class="form-control form-control-lg" v-model="password" autocomplete="off"/>
             <button type="button" v-if="showPassword" class="toggle" @click="toggleShow">
               <v-icon >fas fa-eye-slash</v-icon>
            </button>
@@ -43,7 +43,7 @@
         <div class="justify-content-center text-center" style="width: 100%; margin-top: 10px; margin-bottom: -50px;">
           <v-dialog v-model="reset" width="500">
             <template v-slot:activator="{ on }">
-              <p class="small text-muted" @click="reset = true">Forgot password?</p>
+              <p class="small text-muted" @click="reset = true" style="cursor: pointer;">Forgot password?</p>
             </template>
             <e-password-reset-form @close-dialog="closeDialog" />
           </v-dialog>
@@ -148,5 +148,40 @@ export default {
 };
 </script>
   
-<style scoped></style>
+<style scoped>
+input[type="password"],
+input[type="text"] {
+  font-size: 1.25em;
+  padding: .5em;
+}
+
+/* suppress IE >= 10 native functionality that can show password */
+input[type="password"]::-ms-reveal {
+  display: none;
+}
+
+.btn {
+  margin-top: 0.75em;
+}
+
+.input-group {
+  position: relative;
+  width: 100%;
+}
+
+.toggle {
+  background: none;
+  border: none;
+  color: #000000;
+  font-weight: 600;
+  position: absolute;
+  right: .75em;
+  top: 1em;
+  z-index: 9;
+}
+
+.fa {
+  font-size: 1.3rem;
+}
+</style>
   

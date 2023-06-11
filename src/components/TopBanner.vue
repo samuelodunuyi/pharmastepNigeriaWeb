@@ -172,8 +172,8 @@ export default {
 
 @media (max-width: 460px) {
   .check {
-    width: 300px;
-    height: 300px;
+    width: 280px;
+    height: 290px;
     vertical-align: middle;
     margin: auto auto;
     justify-content: center;
