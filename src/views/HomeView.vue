@@ -6,6 +6,7 @@ import { useRouter } from "vue-router"
 import topHeader from '../components/topHeader.vue';
 import TopBanner from "../components/TopBanner.vue";
 import Subscribe from "../components/Subscribe.vue";
+import CTADownload from "../components/ctaDownloadApp.vue";
 
 const router = useRouter();
 const products = ref([])
@@ -100,6 +101,9 @@ const navigateToDetails = (id) => {
                 </div>
             </div>
         </section>
+        <div>
+            <CTADownload/>
+        </div>
         <div class="subscribe">
             <Subscribe />
         </div>

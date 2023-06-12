@@ -5,33 +5,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PharmaStep</title>
   </head>
-  <div id="carouselExampleCrossfade" class="carousel slide carousel-fade " data-bs-ride="carousel">
+  <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide-to="0" class="active"
-        aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
         <img src="../assets/medicine.jpg" class="img-fluid" style="object-fit: cover;" />
-        <div class="carousel-caption d-none d-md-block">
-          <h5>First slide label</h5>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        <div class="container">
+          <div class="carousel-caption text-start">
+            <h1>Example headline.</h1>
+            <p>Some representative placeholder content for the first slide of the carousel.</p>
+            <p><RouterLink class="btn btn-lg btn-primary" to="/products">Shop Now</RouterLink></p>
+          </div>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="../components/images/hero_1.jpg" class="d-block w-100" alt="Camera" />
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Second slide label</h5>
-          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+        <div class="container">
+          <div class="carousel-caption">
+            <h1>Another example headline.</h1>
+            <p>Some representative placeholder content for the second slide of the carousel.</p>
+            <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+        <div class="container">
+          <div class="carousel-caption text-end">
+            <h1>One more for good measure.</h1>
+            <p>Some representative placeholder content for the third slide of this carousel.</p>
+            <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+          </div>
         </div>
       </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide="prev">
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
     </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCrossfade" data-bs-slide="next">
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Next</span>
     </button>
@@ -43,14 +59,8 @@
       <!--Section: Content-->
       <section>
 
-        <div class="row">
-          <div class="col-md-6 gx-5 mb-4">
-            <div class="bg-image hover-overlay ripple shadow-2-strong" data-mdb-ripple-color="light">
-              <video loop autoplay src="../components/images/pharmvid.mp4" class="check">
-              </video>
-            </div>
-          </div>
-          <div class="col-md-6 gx-5 mb-4">
+        <div class="text-center">
+          <div class="col-md-12 gx-5 mb-4" >
             <h4><strong>Who we are</strong></h4>
             <p class="text-justify lh-lg">
               PharmaStep is your number 1 stop for your prescription drugs,
@@ -67,13 +77,6 @@
               wait until you are down with illness, before being able to interact
               with resources needed to overcome such illness.
             </p>
-            <div class="d-flex justify-content-left text-center" style="width: 100%;">
-              <a href="https://play.google.com/store/apps/details?id=com.pharmastepng.meds" class="btn btn-primary m-1"
-                role="button" rel="nofollow" target="_blank">
-                <button class="btn btn-lg btn-block btn-primary" style="color: white; border: none; width: 100%;">
-                  <v-icon>mdi-google-play</v-icon>Download App</button>
-              </a>
-            </div>
           </div>
 
         </div>
@@ -82,7 +85,6 @@
       <hr class="my-5" />
     </div>
   </main>
-  <!--Main layout-->
 </template>
   
 <script>
@@ -125,61 +127,59 @@ export default {
   color: #fff !important;
 }
 
-.check {
-  width: 380px;
-  height: 380px;
+.bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+
+/* Carousel base class */
+.carousel {
+  margin-bottom: 4rem;
+}
+/* Since positioning the image, we need to help out the caption */
+.carousel-caption {
+  bottom: 3rem;
+  z-index: 10;
 }
 
+/* Declare heights because of positioning of img element */
+.carousel-item {
+  height: 32rem;
+}
+.carousel-item > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  height: 32rem;
+}
 
-@media (max-width: 990px) {
-  .check {
-    width: 320px;
-    height: 320px;
-    vertical-align: middle;
-    margin: auto auto;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    justify-items: center;
+@media (min-width: 40em) {
+  /* Bump up size of carousel content */
+  .carousel-caption p {
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
+
+  .featurette-heading {
+    font-size: 50px;
   }
 }
 
-@media (max-width: 723px) {
-  .check {
-    width: 420px;
-    height: 420px;
-    vertical-align: middle;
-    margin: auto auto;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    justify-items: center;
-  }
-}
-
-@media (max-width: 758px) {
-  .check {
-    width: 420px;
-    height: 420px;
-    vertical-align: middle;
-    margin: auto auto;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    justify-items: center;
-  }
-}
-
-@media (max-width: 460px) {
-  .check {
-    width: 280px;
-    height: 290px;
-    vertical-align: middle;
-    margin: auto auto;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    justify-items: center;
+@media (min-width: 62em) {
+  .featurette-heading {
+    margin-top: 7rem;
   }
 }
 </style>
