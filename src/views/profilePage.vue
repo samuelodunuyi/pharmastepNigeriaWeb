@@ -202,7 +202,7 @@ import topHeader from '../components/topHeader.vue';
         </div>
       </div>
     </div>
-    <div class="pa-2 d-none d-sm-flex">
+    <div class="pa-2 d-sm-flex">
     <v-btn :disabled="authStatus" color="black" class="white--text" block @click.prevent="signOutUser()">
       Logout
     </v-btn>
