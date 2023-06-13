@@ -39,7 +39,7 @@ const AddtoCart = async (id) => {
     }
 }
 const newCartValue = computed(() => {
-    return store.cartNo
+    return store.cartNoNew
 })
 
 const productFiltered = computed(() => {

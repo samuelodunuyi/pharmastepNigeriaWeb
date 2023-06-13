@@ -94,7 +94,7 @@ export default {
   computed: {
     retz() {
       if (this.cartNo < this.slides) {
-        this.cartNo = store.cartNo
+        this.cartNo = store.cartNoNew
         this.cartNos()
         this.loadCart()
       }

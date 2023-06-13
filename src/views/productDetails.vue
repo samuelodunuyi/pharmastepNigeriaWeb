@@ -35,7 +35,7 @@ const AddtoCart = async (id) => {
     }
 }
 const newCartValue = computed(() => {
-    return store.cartNo
+    return store.cartNoNew
 })
 
 </script>
