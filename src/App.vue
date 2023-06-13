@@ -22,7 +22,6 @@ export default {
   },
 
   created() {
-    console.log("ss")
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {
