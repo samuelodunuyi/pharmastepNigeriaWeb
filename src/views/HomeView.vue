@@ -123,7 +123,8 @@ return{
 },
 created(){
     this.categories = this.categories.slice(0,6)
-}
+},
+
 };
 </script>
 
