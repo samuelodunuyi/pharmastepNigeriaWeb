@@ -1,45 +1,75 @@
 <template>
   <div class="newsletter-subscribe mt-5 container">
-        <div class="container text-center justify-center">
-            <div class="intro">
-                <h2 class="text-center newsletter">Subscribe to our Newsletter</h2>
-                <p class="text-center">Get Weekly Health Tips from us, to boost your lifestyle and health choices. </p>
-            </div>
-            <form  @submit.prevent="onSubmit">
-                <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Your Email"></div>
-                <div class="form-group"><button class="btn btn-primary" type="button">Subscribe </button></div>
-            </form>
-        </div>
+    <div class="container text-center justify-center">
+      <div class="intro">
+        <h2 class="text-center newsletter">Subscribe to our Newsletter</h2>
+        <p class="text-center">Get Weekly Health Tips from us, to boost your lifestyle and health choices. </p>
+      </div>
+      <form @submit.prevent="subscribe">
+        <div class="form-group"><input class="form-control" v-model="email" type="email" name="email" placeholder="Your Email"></div>
+        <div class="form-group"><button class="btn btn-primary" type="submit">Subscribe </button></div>
+      </form>
+      <div id="form-message-success" v-if="success">
+                You have successfully subscribed!
+              </div>
     </div>
-    </template>
+  </div>
+</template>
     
-    <script>
-    export default {
-      data() {
-        return {
-          valid: true,
-          email: "",
-          emailRules: [
-            v => !!v || "E-mail is required",
-            v => /.+@.+/.test(v) || "E-mail must be valid"
-          ]
-        };
-      },
-      methods: {
-        subscribe() {
-          this.$emit("subscribe", this.email);
-          this.email = "";
-        },
-        validate() {
-          if (this.$refs.form.validate()) {
-            this.subscribe();
-          }
-        }
-      }
+<script>
+export default {
+  data() {
+    return {
+      valid: true,
+      email: "",
+      success: false,
+      emailRules: [
+        v => !!v || "E-mail is required",
+        v => /.+@.+/.test(v) || "E-mail must be valid"
+      ]
     };
-    </script>
+  },
+  methods: {
+    subscribe() {
+      this.$emit("subscribe", this.email);
+      this.sendFormData();
+    },
+    validate() {
+      if (this.$refs.form.validate()) {
+        this.subscribe();
+      }
+    },
+    sendFormData() {
+      const googleFormUrl = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfipHeaPGyvxw40o8sxYcu2579xi_-QJL4HYzGz_ZFgY17Tcg/formResponse"
+      const data = {
+        "entry.1165188191": this.email,
+      };
+
+      const formData = new FormData();
+      for (const key in data) {
+        formData.append(key, data[key]);
+      }
+      fetch(googleFormUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: formData
+      })
+        .then(response => {
+          console.log("success", response)
+          this.success = true
+          this.email = "";
+        })
+        .catch(error => {
+          console.log(error)
+          // Handle any errors here
+        });
+    }
+
+  }
+};
+</script>
     
-    <style scoped>
+<style scoped>
 .newsletter-subscribe {
   color: #313437;
   background-color: #ffffff;
@@ -50,6 +80,11 @@
   color: #7d8285;
   line-height: 1.5;
 }
+
+#form-message-success {
+  color: #55A44E;
+  font-size: 15px;
+  font-weight: bold; }
 
 .newsletter-subscribe h2 {
   font-size: 24px;
@@ -90,34 +125,36 @@
 
 @media (max-width: 423px) {
   .newsletter-subscribe form .form-control {
-  width: 300px;
-}
+    width: 300px;
+  }
 
-.newsletter-subscribe {
-  color: #313437;
-  padding:50px 25px;
-}
+  .newsletter-subscribe {
+    color: #313437;
+    padding: 50px 25px;
+  }
 }
 
 
 @media (max-width: 390px) {
   .newsletter-subscribe form .form-control {
-  width: 250px;
-}
-.newsletter-subscribe {
-  color: #313437;
-  padding: 50px 15px;
-}
+    width: 250px;
+  }
+
+  .newsletter-subscribe {
+    color: #313437;
+    padding: 50px 15px;
+  }
 }
 
 @media (max-width: 324px) {
   .newsletter-subscribe form .form-control {
-  width: 120px !important;
-}
-.newsletter-subscribe {
-  color: #313437;
-  padding: 50px  0px;
-}
+    width: 120px !important;
+  }
+
+  .newsletter-subscribe {
+    color: #313437;
+    padding: 50px 0px;
+  }
 }
 
 .newsletter-subscribe form .btn {
@@ -148,7 +185,8 @@
   margin-top: 20px;
   outline: none !important;
 }
-.form-inline{
+
+.form-inline {
   text-align: center;
 }
 
@@ -158,5 +196,4 @@ body {
 
 .newsletter {
   color: #0062cc !important;
-}
-    </style>
+}</style>

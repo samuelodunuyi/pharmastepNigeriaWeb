@@ -1,5 +1,49 @@
 <script setup>
+import { ref } from 'vue';
 import topHeader from '../components/topHeader.vue';
+
+const name = ref("")
+const email = ref("")
+const subject = ref("")
+const message = ref("")
+const success = ref(false)
+const error = ref(false)
+
+function sendFormData() {
+  if(name.value=="" || email.value =="" || subject.value=="" || message.value){
+    return error.value=true
+  }
+  const googleFormUrl = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfU3HXz6X1ynIjXfwc_HtIWlEK-6OLh55Wts2cdL4ixKLzCOQ/formResponse"
+  const data = {
+  "entry.1870464962": name.value,
+  "entry.505630046": email.value,
+  "entry.354402563": subject.value,
+  "entry.849313830": message.value
+};
+
+const formData = new FormData();
+for (const key in data) {
+  formData.append(key, data[key]);
+}
+fetch(googleFormUrl, {
+  method: 'POST',
+  mode: 'no-cors',
+  body: formData
+})
+  .then(response => {
+    console.log("success", response)
+    success.value=true
+    name.value = ""
+    email.value = ""
+    subject.value = ""
+    message.value = ""
+  })
+  .catch(error => {
+    console.log(error)
+    error.value = true
+    // Handle any errors here
+  });
+}
 
 </script>
 <template>
@@ -21,31 +65,31 @@ import topHeader from '../components/topHeader.vue';
             <div class="col-md-6">
               
               <h3 class="heading mb-4">Want to talk? Let's talk</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas debitis, fugit natus?</p>
+              <p>Reach out to us with any questions, feedback, or inquiries you may have. We're here to help!</p>
               <p><img src="../components/images/undraw-contact.svg" alt="Image" class="img-fluid"></p>
 
             </div>
             <div class="col-md-6">
               
-              <form class="mb-5" method="post" id="contactForm" name="contactForm">
+              <form @submit.prevent="sendFormData" class="mb-5" method="post" id="contactForm" name="contactForm">
                 <div class="row des">
                   <div class="col-md-12 form-group">
-                    <input type="text" class="form-control form-ctr" name="name" id="name" placeholder="Your name">
+                    <input type="text" class="form-control form-ctr" v-model="name" name="entry.1870464962" id="name" placeholder="Your name">
                   </div>
                 </div>
                 <div class="row des">
                   <div class="col-md-12 form-group">
-                    <input type="text" class="form-control form-ctr" name="email" id="email" placeholder="Email">
+                    <input type="text" class="form-control form-ctr" v-model="email" name="entry.505630046" id="email" placeholder="Email">
                   </div>
                 </div>
                 <div class="row des">
                   <div class="col-md-12 form-group">
-                    <input type="text" class="form-control form-ctr" name="subject" id="subject" placeholder="Subject">
+                    <input type="text" class="form-control form-ctr" v-model="subject" name="entry.354402563" id="subject" placeholder="Subject">
                   </div>
                 </div>
                 <div class="row des">
                   <div class="col-md-12 form-group">
-                    <textarea class="form-control form-controls" name="message" id="message" cols="30" rows="27" placeholder="Write your message"></textarea>
+                    <textarea class="form-control form-controls" v-model="message" name="entry.849313830" id="message" cols="30" rows="27" placeholder="Write your message"></textarea>
                   </div>
                 </div>  
                 <div class="row des">
@@ -56,8 +100,8 @@ import topHeader from '../components/topHeader.vue';
                 </div>
               </form>
 
-              <div id="form-message-warning mt-4"></div> 
-              <div id="form-message-success">
+              <div id="form-message-warning mt-4" v-if="error">Error, check Information entered</div> 
+              <div id="form-message-success" v-if="success">
                 Your message was sent, thank you!
               </div>
             </div>
@@ -160,7 +204,7 @@ label.error {
 #message {
   resize: vertical; }
 
-#form-message-warning, #form-message-success {
+#form-message-warning{
   display: none; }
 
 #form-message-warning {
