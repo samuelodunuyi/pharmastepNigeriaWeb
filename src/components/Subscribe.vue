@@ -5,7 +5,7 @@
                 <h2 class="text-center newsletter">Subscribe to our Newsletter</h2>
                 <p class="text-center">Get Weekly Health Tips from us, to boost your lifestyle and health choices. </p>
             </div>
-            <form class="form-inline" @submit.prevent="onSubmit">
+            <form  @submit.prevent="onSubmit">
                 <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Your Email"></div>
                 <div class="form-group"><button class="btn btn-primary" type="button">Subscribe </button></div>
             </form>
@@ -90,22 +90,33 @@
 
 @media (max-width: 423px) {
   .newsletter-subscribe form .form-control {
-  margin-left: -60px;
   width: 300px;
+}
+
+.newsletter-subscribe {
+  color: #313437;
+  padding:50px 25px;
 }
 }
 
 
 @media (max-width: 390px) {
   .newsletter-subscribe form .form-control {
-  margin-left: -50px;
   width: 250px;
+}
+.newsletter-subscribe {
+  color: #313437;
+  padding: 50px 15px;
 }
 }
 
 @media (max-width: 324px) {
   .newsletter-subscribe form .form-control {
-  width: 180px;
+  width: 120px !important;
+}
+.newsletter-subscribe {
+  color: #313437;
+  padding: 50px  0px;
 }
 }
 
