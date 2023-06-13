@@ -10,35 +10,50 @@
       <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
       <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
       <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
         <img src="../assets/medicine.jpg" class="img-fluid" style="object-fit: cover;" />
         <div class="container">
-          <div class="carousel-caption text-start">
-            <h1>Example headline.</h1>
-            <p>Some representative placeholder content for the first slide of the carousel.</p>
+          <div class="carousel-caption text-start" style="color: black;">
+            <h1>Healthcare at your Doorstep</h1>
+            <p>Let's help you take charge of your health and wellness</p>
             <p><RouterLink class="btn btn-lg btn-primary" to="/products">Shop Now</RouterLink></p>
+            <p class="d-none d-sm-block">&nbsp;</p>
+            <p class="d-none d-sm-block" style="margin-top: -30px;">&nbsp;</p>
           </div>
         </div>
       </div>
       <div class="carousel-item">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+        <img src="../components/images/chat.jpg" class="img-fluid" style="object-fit: contain;" />
         <div class="container">
-          <div class="carousel-caption">
-            <h1>Another example headline.</h1>
-            <p>Some representative placeholder content for the second slide of the carousel.</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+          <div class="carousel-caption text-start" style="color: black;">
+            <h1>Your Pharmacist on the Go.</h1>
+            <p>Confused about your symptoms? Speak with our Pharmacist and get some clarity</p>
+            <p><a class="btn btn-lg btn-primary" href="#">Chat with Pharmacist</a></p>
           </div>
         </div>
       </div>
       <div class="carousel-item">
-        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/></svg>
+        <img src="../components/images/pills.jpg" class="img-fluid" style="object-fit: cover; color: black;" />
         <div class="container">
-          <div class="carousel-caption text-end">
-            <h1>One more for good measure.</h1>
-            <p>Some representative placeholder content for the third slide of this carousel.</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+          <div class="carousel-caption text-start" style="color: black;">
+            <h1>Antibiotics Facts</h1>
+            <p>You should never stop taking a course of antibiotics half way through. Always make sure you finish them.</p>
+            <p><RouterLink class="btn btn-lg btn-primary" to="category/Antibacterial">Antibiotics</RouterLink></p>
+            <p class="d-none d-sm-block">&nbsp;</p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="../components/images/pills.jpg" class="img-fluid" style="object-fit: cover;"/>
+        <div class="container">
+          <div class="carousel-caption text-start" style="color: black;">
+            <h1>Pain Reliever Medicines</h1>
+            <p>Check our range of Pain Reliever Medications</p>
+            <p><RouterLink class="btn btn-lg btn-primary" to="category/Pain_management">Analgesics</RouterLink></p>
+            <p class="d-none d-sm-block">&nbsp;</p>
           </div>
         </div>
       </div>
