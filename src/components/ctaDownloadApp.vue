@@ -14,8 +14,14 @@
                         <span class="market-button-title">Google Play</span>
                     </a>
                 </div>
-                <div class="product-device shadow-sm d-none d-md-block"></div>
-                <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
+                <div class="product-device shadow-sm d-none d-md-block">
+                    <img src="../components/images/frame.jpg"  class ="checkImg" style=" border-radius: 8px;"/>
+
+                </div>
+                <div class="product-device product-device-2 shadow-sm d-none d-md-block">
+                    <img src="../components/images/frame2.jpg"  class ="checkImg2" style=" border-radius: 8px;"/>
+
+                </div>
             </div>
 
             <div class="d-block d-md-none flex-md-equal w-100 my-md-3 ps-md-3">
@@ -82,17 +88,32 @@
  */
 
 .product-device {
-    background-image: url('../components/images/farmers.png');
     position: absolute;
     right: 10%;
     bottom: -25%;
-    width: 310px;
+    width: 290px;
     height: 540px;
     background-color: #333;
     border-radius: 31px;
-    transform: rotate(40deg);
+    transform: rotate(30deg);
 }
 
+.checkImg{
+    margin-top: 55px;
+    width: 900px;
+    margin-left: 10px;
+    padding-right: 20px;
+    padding-bottom: 60px;
+}
+
+.checkImg2{
+    margin-top: 55px;
+    width: 900px;
+    margin-left: 10px;
+    padding-right: 20px;
+    padding-bottom: 60px;
+
+}
 
 
 .product-device::before {

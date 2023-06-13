@@ -14,44 +14,47 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="../assets/medicine.jpg" class="img-fluid" style="object-fit: cover;" />
+        <img src="../assets/medicine.jpg" class="img-fluid" style="object-fit: cover; " />
         <div class="container">
           <div class="carousel-caption text-start" style="color: black;">
             <h1>Healthcare at your Doorstep</h1>
             <p>Let's help you take charge of your health and wellness</p>
             <p><RouterLink class="btn btn-lg btn-primary" to="/products">Shop Now</RouterLink></p>
             <p class="d-none d-sm-block">&nbsp;</p>
-            <p class="d-none d-sm-block" style="margin-top: -30px;">&nbsp;</p>
           </div>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="../components/images/chat.jpg" class="img-fluid" style="object-fit: contain;" />
+        <img src="../components/images/chat.png" class="img-fluid d-none d-md-block" style="object-fit: cover; " />
+        <img src="../components/images/chat.png" class="img-fluid d-block d-md-none" style="object-fit: cover; object-position: 100% 0;" />
         <div class="container">
           <div class="carousel-caption text-start" style="color: black;">
             <h1>Your Pharmacist on the Go.</h1>
-            <p>Confused about your symptoms? Speak with our Pharmacist and get some clarity</p>
-            <p><a class="btn btn-lg btn-primary" href="#">Chat with Pharmacist</a></p>
+            <p>Confused about your symptoms? <br>Speak with our Pharmacist and get some clarity</p>
+            <p><RouterLink class="btn btn-lg btn-primary" to="category/Antibacterial">Chat with Pharmacist</RouterLink></p>
+            <p class="d-none d-sm-block">&nbsp;</p>
           </div>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="../components/images/pills.jpg" class="img-fluid" style="object-fit: cover; color: black;" />
+        <img src="../components/images/pills.jpg" class="img-fluid d-none d-md-block" style="object-fit: cover; color: black;" />
+        <img src="../components/images/pills.jpg" class="img-fluid d-block d-md-none" style="object-fit: cover; color: black; object-position: 60% 0;"/>
         <div class="container">
           <div class="carousel-caption text-start" style="color: black;">
             <h1>Antibiotics Facts</h1>
-            <p>You should never stop taking a course of antibiotics half way through. Always make sure you finish them.</p>
+            <p>You should never stop taking a course of antibiotics half way through. <br>Always make sure you finish them.</p>
             <p><RouterLink class="btn btn-lg btn-primary" to="category/Antibacterial">Antibiotics</RouterLink></p>
             <p class="d-none d-sm-block">&nbsp;</p>
           </div>
         </div>
       </div>
       <div class="carousel-item">
-        <img src="../components/images/pills.jpg" class="img-fluid" style="object-fit: cover;"/>
+        <img src="../components/images/painreliver.png" class="img-fluid d-none d-md-block" style="object-fit: cover;"/>
+        <img src="../components/images/alt_img.png" class="img-fluid d-block d-md-none" style="object-fit: cover; object-position: 30% 0;"/>
         <div class="container">
           <div class="carousel-caption text-start" style="color: black;">
             <h1>Pain Reliever Medicines</h1>
-            <p>Check our range of Pain Reliever Medications</p>
+            <p>Don't ignore that pain, provide soothe to your pain,<br> Explore our range of Pain Relieve Medications</p>
             <p><RouterLink class="btn btn-lg btn-primary" to="category/Pain_management">Analgesics</RouterLink></p>
             <p class="d-none d-sm-block">&nbsp;</p>
           </div>
