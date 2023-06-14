@@ -54,7 +54,7 @@ fetch(googleFormUrl, {
 
     <title>Contact Form #6</title>
   </head>
-  <topHeader/>
+  <topHeader :slides="1"/>
   <body>
   <div class="content">
     <div class="container">

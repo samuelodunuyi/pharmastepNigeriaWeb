@@ -3,7 +3,7 @@ import topHeader from '../components/topHeader.vue';
 
 </script>
 <template>
-    <topHeader />
+    <topHeader :slides="1"/>
     <section class="vh-100" style="background-color: #e4e4e4;">
         <div class="container py-5 h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">

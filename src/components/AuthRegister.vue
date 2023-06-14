@@ -51,8 +51,8 @@
         </div>
         <p style="color: red; margin-top: -5px;">{{ passwordErrorMessage }}</p>
         <div class="form-outline mb-4">
-          <button class="btn btn-dark btn-lg" type="button" style="color: white; width: 100%;" @click="validate">Sign
-            Up</button>
+          <v-btn class="btn btn-dark btn-lg" :loading="loadingRegister" type="button" style="color: white; width: 100%;" @click="validate">Sign
+            Up</v-btn>
         </div>
         <div style="justify-content: center; text-align: center; margin-bottom: -60px;">
           <p class="mb-5 pb-lg-2" style="color: #393f81;">Already have an account?
@@ -89,7 +89,8 @@ export default {
       emailErrorMessage: '',
       phoneErrorMessage: '',
       passwordErrorMessage: '',
-      email: ""
+      email: "",
+      loadingRegister: false
     };
   },
   methods: {
@@ -153,15 +154,17 @@ export default {
     registerUser() {
       const auth = getAuth();
       this.status = true
+      this.loadingRegister=true
       createUserWithEmailAndPassword(auth, this.email, this.password)
         .then((userCredential) => {
           // Signed in 
           const user = userCredential.user.uid;
           store.userUid = user
-          this.createUser(user)
+          this.createUser(user).then(this.checkCartItems())
           // ...
         })
         .catch((error) => {
+          this.loadingRegister=false
           const errorCode = error.code;
           const errorMessage = error.message;
           // ..
@@ -181,6 +184,33 @@ export default {
         }, 3000)
       );
     },
+    async checkCartItems() {
+      if (store.cartNotSigned.length > 0) {
+        let unique = [...new Set(store.cartNotSigned)];
+        for (let i = 0; i < unique.length; i++) {
+          console.log(i)
+          const docSnap = await getDoc(doc(db, 'users', store.userUid, 'cart', unique[i]))
+          if (docSnap.exists()) {
+            await updateDoc(doc(db, 'users', store.userUid, 'cart', unique[i]), {
+              item_count: increment(1),
+            });
+          } else {
+            await setDoc(doc(db, 'users', store.userUid, 'cart', unique[i]), {
+              item_count: 1,
+            }).then(store.increment());
+          }
+        }
+        this.finishedIteration= true
+        if(this.finishedIteration==true){
+          this.loadingRegister=false
+          store.cartNotSigned=[]
+          store.cartNo = 0
+              setTimeout(async () => {
+                window.location.reload()
+              }, 3000)
+            }
+      }
+    }
   }
 };
 </script>

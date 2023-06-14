@@ -31,17 +31,17 @@
         </div>
 
         <div class="form-outline mb-4">
-          <button class="btn btn-dark btn-lg" type="button" style="color: white; width: 100%;"
-            @click.prevent="validate()">Login</button>
+          <v-btn class="btn btn-dark btn-lg" :loading="loadingLogin" type="button"
+            style="background-color: #313131; color: white; width: 100%;" @click.prevent="validate()">Login</v-btn>
         </div>
         <p style="color: red;">{{ generalErrorMessage }}</p>
         <hr class="my-4">
         <div class="d-flex justify-content-center text-center" style="width: 100%;">
           or</div>
         <div class="d-flex justify-content-center text-center mt-4 pt-1" style="width: 100%;">
-          <button class="btn btn-lg btn-block btn-primary"
+          <v-btn class="btn btn-lg btn-block btn-primary" :loading="loadingGoogleLogin"
             style="background-color: #dd4b39; color: white; border: none; width: 100%;" @click="googleLogin"><i
-              class="fab fa-google me-2"></i>Google Signin</button>
+              class="fab fa-google me-2"></i>Google Signin</v-btn>
         </div>
         <div class="justify-content-center text-center" style="width: 100%; margin-top: 10px; margin-bottom: -50px;">
           <v-dialog v-model="reset" width="500">
@@ -86,6 +86,8 @@ export default {
       password: "",
       generalErrorMessage: '',
       showPassword: false,
+      loadingLogin: false,
+      loadingGoogleLogin: false,
       finishedIteration: false
     };
   },
@@ -107,6 +109,7 @@ export default {
       this.passwordErrorMessage = ''
       this.generalErrorMessage = ''
       this.status = true
+      this.loadingLogin = true
       signInWithEmailAndPassword(auth, this.email, this.password)
         .then(async (userCredential) => {
           // Signed in 
@@ -116,6 +119,7 @@ export default {
           this.checkCartItems()
         })
         .catch((error) => {
+          this.loadingLogin = false
           if (error.code == 'auth/wrong-password') {
             this.generalErrorMessage = 'Wrong Password, retry';
           }
@@ -131,6 +135,7 @@ export default {
       this.login()
     },
     googleLogin() {
+      this.loadingGoogleLogin = true
       signInWithPopup(auth, provider)
         .then(async (result) => {
           const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -138,8 +143,9 @@ export default {
           store.userUid = result.user.uid;
           store.user = result.user;
           store.useremail = result.user.email;
-          this.checkCartItems().then(window.location.reload())
+          this.checkCartItems()
         }).catch((error) => {
+          this.loadingGoogleLogin = false
           const credential = GoogleAuthProvider.credentialFromError(error);
           this.generalErrorMessage = error.code;
         });
@@ -155,19 +161,31 @@ export default {
               item_count: increment(1),
             });
           } else {
-            console.log("thisran")
             await setDoc(doc(db, 'users', store.userUid, 'cart', unique[i]), {
               item_count: 1,
             }).then(store.increment());
           }
         }
-        console.log("this man")
-        this.finishedIteration= true
-        if(this.finishedIteration==true){
-              setTimeout(async () => {
-                window.location.reload()
-              }, 3000)
-            }
+        this.finishedIteration = true
+        if (this.finishedIteration == true) {
+          this.loadingLogin = false
+          this.loadingGoogleLogin = false
+          store.cartNotSigned = []
+          store.cartNo = 0
+          console.log(store.cartNotSigned)
+          setTimeout(async () => {
+            window.location.reload()
+          }, 3000)
+        }
+      }
+      else {
+        store.cartNotSigned = []
+        store.cartNo = 0
+        this.loadingGoogleLogin = false
+        this.loadingLogin = false
+        setTimeout(async () => {
+          window.location.reload()
+        }, 3000)
       }
     }
   }
