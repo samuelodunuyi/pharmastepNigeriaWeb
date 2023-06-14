@@ -39,6 +39,8 @@ const loadProducts = async () => {
     if (resetValue.value == 1) {
         products.value = []
     }
+        // cartItemList.value = []
+
     const count = cartIdCounts.value
     const docRef = doc(collection(db, "products"), cartIds.value.toString())
     const docSnap = await getDoc(docRef);
@@ -50,8 +52,8 @@ const loadProducts = async () => {
         return item.original_price * count;
     });
     let lastElement = cartPricesArrayString[cartPricesArrayString.length - 1];
-    cartItemList.value = []
     cartItemList.value.push(lastElement)
+    console.log(cartItemList.value)
 
     cartSubTotal.value = cartItemList.value.reduce((partialSum, a) => (partialSum + a), 0);
     cartTotal.value = cartSubTotal.value + 1000;
@@ -141,25 +143,25 @@ function onCancelledPayment(response) {
                                             <p class="mb-0">You have {{ products.length }} items in your cart</p>
                                         </div>
                                     </div>
-                                    <div class="card mb-3" v-for="cartItems in loadProductsList">
+                                    <div class="card mb-3" v-for="cartItems in loadProductsList" style="max-width: 50rem;">
                                         <div class="card-body">
-                                            <div class="d-flex justify-content-between">
+                                            <div class="d-flex justify-content-between leftside">
                                                 <div class="d-flex flex-row align-items-center">
-                                                    <div>
-                                                        <img :src="cartItems.images" class="img-fluid rounded-3"
+                                                    <div @click="$router.push(`/product/${cartItems.id}`)" style="cursor: pointer;">
+                                                        <img :src="cartItems.images" class="img-fluid rounded-3 d-none d-sm-block"
                                                             alt="Shopping item" style="width: 65px;">
                                                     </div>
-                                                    <div class="ms-3">
-                                                        <h5>{{ cartItems.title }}</h5>
-                                                        <p class="small mb-0">{{ cartItems.manufacturer }} - ₦ {{
+                                                    <div class="ms-3 title">
+                                                        <h5 @click="$router.push(`/product/${cartItems.id}`)" style="cursor: pointer;">{{ cartItems.title }}</h5>
+                                                        <p class="small mb-0">{{ cartItems.manufacturer }} - ₦{{
                                                             cartItems.original_price }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex flex-row align-items-center">
-                                                    <div style="width: 50px;">
+                                                    <div style="width: 50px;" class="title2">
                                                         <h5 class="fw-normal mb-0">{{ cartItems.count }}</h5>
                                                     </div>
-                                                    <div style="width: 80px;">
+                                                    <div style="width: 80px;" class="title3">
                                                         <h5 class="mb-0">₦ {{ cartItems.original_price * cartItems.count }}
                                                         </h5>
                                                     </div>
@@ -216,14 +218,14 @@ function onCancelledPayment(response) {
                                                 <p class="mb-2">₦ 1,000.00</p>
                                             </div>
 
-                                            <div class="d-flex justify-content-between mb-4">
+                                            <div class="d-flex justify-content-between mb-4 ">
                                                 <p class="mb-2">Total</p>
                                                 <p class="mb-2">₦ {{ cartTotal.toLocaleString() }}.00</p>
                                             </div>
 
                                             <button type="button" class="btn btn-info btn-block btn-lg">
-                                                <div class="d-flex justify-content-between">
-                                                    <span>₦ {{ cartTotal.toLocaleString() }}.00 -</span>
+                                                <div class="d-flex justify-content-between title4">
+                                                    <span>₦ {{ cartTotal.toLocaleString() }}.00 - &nbsp;</span>
                                                     <span> Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
                                                     <paystack buttonClass="'button-class btn btn-primary'" buttonText=""
                                                         :publicKey="paystackkey" :email="email" :amount="cartTotal * 100"
@@ -238,6 +240,7 @@ function onCancelledPayment(response) {
                             </div>
                         </div>
                     </div>
+                    <div style="margin: 50px;"></div>
                 </div>
             </div>
         </div>
@@ -250,6 +253,36 @@ function onCancelledPayment(response) {
         height: 100vh !important;
     }
 }
+
+@media (max-width: 384px) {
+    .title h5{
+        font-size: 3.5vw !important;
+    }
+
+    .title p{
+        font-size: 3vw !important;
+
+    }
+
+    .title2 h5{
+        font-size: 4vw !important;
+    }
+
+    .title3 h5{
+        font-size: 5vw !important;
+    }
+
+    .title4{
+        font-size: 4vw !important;
+    }
+
+    .leftside{
+        margin-left: -20px;
+    }
+
+}
+
+
 
 .textwhite {
     color: white;
