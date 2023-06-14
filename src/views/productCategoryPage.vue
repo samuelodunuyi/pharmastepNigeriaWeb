@@ -33,7 +33,6 @@ const loadProduct = async () => {
 
 <template>
     <topHeader :slides="1"/>
-
     <section>
         <div class="container py-5" style="margin-bottom: -50px; font-size: larger; cursor: pointer;" @click="$router.go(-1)"><i class="fa fa-arrow-left"></i><span>&nbsp;</span>Back</div>
         <div class="container py-5">
