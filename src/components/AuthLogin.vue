@@ -185,7 +185,7 @@ export default {
         this.loadingLogin = false
         setTimeout(async () => {
           window.location.reload()
-        }, 3000)
+        }, 1500)
       }
     }
   }

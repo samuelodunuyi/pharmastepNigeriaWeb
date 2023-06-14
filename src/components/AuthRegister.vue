@@ -207,7 +207,7 @@ export default {
           store.cartNo = 0
               setTimeout(async () => {
                 window.location.reload()
-              }, 3000)
+              }, 1500)
             }
       }
     }

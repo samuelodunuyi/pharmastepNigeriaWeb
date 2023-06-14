@@ -99,6 +99,7 @@ export default {
 
   computed: {
     retz() {
+      console.log(this.slides)
       if (this.cartNo < this.slides) {
         this.cartNo = store.cartNoNew
         this.cartNos()
