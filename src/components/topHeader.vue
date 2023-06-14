@@ -86,6 +86,7 @@ export default {
       cartProduct: [],
       cartIdCounts: [],
       cartNo: 0,
+      cartIncrement: 1,
       loginDialog: false,
       registerDialog: false,
       userUid: '',
@@ -100,6 +101,9 @@ export default {
   computed: {
     retz() {
       console.log(this.slides)
+      if(this.slides<0){
+        this.slides= this.cartIncrement
+      }
       if (this.cartNo < this.slides) {
         this.cartNo = store.cartNoNew
         this.cartNos()
