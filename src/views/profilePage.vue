@@ -5,7 +5,7 @@ import topHeader from '../components/topHeader.vue';
 </script>
 
 <template>
-      <topHeader />
+    <topHeader :slides="1"/>
   <v-dialog v-model="showOrderDetails" width="100%">
     <div style="width: 100%; background-color: white; padding: 30px; overflow: auto;">
       <div class="row">

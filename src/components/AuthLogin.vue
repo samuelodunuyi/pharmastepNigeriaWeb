@@ -85,7 +85,8 @@ export default {
       passwordErrorMessage: '',
       password: "",
       generalErrorMessage: '',
-      showPassword: false
+      showPassword: false,
+      finishedIteration: false
     };
   },
 
@@ -112,11 +113,7 @@ export default {
           store.userUid = userCredential.user.uid;
           store.user = userCredential.user;
           store.useremail = userCredential.user.email;
-          console.log(auth.currentUser.email)
-          this.checkCartItems().then(
-              setTimeout(async () => {
-                window.location.reload()
-              }, 3000))
+          this.checkCartItems()
         })
         .catch((error) => {
           if (error.code == 'auth/wrong-password') {
@@ -165,6 +162,12 @@ export default {
           }
         }
         console.log("this man")
+        this.finishedIteration= true
+        if(this.finishedIteration==true){
+              setTimeout(async () => {
+                window.location.reload()
+              }, 3000)
+            }
       }
     }
   }
