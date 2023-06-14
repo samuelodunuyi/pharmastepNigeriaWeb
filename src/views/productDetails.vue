@@ -45,7 +45,7 @@ const newCartValue = computed(() => {
     if (store.userUid == '') {
         return store.cartNo
     }
-    return store.cartNoNew
+    return store.cartNoNews
 })
 
 </script>

@@ -75,7 +75,7 @@ const deletefromCart = async (id) => {
         }, 2000)
     )
     store.decrement()
-    console.log(store.cartNoNew)
+    console.log(store.cartNoNews)
     const objWithIdIndex = products.value.findIndex((obj) => obj.id === id);
 
     products.value.splice(objWithIdIndex, 1);
@@ -86,7 +86,7 @@ const reference = computed(() => {
 })
 
 const newCartValue = computed(() => {
-    return store.cartNoNew
+    return store.cartNoNews
 })
 
 async function onSuccessfulPayment(response) {

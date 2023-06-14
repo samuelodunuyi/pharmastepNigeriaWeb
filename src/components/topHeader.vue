@@ -105,7 +105,7 @@ export default {
         this.slides= this.cartIncrement
       }
       if (this.cartNo < this.slides) {
-        this.cartNo = store.cartNoNew
+        this.cartNo = store.cartNoNews
         this.cartNos()
         this.loadCart()
       }
