@@ -9,7 +9,7 @@ const useUserStore = defineStore("user", {
       useremail:  useSessionStorage('useremail', ''),
       products:  useLocalStorage('products', []),
       cartNo:  useLocalStorage('cartNo', 0),
-      cartNoNews:  useSessionStorage('cartNoNews', 0),
+      cartNoNews:  useSessionStorage('cartNoNews', 1),
       cartNotSigned:  useLocalStorage('cartNotSigned', []),
     };
   },
