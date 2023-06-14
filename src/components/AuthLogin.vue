@@ -151,7 +151,7 @@ export default {
         });
     },
     async checkCartItems() {
-        store.cartNoNews=0
+        store.cartNoNews=1
       if (store.cartNotSigned.length > 0) {
         let unique = [...new Set(store.cartNotSigned)];
         for (let i = 0; i < unique.length; i++) {
