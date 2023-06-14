@@ -186,7 +186,11 @@ import topHeader from '../components/topHeader.vue';
                 <tr v-for="order in orders">
                   <th scope="row">{{ order.id }}</th>
                   <td>{{ order.total }}</td>
-                  <td>erere</td>
+                  <td>{{ order.product_uid.map(({ count, id, original_price, product_mode, ...rest }) => ({
+                    ...rest
+                  })).map(function (item) {
+                    return item.title;
+                  }).toString() }}</td>
                   <td>{{ order.addressline }}</td>
                   <td style="text-decoration: underline; color: blue; font-weight: bold; cursor: pointer;"
                     @click="filterSelected(order.id)">Details</td>

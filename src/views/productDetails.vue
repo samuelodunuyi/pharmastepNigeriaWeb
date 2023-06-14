@@ -23,24 +23,34 @@ const loadProduct = async () => {
 }
 
 const AddtoCart = async (id) => {
-    const docSnap = await getDoc(doc(db, 'users', store.userUid, 'cart', id))
-    if (docSnap.exists()) {
-        await updateDoc(doc(db, 'users', store.userUid, 'cart', id), {
-            item_count: increment(1),
-        });
-    } else {
-        await setDoc(doc(db, 'users', store.userUid, 'cart', id), {
-            item_count: 1,
-        }).then(store.increment());
+    if (store.userUid != '') {
+        const docSnap = await getDoc(doc(db, 'users', store.userUid, 'cart', id))
+        if (docSnap.exists()) {
+            await updateDoc(doc(db, 'users', store.userUid, 'cart', id), {
+                item_count: increment(1),
+            });
+        } else {
+            await setDoc(doc(db, 'users', store.userUid, 'cart', id), {
+                item_count: 1,
+            }).then(store.increment());
+        }
+    }
+    else {
+        store.incrementArray(id)
+        let unique = [...new Set(store.cartNotSigned)];
+        store.cartNo = unique.length
     }
 }
 const newCartValue = computed(() => {
+    if (store.userUid == '') {
+        return store.cartNo
+    }
     return store.cartNoNew
 })
 
 </script>
 <template>
-    <topHeader :slides="newCartValue"/>
+    <topHeader :slides="newCartValue" />
     <div class="container mt-5 mb-5">
         <div class="row d-flex justify-content-center">
             <div class="col-md-10">
@@ -48,7 +58,7 @@ const newCartValue = computed(() => {
                     <div class="row">
                         <div class="col-md-6">
                             <div class="images p-3">
-                                <div class="text-center p-4"> <img id="main-image" :src="product.images" width="500"/>
+                                <div class="text-center p-4"> <img id="main-image" :src="product.images" width="500" />
                                 </div>
                                 <div class="thumbnail text-center" v-for="(i, index) in product.images" :key="index"> <img
                                         @click="change_image(i)" :src="i" width="70">

@@ -10,6 +10,7 @@ const useUserStore = defineStore("user", {
       products:  useLocalStorage('products', []),
       cartNo:  useLocalStorage('cartNo', 0),
       cartNoNew:  useSessionStorage('cartNoNew', 0),
+      cartNotSigned:  useLocalStorage('cartNotSigned', []),
     };
   },
   persist: true,
@@ -21,6 +22,14 @@ const useUserStore = defineStore("user", {
 
     decrement() {
       this.cartNoNew--
+    },
+
+    incrementArray(id) {
+      this.cartNotSigned.push(id)
+    },
+
+    destroyArray() {
+      this.cartNotSigned=[]
     },
   },
 });

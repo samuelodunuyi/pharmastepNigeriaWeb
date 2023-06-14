@@ -27,18 +27,28 @@ onMounted(() => {
 })
 
 const AddtoCart = async (id) => {
-    const docSnap = await getDoc(doc(db, 'users', store.userUid, 'cart', id))
-    if (docSnap.exists()) {
-        await updateDoc(doc(db, 'users', store.userUid, 'cart', id), {
-            item_count: increment(1),
-        });
-    } else {
-        await setDoc(doc(db, 'users', store.userUid, 'cart', id), {
-            item_count: 1,
-        }).then(store.increment());
+    if (store.userUid != '') {
+        const docSnap = await getDoc(doc(db, 'users', store.userUid, 'cart', id))
+        if (docSnap.exists()) {
+            await updateDoc(doc(db, 'users', store.userUid, 'cart', id), {
+                item_count: increment(1),
+            });
+        } else {
+            await setDoc(doc(db, 'users', store.userUid, 'cart', id), {
+                item_count: 1,
+            }).then(store.increment());
+        }
+    }
+    else {
+        store.incrementArray(id)
+        let unique = [...new Set(store.cartNotSigned)];
+        store.cartNo = unique.length
     }
 }
 const newCartValue = computed(() => {
+    if (store.userUid == '') {
+        return store.cartNo
+    }
     return store.cartNoNew
 })
 
@@ -60,7 +70,7 @@ const productFiltered = computed(() => {
 </script>
 
 <template>
-    <topHeader :slides="newCartValue"/>
+    <topHeader :slides="newCartValue" />
     <section style="background-color: #f5f5f5;">
         <div class="container py-5">
             <div class="row">

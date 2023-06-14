@@ -27,6 +27,7 @@ onMounted(() => {
 })
 
 const AddtoCart = async (id) => {
+    if (store.userUid != '') {
     const docSnap = await getDoc(doc(db, 'users', store.userUid, 'cart', id))
     if (docSnap.exists()) {
         await updateDoc(doc(db, 'users', store.userUid, 'cart', id), {
@@ -38,7 +39,16 @@ const AddtoCart = async (id) => {
         }).then(store.increment());
     }
 }
+    else {
+        store.incrementArray(id)
+        let unique = [...new Set(store.cartNotSigned)];
+        store.cartNo = unique.length
+    }
+}
 const newCartValue = computed(() => {
+    if (store.userUid == '') {
+        return store.cartNo
+    }
     return store.cartNoNew
 })
 

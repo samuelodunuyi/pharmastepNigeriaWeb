@@ -45,8 +45,14 @@
           <div class="navbar-nav ms-auto" style="margin-top: 5px;">
             <RouterLink to="/auth/login" class="nav-item nav-link" v-if="userUid == ''">Login</RouterLink>
             <RouterLink to="/profile/account" class="nav-item nav-link" v-else>Profile</RouterLink>
-            <v-btn to="/cart" icon color="#212529" style="margin-top: -2px;">
+            <v-btn to="/cart" icon color="#212529" style="margin-top: -2px;" v-if="userUid!=''">
               <v-badge :content=retz color="#47B65C">
+                <v-icon size="small" color="white">mdi-cart</v-icon>
+              </v-badge>
+            </v-btn>
+
+            <v-btn to="/cart" icon color="#212529" style="margin-top: -2px;" v-else>
+              <v-badge :content=retz2 color="#47B65C">
                 <v-icon size="small" color="white">mdi-cart</v-icon>
               </v-badge>
             </v-btn>
@@ -93,12 +99,19 @@ export default {
 
   computed: {
     retz() {
+      console.log(this.slides)
       if (this.cartNo < this.slides) {
         this.cartNo = store.cartNoNew
         this.cartNos()
         this.loadCart()
       }
       return this.cartIdCounts.length
+    },
+
+    retz2() {
+        this.cartNo = store.cartNo
+        this.cartNos()
+        return this.cartNo
     },
   },
 
@@ -116,7 +129,7 @@ export default {
     cartNos() {
       this.$emit("close", this.slides);
     },
-
+    
     relocate() {
       window.open("https://play.google.com/store/apps/details?id=com.pharmastepng.meds",
         '_blank');

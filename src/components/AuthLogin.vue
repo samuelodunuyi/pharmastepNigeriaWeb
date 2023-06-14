@@ -7,21 +7,24 @@
           <span class="h2 fw-bold mb-0">Sign into your account</span>
         </div>
         <div class="form-outline mb-4">
-          <input type="email" id="form2Example17" class="form-control form-control-lg" v-model="email" autocomplete="none"/>
+          <input type="email" id="form2Example17" class="form-control form-control-lg" v-model="email"
+            autocomplete="none" />
           <label class="form-label" for="form2Example17">Email address</label>
           <p>{{ emailErrorMessage }}</p>
         </div>
 
         <div class="form-outline mb-6">
           <div class="input-group">
-            <input v-if="showPassword" type="text" id="form2Example27" class="form-control form-control-lg" v-model="password" autocomplete="off"/>
-            <input v-else type="password" id="form2Example27" class="form-control form-control-lg" v-model="password" autocomplete="off"/>
+            <input v-if="showPassword" type="text" id="form2Example27" class="form-control form-control-lg"
+              v-model="password" autocomplete="off" />
+            <input v-else type="password" id="form2Example27" class="form-control form-control-lg" v-model="password"
+              autocomplete="off" />
             <button type="button" v-if="showPassword" class="toggle" @click="toggleShow">
-              <v-icon >fas fa-eye-slash</v-icon>
-           </button>
-           <button type="button" v-else class="toggle" @click="toggleShow">
-              <v-icon >fas fa-eye</v-icon>
-           </button>
+              <v-icon>fas fa-eye-slash</v-icon>
+            </button>
+            <button type="button" v-else class="toggle" @click="toggleShow">
+              <v-icon>fas fa-eye</v-icon>
+            </button>
           </div>
           <label class="form-label" for="form2Example27">Password</label>
           <p>{{ passwordErrorMessage }}</p>
@@ -59,7 +62,9 @@
 <script>
 import EPasswordResetForm from "./AuthPasswordReset.vue";
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { collection, getDocs, setDoc, getDoc, doc, increment, updateDoc } from "firebase/firestore";
 import pinia from "../stores/setup.js"
+import { db } from "../firebase.js"
 import useUserStore from '../stores/index.js'
 const store = useUserStore(pinia)
 const provider = new GoogleAuthProvider();
@@ -86,7 +91,7 @@ export default {
 
   created() {
     this.email = '',
-    this.password = ''
+      this.password = ''
   },
 
   methods: {
@@ -97,53 +102,71 @@ export default {
       this.showPassword = !this.showPassword;
     },
     login() {
-      this.emailErrorMessage=''
-      this.passwordErrorMessage=''
-      this.generalErrorMessage=''
+      this.emailErrorMessage = ''
+      this.passwordErrorMessage = ''
+      this.generalErrorMessage = ''
       this.status = true
       signInWithEmailAndPassword(auth, this.email, this.password)
-        .then((userCredential) => {
+        .then(async (userCredential) => {
           // Signed in 
           store.userUid = userCredential.user.uid;
           store.user = userCredential.user;
           store.useremail = userCredential.user.email;
           console.log(auth.currentUser.email)
-
-          setTimeout(async () => {
-             window.location.reload()
-           }, 3000)
+          this.checkCartItems().then(
+              setTimeout(async () => {
+                window.location.reload()
+              }, 3000))
         })
         .catch((error) => {
-          if(error.code=='auth/wrong-password'){
+          if (error.code == 'auth/wrong-password') {
             this.generalErrorMessage = 'Wrong Password, retry';
           }
         });
     },
     validate() {
-      if(this.email==''){
-        return this.emailErrorMessage="Enter valid Email address"
+      if (this.email == '') {
+        return this.emailErrorMessage = "Enter valid Email address"
       }
-      if(this.password=='' || this.password.length<6){
-        return this.passwordErrorMessage="Password is less than 6 characters"
+      if (this.password == '' || this.password.length < 6) {
+        return this.passwordErrorMessage = "Password is less than 6 characters"
       }
       this.login()
     },
     googleLogin() {
       signInWithPopup(auth, provider)
-        .then((result) => {
+        .then(async (result) => {
           const credential = GoogleAuthProvider.credentialFromResult(result);
           const token = credential.accessToken;
           store.userUid = result.user.uid;
           store.user = result.user;
           store.useremail = result.user.email;
-
-          window.location.reload();
+          this.checkCartItems().then(window.location.reload())
         }).catch((error) => {
           const credential = GoogleAuthProvider.credentialFromError(error);
           this.generalErrorMessage = error.code;
         });
+    },
+    async checkCartItems() {
+      if (store.cartNotSigned.length > 0) {
+        let unique = [...new Set(store.cartNotSigned)];
+        for (let i = 0; i < unique.length; i++) {
+          console.log(i)
+          const docSnap = await getDoc(doc(db, 'users', store.userUid, 'cart', unique[i]))
+          if (docSnap.exists()) {
+            await updateDoc(doc(db, 'users', store.userUid, 'cart', unique[i]), {
+              item_count: increment(1),
+            });
+          } else {
+            console.log("thisran")
+            await setDoc(doc(db, 'users', store.userUid, 'cart', unique[i]), {
+              item_count: 1,
+            }).then(store.increment());
+          }
+        }
+        console.log("this man")
+      }
     }
-
   }
 };
 </script>
