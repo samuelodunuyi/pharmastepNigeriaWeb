@@ -155,7 +155,6 @@ export default {
       if (store.cartNotSigned.length > 0) {
         let unique = [...new Set(store.cartNotSigned)];
         for (let i = 0; i < unique.length; i++) {
-          console.log(i)
           const docSnap = await getDoc(doc(db, 'users', store.userUid, 'cart', unique[i]))
           if (docSnap.exists()) {
             await updateDoc(doc(db, 'users', store.userUid, 'cart', unique[i]), {
@@ -173,7 +172,6 @@ export default {
           this.loadingGoogleLogin = false
           store.cartNotSigned = []
           store.cartNo = 0
-          console.log(store.cartNotSigned)
           setTimeout(async () => {
             window.location.reload()
           }, 3000)

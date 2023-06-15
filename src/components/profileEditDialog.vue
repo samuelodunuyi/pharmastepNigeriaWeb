@@ -61,7 +61,6 @@ export default {
     methods: {
         close() {
             this.$emit("close", this.name);
-            console.log(this.name)
         }
     }
 };

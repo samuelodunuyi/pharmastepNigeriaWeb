@@ -13,6 +13,7 @@ const route = useRoute()
 const categoryId = (route.params.id);
 const products = ref([])
 const productbyCategory = ref([])
+var checkProducts = ""
 
 
 onMounted(() => {
@@ -28,6 +29,10 @@ const loadProduct = async () => {
         }
     })
     productbyCategory.value = products.value.filter(o => o.product_type === categoryId)
+    if(productbyCategory.value.length>0){
+        checkProducts = 1
+    }
+    else checkProducts=0
 }
 </script>
 
@@ -78,7 +83,7 @@ const loadProduct = async () => {
                     </div>
                 </div>
             </div>
-            <div class="text-center" v-if="productbyCategory.length === 0" justify-center>
+            <div class="text-center" v-if="checkProducts===0" justify-center>
                 <div>&nbsp;</div>
                 <div>&nbsp;</div>
                 <div>&nbsp;</div>

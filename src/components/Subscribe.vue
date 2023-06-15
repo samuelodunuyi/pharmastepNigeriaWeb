@@ -55,12 +55,10 @@ export default {
         body: formData
       })
         .then(response => {
-          console.log("success", response)
           this.success = true
           this.email = "";
         })
         .catch(error => {
-          console.log(error)
           // Handle any errors here
         });
     }

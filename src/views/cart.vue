@@ -1,5 +1,5 @@
 <script setup>
-import { collection, getDocs, getDoc, doc, deleteDoc, setDoc } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc, deleteDoc, setDoc, increment, updateDoc } from "firebase/firestore";
 import { db } from "../firebase.js"
 import { ref, computed } from "vue";
 import useUserStore from "../stores";
@@ -16,8 +16,8 @@ const cartIdCounts = ref([])
 const cartSubTotal = ref(0)
 const cartTotal = ref(0)
 const cartItemList = ref([])
-const paystackkey = "pk_test_a137d402b5975716e89952a898aad2832c961d69"
-// const paystackkey = "pk_live_f56a0238d753611ed6b184e1c02174a1783af6a1"
+// const paystackkey = "pk_test_a137d402b5975716e89952a898aad2832c961d69"
+const paystackkey = "pk_live_f56a0238d753611ed6b184e1c02174a1783af6a1"
 const email = store.useremail
 const recieverName = ref('')
 const deliveryAddress = ref('')
@@ -27,7 +27,6 @@ const resetValue = ref(0)
 const order = ref([])
 const loadUser = async () => {
     const docSnaps = await getDocs(collection(db, 'users', store.userUid, 'cart'));
-
     cartProduct.value = docSnaps.forEach((doc) => {
         cartIds.value = doc.id
         cartIdCounts.value = doc.get('item_count')
@@ -39,7 +38,7 @@ const loadProducts = async () => {
     if (resetValue.value == 1) {
         products.value = []
     }
-        // cartItemList.value = []
+    // cartItemList.value = []
 
     const count = cartIdCounts.value
     const docRef = doc(collection(db, "products"), cartIds.value.toString())
@@ -53,7 +52,6 @@ const loadProducts = async () => {
     });
     let lastElement = cartPricesArrayString[cartPricesArrayString.length - 1];
     cartItemList.value.push(lastElement)
-    console.log(cartItemList.value)
 
     cartSubTotal.value = cartItemList.value.reduce((partialSum, a) => (partialSum + a), 0);
     cartTotal.value = cartSubTotal.value + 1000;
@@ -75,7 +73,6 @@ const deletefromCart = async (id) => {
         }, 2000)
     )
     store.decrement()
-    console.log(store.cartNoNews)
     const objWithIdIndex = products.value.findIndex((obj) => obj.id === id);
 
     products.value.splice(objWithIdIndex, 1);
@@ -147,18 +144,21 @@ function onCancelledPayment(response) {
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between leftside">
                                                 <div class="d-flex flex-row align-items-center">
-                                                    <div @click="$router.push(`/product/${cartItems.id}`)" style="cursor: pointer;">
-                                                        <img :src="cartItems.images" class="img-fluid rounded-3 d-none d-sm-block"
+                                                    <div @click="$router.push(`/product/${cartItems.id}`)"
+                                                        style="cursor: pointer;">
+                                                        <img :src="cartItems.images"
+                                                            class="img-fluid rounded-3 d-none d-sm-block"
                                                             alt="Shopping item" style="width: 65px;">
                                                     </div>
                                                     <div class="ms-3 title">
-                                                        <h5 @click="$router.push(`/product/${cartItems.id}`)" style="cursor: pointer;">{{ cartItems.title }}</h5>
+                                                        <h5 @click="$router.push(`/product/${cartItems.id}`)"
+                                                            style="cursor: pointer;">{{ cartItems.title }}</h5>
                                                         <p class="small mb-0">{{ cartItems.manufacturer }} - ₦{{
                                                             cartItems.original_price }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex flex-row align-items-center">
-                                                    <div style="width: 50px;" class="title2">
+                                                    <div style="width: 90px;" class="title2">
                                                         <h5 class="fw-normal mb-0">{{ cartItems.count }}</h5>
                                                     </div>
                                                     <div style="width: 80px;" class="title3">
@@ -226,12 +226,14 @@ function onCancelledPayment(response) {
                                             <button type="button" class="btn btn-info btn-block btn-lg">
                                                 <div class="d-flex justify-content-between title4">
                                                     <span>₦ {{ cartTotal.toLocaleString() }}.00 - &nbsp;</span>
-                                                    <span> Checkout <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
-                                                    <paystack buttonClass="'button-class btn btn-primary'" buttonText=""
+                                                    <span>
+                                                    <paystack buttonClass="'btn btn-info btn-block btn-lg'" 
+                                                        buttonText="Click to Checkout"
                                                         :publicKey="paystackkey" :email="email" :amount="cartTotal * 100"
                                                         :reference="reference" :onSuccess="onSuccessfulPayment"
                                                         :onCanel="onCancelledPayment">
                                                     </paystack>
+                                                </span>
                                                 </div>
                                             </button>
                                         </div>
@@ -248,35 +250,40 @@ function onCancelledPayment(response) {
 </template>
 
 <style>
+.title2 {
+    text-align: center;
+}
+
 @media (min-width: 1025px) {
     .h-custom {
         height: 100vh !important;
     }
+
 }
 
 @media (max-width: 384px) {
-    .title h5{
+    .title h5 {
         font-size: 3.5vw !important;
     }
 
-    .title p{
+    .title p {
         font-size: 3vw !important;
 
     }
 
-    .title2 h5{
+    .title2 h5 {
         font-size: 4vw !important;
     }
 
-    .title3 h5{
+    .title3 h5 {
         font-size: 5vw !important;
     }
 
-    .title4{
+    .title4 {
         font-size: 4vw !important;
     }
 
-    .leftside{
+    .leftside {
         margin-left: -20px;
     }
 

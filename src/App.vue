@@ -29,7 +29,6 @@ export default {
         console.log(store.userUid)
       } else {
         console.log("not logged in")
-
       }
     });
   },

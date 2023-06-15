@@ -31,7 +31,6 @@ fetch(googleFormUrl, {
   body: formData
 })
   .then(response => {
-    console.log("success", response)
     success.value=true
     name.value = ""
     email.value = ""
@@ -39,7 +38,6 @@ fetch(googleFormUrl, {
     message.value = ""
   })
   .catch(error => {
-    console.log(error)
     error.value = true
     // Handle any errors here
   });

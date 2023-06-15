@@ -50,8 +50,9 @@
         </div>
         </div>
         <p style="color: red; margin-top: -5px;">{{ passwordErrorMessage }}</p>
+        <p style="color: red;">{{ generalErrorMessage }}</p>
         <div class="form-outline mb-4">
-          <v-btn class="btn btn-dark btn-lg" :loading="loadingRegister" type="button" style="color: white; width: 100%;" @click="validate">Sign
+          <v-btn class="btn btn-dark btn-lg" :loading="loadingRegister" type="button" style="background-color: #313131; color: white; width: 100%;" @click="validate">Sign
             Up</v-btn>
         </div>
         <div style="justify-content: center; text-align: center; margin-bottom: -60px;">
@@ -59,7 +60,6 @@
             <RouterLink to="/auth/login" style="color: #393f81;">Login here</RouterLink>
           </p>
         </div>
-
       </form>
     </div>
   </div>
@@ -90,7 +90,8 @@ export default {
       phoneErrorMessage: '',
       passwordErrorMessage: '',
       email: "",
-      loadingRegister: false
+      loadingRegister: false,
+      generalErrorMessage: ''
     };
   },
   methods: {
@@ -152,6 +153,7 @@ export default {
       }
      },
     registerUser() {
+      this.generalErrorMessage = ''
       const auth = getAuth();
       this.status = true
       this.loadingRegister=true
@@ -167,7 +169,9 @@ export default {
           this.loadingRegister=false
           const errorCode = error.code;
           const errorMessage = error.message;
-          // ..
+          if(errorCode=='auth/email-already-in-use'){
+            this.generalErrorMessage = "Email already in use, please Login"
+          }
         });
     },
 
@@ -188,7 +192,6 @@ export default {
       if (store.cartNotSigned.length > 0) {
         let unique = [...new Set(store.cartNotSigned)];
         for (let i = 0; i < unique.length; i++) {
-          console.log(i)
           const docSnap = await getDoc(doc(db, 'users', store.userUid, 'cart', unique[i]))
           if (docSnap.exists()) {
             await updateDoc(doc(db, 'users', store.userUid, 'cart', unique[i]), {
