@@ -14,6 +14,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "@mdi/font": "^7.1.96",
+    "@googlemaps/js-api-loader": "^1.16.2",
     "@progress/kendo-theme-default": "^6.3.0",
     "@progress/kendo-vue-buttons": "^3.10.2",
     "@progress/kendo-vue-layout": "^3.10.2",
