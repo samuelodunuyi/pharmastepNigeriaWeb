@@ -54,9 +54,9 @@ const loadProducts = async () => {
     const product = { id: docSnap.id, ...docSnap.data(), count: count };
     products.value.push(product)
     productInCart.value = products.value
-    const cartPricesArray = productInCart.value.map(({ count, description, id, manufacturer, owner, product_mode, product_type, title, images, search_tags, expiry_date, control_med, ...rest }) => ({ ...rest }))
+    const cartPricesArray = productInCart.value.map(({ count, description, id, manufacturer, owner, product_mode, product_type, title, images, search_tags, expiry_date, control_med, original_price, ...rest }) => ({ ...rest }))
     const cartPricesArrayString = cartPricesArray.map(function (item) {
-        return item.original_price * count;
+        return item.discount_Price * count;
     });
     let lastElement = cartPricesArrayString[cartPricesArrayString.length - 1];
     cartItemList.value.push(lastElement)
@@ -174,8 +174,31 @@ function callDistanceMatrix() {
                         const dur = response.rows[0].elements[0].duration.text;
                         distance.value = dist
                         duration.value = dur
+                        distance.value = distance.value.slice(0, -3)
+                        const distMain = parseFloat(distance.value)
 
-                        DeliveryFee.value = (distance.value.slice(0, -3) * 89.46)
+                        console.log(distance.value)
+                        console.log(distMain)
+
+                        if (distMain >= 40.3) {
+                            DeliveryFee.value = 3500
+                        }
+                        if (distMain < 40.3) {
+                            DeliveryFee.value = 3000
+                        }
+                        if (distMain < 33.3) {
+                            DeliveryFee.value = 2500
+                        }
+                        if (distMain < 24.1) {
+                            DeliveryFee.value = 2000
+                        }
+                        if (distMain < 6.4) {
+                            DeliveryFee.value = 1500
+                        }
+                        if (distMain < 4.5) {
+                            DeliveryFee.value = 1000
+                        }
+
                     } else {
                         console.error('Distance Matrix request failed:', status);
                     }
@@ -197,12 +220,12 @@ onMounted(() => {
         document.getElementById("autocomplete"), options
     );
     const infowindowContent = document.getElementById("infowindow-content");
-    
+
     autocomplete.addListener("place_changed", () => {
         const place = autocomplete.getPlace();
         infowindowContent.children["place-name"].textContent = place.name;
         infowindowContent.children["place-address"].textContent = place.formatted_address;
-        deliveryAddress.value= place.formatted_address
+        deliveryAddress.value = place.formatted_address
     });
 })
 
@@ -249,7 +272,7 @@ const getDeliveryvalue = computed(() => {
                                                         <h5 @click="$router.push(`/product/${cartItems.id}`)"
                                                             style="cursor: pointer;">{{ cartItems.title }}</h5>
                                                         <p class="small mb-0">{{ cartItems.manufacturer }} - ₦{{
-                                                            cartItems.original_price }}</p>
+                                                            cartItems.discount_Price }}</p>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex flex-row align-items-center">
@@ -257,7 +280,7 @@ const getDeliveryvalue = computed(() => {
                                                         <h5 class="fw-normal mb-0">{{ cartItems.count }}</h5>
                                                     </div>
                                                     <div style="width: 80px;" class="title3">
-                                                        <h5 class="mb-0">₦ {{ cartItems.original_price * cartItems.count }}
+                                                        <h5 class="mb-0">₦ {{ cartItems.discount_Price * cartItems.count }}
                                                         </h5>
                                                     </div>
                                                     <p style="color: #cecece; cursor: pointer;"
@@ -329,7 +352,7 @@ const getDeliveryvalue = computed(() => {
                                                     <span v-if="cartTotal > 0">
                                                         - &nbsp;
                                                         <paystack buttonClass="'btn btn-info btn-block btn-lg'"
-                                                            buttonText="Click to Checkout" :publicKey="paystackkey"
+                                                            buttonText="Click here to Checkout" :publicKey="paystackkey"
                                                             :email="email" :amount="getDeliveryvalue * 100"
                                                             :reference="reference" :onSuccess="onSuccessfulPayment"
                                                             :onCanel="onCancelledPayment" :disabled="checkOutDisable">

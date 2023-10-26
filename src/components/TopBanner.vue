@@ -19,7 +19,7 @@
           <div class="carousel-caption text-start" style="color: black;">
             <h1>Healthcare at your Doorstep</h1>
             <p>Let's help you take charge of your health and wellness</p>
-            <p><RouterLink class="btn btn-lg btn-primary" to="/products">Shop Now</RouterLink></p>
+            <p><RouterLink class="btn btn-lg btn-primary" to="/categories">Shop Now</RouterLink></p>
             <p class="d-none d-sm-block">&nbsp;</p>
           </div>
         </div>
@@ -43,7 +43,7 @@
           <div class="carousel-caption text-start" style="color: black;">
             <h1>Antibiotics Facts</h1>
             <p>You should never stop taking a course of antibiotics half way through. <br>Always make sure you finish them.</p>
-            <p><RouterLink class="btn btn-lg btn-primary" to="category/Antibacterial">Antibiotics</RouterLink></p>
+            <p><RouterLink class="btn btn-lg btn-primary" to="category/Antibacterial">Shop Antibiotics</RouterLink></p>
             <p class="d-none d-sm-block">&nbsp;</p>
           </div>
         </div>
@@ -53,9 +53,9 @@
         <img src="../components/images/alt_img.png" class="img-fluid d-block d-md-none" style="object-fit: cover; object-position: 30% 0;"/>
         <div class="container">
           <div class="carousel-caption text-start" style="color: black;">
-            <h1>Pain Reliever Medicines</h1>
-            <p>Don't ignore that pain, provide soothe to your pain,<br> Explore our range of Pain Relieve Medications</p>
-            <p><RouterLink class="btn btn-lg btn-primary" to="category/Pain_management">Analgesics</RouterLink></p>
+            <h1>Pain Relief Medicines</h1>
+            <p>Don't ignore that pain, provide soothe to your pain,<br> Explore our range of Pain Relief Medications</p>
+            <p><RouterLink class="btn btn-lg btn-primary" to="category/Pain_management">Shop Analgesics</RouterLink></p>
             <p class="d-none d-sm-block">&nbsp;</p>
           </div>
         </div>

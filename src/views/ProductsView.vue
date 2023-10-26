@@ -98,9 +98,11 @@ const productFiltered = computed(() => {
                             </div>
 
                             <div class="text-center">
-                                <div class="d-flex flex-column mb-4">
-                                    <span class="h3 mb-0 mb-1 pb-3" style="color: #1C78D3">₦ {{
-                                        i.original_price.toLocaleString() }}</span>
+                                <div class="d-flex gap-3 mb-4">
+                                        <span class="h5 mb-0 mb-1 pb-3" style="color: #1C78D3">₦ {{
+                                            i.discount_Price }}</span>
+                                        <span class="h6 mb-0 mb-1 pb-3" style="color: #000000; text-decoration: line-through; ">₦ {{
+                                            i.original_price.toLocaleString() }}</span>
                                 </div>
 
                                 <div class="d-flex flex-column mb-4">

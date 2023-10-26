@@ -75,8 +75,10 @@ const newCartValue = computed(() => {
                                 <div class="mt-4 mb-3"> <b class="text-uppercase text-muted brand">{{
                                     product.manufacturer }}</b>
                                     <h5 class="text-uppercase h2">{{ product.title }}</h5>
-                                    <div class="h3 price d-flex flex-row align-items-center"> <span class="act-price"
-                                            style="color: #2979ff">₦ {{ product.original_price }}</span>
+                                    <div class="h3 price d-flex flex-row align-items-center gap-3"><span class="act-price"
+                                            style="color: #2979ff">₦ {{ product.discount_Price }}</span>
+                                    <span class="h4 act-price"
+                                            style="color: #01060e; text-decoration: line-through; font-weight: 450;">₦ {{ product.original_price }}</span>
                                     </div>
                                 </div>
                                 <p class="about">{{ product.description }}</p>

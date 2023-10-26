@@ -7,7 +7,7 @@ import topHeader from '../components/topHeader.vue';
 
 const emit = defineEmits(["addToCart"])
 const emitAddtoCart = (isCorrects) => {
-  emit("addToCart", isCorrects)
+    emit("addToCart", isCorrects)
 }
 const route = useRoute()
 const categoryId = (route.params.id);
@@ -29,17 +29,18 @@ const loadProduct = async () => {
         }
     })
     productbyCategory.value = products.value.filter(o => o.product_type === categoryId)
-    if(productbyCategory.value.length>0){
+    if (productbyCategory.value.length > 0) {
         checkProducts = 1
     }
-    else checkProducts=0
+    else checkProducts = 0
 }
 </script>
 
 <template>
-    <topHeader :slides="1"/>
+    <topHeader :slides="1" />
     <section>
-        <div class="container py-5" style="margin-bottom: -50px; font-size: larger; cursor: pointer;" @click="$router.go(-1)"><i class="fa fa-arrow-left"></i><span>&nbsp;</span>Back</div>
+        <div class="container py-5" style="margin-bottom: -50px; font-size: larger; cursor: pointer;"
+            @click="$router.go(-1)"><i class="fa fa-arrow-left"></i><span>&nbsp;</span>Back</div>
         <div class="container py-5">
             <h2 class="mt-10 ml-3">
                 {{ categoryId.replace('_', ' ') }}
@@ -76,14 +77,15 @@ const loadProduct = async () => {
                                 </div>
                             </div>
                             <div class="d-flex flex-row">
-                                <button type="button" class="btn btn-primary flex-fill me-1" style="color: white;" @click="emitAddtoCart(true)">Add to
+                                <button type="button" class="btn btn-primary flex-fill me-1" style="color: white;"
+                                    @click="emitAddtoCart(true)">Add to
                                     Cart</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="text-center" v-if="checkProducts===0" justify-center>
+            <div class="text-center" v-if="checkProducts === 0" justify-center>
                 <div>&nbsp;</div>
                 <div>&nbsp;</div>
                 <div>&nbsp;</div>
@@ -91,7 +93,12 @@ const loadProduct = async () => {
                     <p>This is unavailable at the moment...</p>
                     <p>Contact us on whatsapp</p>
                     <div>&nbsp;</div>
-                <div class="form-group"><button class="btn btn-primary" style="color: white;" type="button">Whatsapp </button></div>
+                    <div class="form-group">
+                        <a href="https://wa.me/2349056871664" class="btn btn-primary m-1" role="button" rel="nofollow"
+                            target="_blank">
+                            <button class="btn btn-primary" style="color: white;" type="button">Whatsapp </button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

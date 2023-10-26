@@ -12,6 +12,7 @@ import Category from "../views/productCategoryPage.vue"
 import productTypeCaplet from "../views/productTypeCaplet.vue"
 import productTypePacks from "../views/productTypePacks.vue"
 import productTypeTablet from "../views/productTypeTablet.vue"
+import checkurl from "../views/checkurl.vue"
 import contact from "../views/contact.vue"
 import pinia from "../stores/setup.js"
 import useUserStore from '../stores/index.js'
@@ -24,6 +25,12 @@ const router = createRouter({
             path: "/",
             name: "home",
             component: HomeView
+        },
+
+        {
+            path: "/checkurl",
+            name: "checkurl",
+            component: checkurl
         },
 
         {

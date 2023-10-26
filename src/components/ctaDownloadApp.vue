@@ -2,7 +2,7 @@
     <section class="my-lg-14 mb-8">
         <main>
             <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light d-none d-md-block">
-                <div class="col-md-5 p-lg-5 mx-auto my-5">
+                <div class="col-md-5 p-lg-5 mx-auto my-5" style="z-index: 1;">
                     <h1 class="display-4 fw-normal">Also Available on Playstore</h1>
                     <p class="lead fw-normal">Click the link to download our mobile application to get access to more
                         pharmaStep features.</p>
@@ -14,7 +14,7 @@
                         <span class="market-button-title">Google Play</span>
                     </a>
                 </div>
-                <div class="product-device shadow-sm d-none d-md-block">
+                <div class="product-device shadow-sm d-none d-md-block" style="z-index: 5;">
                     <img src="../components/images/frame.jpg"  class ="checkImg" style=" border-radius: 8px;"/>
 
                 </div>
@@ -38,8 +38,8 @@
                         </a>
                     </div>
                     <div class="bg-light shadow-sm mx-auto product-device2"
-                        style="width: 80%; height: 300px; border-radius: 21px 21px 0 0; padding-right: 5px;">
-                    <img src="../components/images/framers.png" style=" border-radius: 8px;" width="800"/></div>
+                        style="width: 450px; height: 300px; border-radius: 21px 222px 222px 0px;">
+                    <img src="../components/images/framers.png" style=" border-radius: 8px; background-color: #212529;" width="500"/></div>
                 </div>
             </div>
         </main>
